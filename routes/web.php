@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginDirectController;
+use App\Http\Controllers\Dashboard\UserDashboardController;
+use App\Http\Controllers\Dashboard\AdminDashboardController;
+use App\Http\Controllers\Dashboard\KadesDashboardController;
+use App\Http\Controllers\Dashboard\PetugasDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +23,6 @@ use App\Http\Controllers\HomeController;
 
 // Main Page Route
 Route::get('/', HomeController::class)->name('home');
-
-
-/* Route Dashboards */
-Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('analytics', [DashboardController::class, 'dashboardAnalytics'])->name('dashboard-analytics');
-    Route::get('ecommerce', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
-});
-/* Route Dashboards */
-
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
@@ -35,7 +31,24 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+    Route::get('/dashboard', LoginDirectController::class)->name('dashboard');
+
+    /* Route Admin*/
+    Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function(){
+        Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
+    });
+    /* Route Petugas*/
+    Route::prefix('petugas')->name('petugas.')->middleware('role:petugas')->group(function(){
+        Route::get('/dashboard', PetugasDashboardController::class)->name('dashboard');
+    });
+    /* Route Kades*/
+    Route::prefix('kades')->name('kades.')->middleware('role:kades')->group(function(){
+        Route::get('/dashboard', KadesDashboardController::class)->name('dashboard');
+    });
+    /* Route User*/
+    Route::prefix('user')->name('user.')->middleware('role:user')->group(function(){
+        Route::get('/dashboard', UserDashboardController::class)->name('dashboard');
+    });
+
 });
