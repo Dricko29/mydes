@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="assets/css/style.css" />
 		<link rel="stylesheet" href="assets/css/responsive.css" />
 		<title>Medzo - @yield('title')</title>
-		<link rel="icon" type="image/png" href="assets/images/fav-icon.png" />
+		<link rel="icon" type="image/png" href="{{ asset(settings()->group('umum')->get('app_logo', 'assets/images/fav-icon.png')) }}" />
 	</head>
 	<body>
         @include('pages.top-bar')
@@ -29,9 +29,9 @@
 			<div class="main-responsive-nav">
 				<div class="container-fluid plr-100">
 					<div class="mobile-nav">
-						<a href="index.html" class="logo"
-							><img src="assets/images/small-logo.png" alt="logo"
-						/></a>
+						<a href="/" class="logo"
+							><img src="{{ settings()->group('umum')->get('app_logo', 'assets/images/small-logo.png') }}" alt="logo" style="height: 40px"/>
+                        </a>
 						<ul class="menu-sidebar menu-small-device">
 							<li>
 								<button class="popup-button">
@@ -51,8 +51,8 @@
 			<div class="main-nav plr-100">
 				<div class="container-fluid">
 					<nav class="navbar navbar-expand-md navbar-light">
-						<a class="navbar-brand" href="index.html">
-							<img src="assets/images/logo.png" alt="logo" />
+						<a class="navbar-brand" href="/">
+							<img src="{{ settings()->group('umum')->get('app_logo', 'assets/images/logo.png') }}" alt="logo" style="height: 50px"/>
 						</a>
 						<div
 							class="collapse navbar-collapse mean-menu"

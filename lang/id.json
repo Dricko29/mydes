@@ -190,5 +190,11 @@
     "You may delete any of your existing tokens if they are no longer needed.": "Anda bisa menghapus token yang ada bila tidak lagi dibutuhkan.",
     "You may not delete your personal team.": "Anda tidak boleh menghapus tim pribadi Anda.",
     "You may not leave a team that you created.": "Anda tidak dapat meninggalkan tim yang Anda buat.",
-    "Your email address is unverified.": "Alamat surel Anda belum diverifikasi."
+    "Your email address is unverified.": "Alamat surel Anda belum diverifikasi.",
+    "General" : "Umum",
+    "Success" : "Sukses",
+    "Failed" : "Gagal",
+    "Data Created Successfully!" : "Data Berhasil Dibuat!",
+    "Data Updated Successfully!" : "Data Berhasil Diubah!",
+    "Data Deleted Successfully!" : "Data Berhasil Dihapus!"
 }

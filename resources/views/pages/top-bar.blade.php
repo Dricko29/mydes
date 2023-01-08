@@ -11,14 +11,13 @@
 										<span
 											class="__cf_email__"
 											data-cfemail="becdcbceced1cccafed3dbdac4d190ddd1d3"
-											>[email&#160;protected]</span
+											>{{ settings()->group('umum')->get('app_email', 'email') }}</span
 										></a
 									>
 								</li>
 								<li>
 									<a href="https://goo.gl/maps/T3S78DrzqMegjsLy6"
-										><i class="fas fa-map-marker-alt"></i> 2364 FL 34620, New
-										York, USA</a
+										><i class="fas fa-map-marker-alt"></i> {{ settings()->group('desa')->get('nama_desa', 'Goa Boma') }}</a
 									>
 								</li>
 							</ul>

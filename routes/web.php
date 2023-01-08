@@ -5,9 +5,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginDirectController;
+use App\Http\Controllers\Setting\DesaSettingController;
+use App\Http\Controllers\Setting\UmumSettingController;
 use App\Http\Controllers\Dashboard\UserDashboardController;
 use App\Http\Controllers\Dashboard\AdminDashboardController;
 use App\Http\Controllers\Dashboard\KadesDashboardController;
+use App\Http\Controllers\Setting\StoreDesaSettingController;
+use App\Http\Controllers\Setting\StoreUmumSettingController;
 use App\Http\Controllers\Dashboard\PetugasDashboardController;
 
 /*
@@ -49,6 +53,15 @@ Route::middleware([
     /* Route User*/
     Route::prefix('user')->name('user.')->middleware('role:user')->group(function(){
         Route::get('/dashboard', UserDashboardController::class)->name('dashboard');
+    });
+
+    Route::prefix('site')->name('site.')->group(function(){
+        Route::prefix('settings')->name('settings.')->middleware('role:admin')->group(function(){
+           Route::get('/umum', UmumSettingController::class)->name('app.umum'); 
+           Route::post('/umum', StoreUmumSettingController::class)->name('app.umum.store'); 
+           Route::get('/desa', DesaSettingController::class)->name('app.desa'); 
+           Route::post('/desa', StoreDesaSettingController::class)->name('app.desa.store'); 
+        });
     });
 
 });
