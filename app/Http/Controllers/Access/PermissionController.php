@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Access;
 
-use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\Permission;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 
@@ -16,8 +21,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        
-        return view('permission.index');
+        $permissions = Permission::with('roles')->get();
+        return view('permission.index', compact('permissions'));
     }
 
     /**
