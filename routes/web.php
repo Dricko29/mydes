@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Access\PermissionController;
+use App\Http\Controllers\Access\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -62,6 +64,10 @@ Route::middleware([
            Route::get('/desa', DesaSettingController::class)->name('app.desa'); 
            Route::post('/desa', StoreDesaSettingController::class)->name('app.desa.store'); 
         });
+
+        Route::get('roles/list', [RoleController::class, 'listData'])->name('roles.list');
+        Route::resource('roles', RoleController::class);
+        Route::resource('permissions', PermissionController::class);
     });
 
 });

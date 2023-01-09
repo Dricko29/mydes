@@ -196,5 +196,13 @@
     "Failed" : "Gagal",
     "Data Created Successfully!" : "Data Berhasil Dibuat!",
     "Data Updated Successfully!" : "Data Berhasil Diubah!",
-    "Data Deleted Successfully!" : "Data Berhasil Dihapus!"
+    "Data Deleted Successfully!" : "Data Berhasil Dihapus!",
+    "A role provided access to predefined menus and features so that depending on assigned role an administrator can have access to what he need" : "Peran menyediakan akses ke menu dan fitur yang telah ditentukan sehingga tergantung pada peran yang ditetapkan, administrator dapat memiliki akses ke apa yang dia butuhkan",
+    "Total users with their roles" : "Total pengguna dengan peran mereka",
+    "Are you sure?" : "Anda yakin?",
+    "You will delete this data!" : "Anda akan menghapus data ini!",
+    "Yes, Delete!" : "Ya, Hapus!",
+    "Select All" : "Pilih Semua",
+    "Back" : "Kembali",
+    "Add role, if it does not exist" : "Tambah peran, jika tidak ada"
 }

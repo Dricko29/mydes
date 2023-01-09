@@ -22,10 +22,16 @@ class RolePermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'create pegawai', 'module' => 'pegawai']);
-        Permission::create(['name' => 'read pegawai', 'module' => 'pegawai']);
-        Permission::create(['name' => 'update pegawai', 'module' => 'pegawai']);
-        Permission::create(['name' => 'delete pegawai', 'module' => 'pegawai']);
+        Permission::create(['name' => 'create pegawai', 'module' =>'pegawai', 'guard_name' => 'web']);
+        Permission::create(['name' => 'read pegawai', 'module' => 'pegawai', 'guard_name' => 'web']);
+        Permission::create(['name' => 'update pegawai', 'module' => 'pegawai', 'guard_name' => 'web']);
+        Permission::create(['name' => 'delete pegawai', 'module' => 'pegawai', 'guard_name' => 'web']);
+        
+        Permission::create(['name' => 'create surat', 'module' => 'surat', 'guard_name' => 'web']);
+        Permission::create(['name' => 'read surat', 'module' => 'surat', 'guard_name' => 'web']);
+        Permission::create(['name' => 'update surat', 'module' => 'surat', 'guard_name' => 'web']);
+        Permission::create(['name' => 'delete surat', 'module' => 'surat', 'guard_name' => 'web']);
+        
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'admin']);
