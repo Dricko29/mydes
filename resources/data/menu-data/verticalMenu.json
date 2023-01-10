@@ -74,6 +74,19 @@
           ]
       },
       {
+          "name": "Inventaris",
+          "icon": "book",
+          "slug": "",
+          "submenu": [
+              {
+                  "url": "site/inventarisPeralatan",
+                  "name": "Inventaris Peralatan",
+                  "icon": "circle",
+                  "slug": "inventarisPeralatan"
+              }
+          ]
+      },
+      {
           "url": "site/layananMandiri",
           "name": "Layanan Mandiri",
           "icon": "book",

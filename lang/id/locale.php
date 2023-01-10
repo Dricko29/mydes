@@ -208,4 +208,6 @@ return [
     "Pembangunan" => "Pembangunan",
     "List Pembangunan" => "List Pembangunan",
     "Dokumentasi Pembangunan" => "Dokumentasi Pembangunan",
+    "Inventaris" => "Inventaris",
+    "Inventaris Peralatan" => "Inventaris Peralatan",
 ];

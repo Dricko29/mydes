@@ -27,6 +27,19 @@ class DatabaseSeeder extends Seeder
         $this->call(PendudukSeeder::class);
         $this->call(PengaduanSeeder::class);
         $this->call(SumberDanaSeeder::class);
+        // inv
+        $this->call(InvSeeder::class);
+        // $this->call(InvPenggunaanSeeder::class);
+        // $this->call(InvAsalSeeder::class);
+        // $this->call(InvHakTanahSeeder::class);
+        // $this->call(InvPenggunaBarangSeeder::class);
+        // $this->call(InvKategoriPeralatanSeeder::class);
+        // $this->call(InvKategoriTanahSeeder::class);
+        // $this->call(InvKategoriBangunanSeeder::class);
+        // $this->call(InvKondisiBangunanSeeder::class);
+        // $this->call(InvKategoriAssetSeeder::class);
+        // $this->call(InvJenisAssetSeeder::class);
+        // $this->call(InvFisikBangunanSeeder::class);
         
     }
 }

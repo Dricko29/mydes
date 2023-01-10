@@ -11,7 +11,6 @@
           <div class="row">
             <div align="center">
                 <div class="mb-2">
-
                     <img src="{{ asset(settings()->group('umum')->get('app_logo', 'images/logo/logo.png')) }}" alt="">
                 </div>
                 <h2 style="font-weight: 800">BIODATA PENDUDUK WARGANEGARA</h2>

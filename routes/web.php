@@ -28,8 +28,10 @@ use App\Http\Controllers\Keluarga\DeleteAnggotaKeluargaController;
 use App\Http\Controllers\Keluarga\UpdateAnggotaKeluargaController;
 use App\Http\Controllers\Akun\PrintKartuKeluargaPendudukController;
 use App\Http\Controllers\Desa\DokumentasiPembangunanController;
+use App\Http\Controllers\Desa\InventarisPeralatanController;
 use App\Http\Controllers\Desa\LayananMandiriController;
 use App\Http\Controllers\Desa\PembangunanController;
+use App\Http\Controllers\Inventaris\PrintInventarisPeralatanController;
 use App\Http\Controllers\Pembangunan\CreateDokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\DokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\PrintPembangunanController;
@@ -130,6 +132,10 @@ Route::middleware([
         Route::delete('dokumentasi/pembangunan/{pembangunan}/dokumentasiPembangunan/{dokumentasiPembangunan}', \App\Http\Controllers\Pembangunan\DeleteDokumentasiPembangunanDetailController::class)->name('dokumentasi.pembangunan.detail.delete');
         // dokumentasi pembangunan
         Route::resource('dokumentasiPembangunan', DokumentasiPembangunanController::class);
+
+        // route inventaris
+        Route::get('print/inventarisPeralatan/{inventarisPeralatan}', PrintInventarisPeralatanController::class)->name('inventarisPeralatan.print');
+        Route::resource('inventarisPeralatan', InventarisPeralatanController::class);
     });
 
 });
