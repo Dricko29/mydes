@@ -79,13 +79,13 @@
   {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-advanced.js')) }}"></script> --}}
   <script>
       @if (Session::has('success'))
-      toastr['success']("{{ session('success') }}", '{{ __('locale.'.'Berhasil') }}', {
+      toastr['success']("{{ session('success') }}", '{{ __('Success') }}', {
           closeButton: true,
           tapToDismiss: false,
           progressBar: true,
       }); 
       @elseif (Session::has('error'))
-      toastr['error']("{{ session('error') }}", 'Gagal', {
+      toastr['error']("{{ session('error') }}", '{{ __('Failed') }}', {
           closeButton: true,
           tapToDismiss: false,
           progressBar: true,
@@ -218,11 +218,11 @@
           url = url.replace(':id', e);
 
       Swal.fire({
-          title: 'Anda Yakin?',
-          text: "Anda akan menghapus data ini!",
+          title: '{{ __('Are you sure?') }}',
+          text: '{{ __('You will delete this data!') }}',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Ya, hapus!',
+          confirmButtonText: '{{ __('Yes, Delete!') }}',
           customClass: {
           confirmButton: 'btn btn-primary',
           cancelButton: 'btn btn-outline-danger ms-1'
@@ -238,14 +238,14 @@
                   },
                   success:function(res){
                       if (res.status == 'success') {
-                          toastr['success'](res.msg, '{{ __('locale.'.'Berhasil') }}', {
+                          toastr['success'](res.msg, '{{ __('Success') }}', {
                               closeButton: true,
                               tapToDismiss: false,
                               progressBar: true,
                           });
                           $('.datatables-ajax').DataTable().ajax.reload()
                         } else {
-                          toastr['error'](res.msg, '{{ __('locale.'.'Gagal') }}', {
+                          toastr['error'](res.msg, '{{ __('Failed') }}', {
                             closeButton: true,
                             tapToDismiss: false,
                             progressBar: true,

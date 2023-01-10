@@ -26,8 +26,8 @@ class StoreInventarisPeralatanRequest extends FormRequest
         return [
             'kategori_peralatan_id' => ['required'],
             'nama' => ['nullable'],
-            'kode' => ['nullable', 'unique:inventori_permes'],
-            'no_register' => ['nullable', 'unique:inventori_permes'],
+            'kode' => ['nullable', 'unique:inventaris_peralatans'],
+            'no_register' => ['nullable', 'unique:inventaris_peralatans'],
             'merk' => ['nullable', 'max:255'],
             'ukuran' => ['nullable', 'max:255'],
             'bahan' => ['nullable', 'max:255'],

@@ -87,7 +87,17 @@ class InventarisPeralatanController extends Controller
      */
     public function edit(InventarisPeralatan $inventarisPeralatan)
     {
-        //
+        $kategoriPermes = InvKategoriPeralatan::all();
+        $asal = InvAsal::all();
+        $penggunaan = InvPenggunaan::all();
+        $penggunaBarang = InvPenggunaBarang::all();
+        return view('desa.inventaris.peralatan.edit', compact(
+            'penggunaan',
+            'penggunaBarang',
+            'kategoriPermes',
+            'asal',
+            'inventarisPeralatan'
+        ));
     }
 
     /**
@@ -99,7 +109,8 @@ class InventarisPeralatanController extends Controller
      */
     public function update(UpdateInventarisPeralatanRequest $request, InventarisPeralatan $inventarisPeralatan)
     {
-        //
+        $inventarisPeralatan->update($request->validated());
+        return redirect()->route('site.inventarisPeralatan.index')->with('success', __('Data Updated Successfully!'));
     }
 
     /**
@@ -110,6 +121,10 @@ class InventarisPeralatanController extends Controller
      */
     public function destroy(InventarisPeralatan $inventarisPeralatan)
     {
-        //
+        $inventarisPeralatan->delete();
+        return response()->json([
+            'status' => 'success',
+            'msg' => __('Data Deleted Successfully!'),
+        ]);
     }
 }

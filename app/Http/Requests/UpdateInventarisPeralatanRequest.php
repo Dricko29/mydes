@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateInventarisPeralatanRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateInventarisPeralatanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,35 @@ class UpdateInventarisPeralatanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'kategori_peralatan_id' => ['required'],
+            'nama' => ['nullable'],
+            'kode' => ['nullable', Rule::unique('inventaris_peralatans')->ignore($this->inventarisPeralatan)],
+            'no_register' => ['nullable', Rule::unique('inventaris_peralatans')->ignore($this->inventarisPeralatan)],
+            'merk' => ['nullable', 'max:255'],
+            'ukuran' => ['nullable', 'max:255'],
+            'bahan' => ['nullable', 'max:255'],
+            'no_pabrik' => ['nullable', 'max:255'],
+            'no_rangka' => ['nullable', 'max:255'],
+            'no_mesin' => ['nullable', 'max:255'],
+            'no_polisi' => ['nullable', 'max:255'],
+            'bpkb' => ['nullable', 'max:255'],
+            'tahun' => ['required', 'numeric'],
+            'pengguna_barang_id' => ['required'],
+            'asal_id' => ['required'],
+            'harga' => ['required', 'numeric'],
+            'keterangan' => ['required'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'harga' => str_replace(',', '', $this->harga)
+        ]);
     }
 }

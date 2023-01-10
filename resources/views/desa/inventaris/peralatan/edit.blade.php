@@ -19,20 +19,20 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Data Inventaris Peralatan Dan Mesin</h4>
-                    <a href="{{ route('site.inventoriPermes.index') }}" class="btn btn-primary">Kembali</a>
+                    <a href="{{ route('site.inventarisPeralatan.index') }}" class="btn btn-primary">@lang('Back')</a>
                 </div>
                 <div class="card-body">
-                    <form class="form" action="{{ route('site.inventoriPermes.update', $inventoriPerme) }}" method="POST" enctype="multipart/form-data">
+                    <form class="form" action="{{ route('site.inventarisPeralatan.update', $inventarisPeralatan) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <div class="mb-1">
-                                <label class="form-label" for="inv_kategori_permes_id">Kategori</label>
-                                <select class="form-select select2" id="inv_kategori_permes_id" name="inv_kategori_permes_id" required>
+                                <label class="form-label" for="kategori_peralatan_id">Kategori</label>
+                                <select class="form-select select2" id="kategori_peralatan_id" name="kategori_peralatan_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($kategoriPermes as $item)   
-                                        <option value="{{ $item->id }}" {{ old('inv_kategori_permes_id', $inventoriPerme->inv_kategori_permes_id) == $item->id ? 'selected' : '' }}>{{ $item->kode }} - {{ $item->nama }}</option>
+                                        <option value="{{ $item->id }}" {{ old('kategori_peralatan_id', $inventarisPeralatan->kategori_peralatan_id) == $item->id ? 'selected' : '' }}>{{ $item->kode }} - {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -48,7 +48,7 @@
                                     @enderror"
                                     name="nama"
                                     value="{{ old('nama') }}"
-                                    placeholder="{{ $inventoriPerme->nama }}"
+                                    placeholder="{{ $inventarisPeralatan->nama }}"
                                     />
                                     @error('nama')
                                         <div class="invalid-feedback">
@@ -68,7 +68,7 @@
                                     @enderror"
                                     name="kode"
                                     value="{{ old('kode') }}"
-                                    placeholder="{{ $inventoriPerme->kode }}"
+                                    placeholder="{{ $inventarisPeralatan->kode }}"
                                     />
                                     @error('kode')
                                         <div class="invalid-feedback">
@@ -88,7 +88,7 @@
                                     @enderror"
                                     name="no_register"
                                     value="{{ old('no_register') }}"
-                                    placeholder="{{ $inventoriPerme->no_register }}"
+                                    placeholder="{{ $inventarisPeralatan->no_register }}"
                                     />
                                     @error('no_register')
                                         <div class="invalid-feedback">
@@ -109,7 +109,7 @@
                                         is-invalid
                                     @enderror"
                                     name="merk"
-                                    value="{{ old('merk', $inventoriPerme->merk) }}"
+                                    value="{{ old('merk', $inventarisPeralatan->merk) }}"
                                     />
                                     @error('merk')
                                         <div class="invalid-feedback">
@@ -128,7 +128,7 @@
                                         is-invalid
                                     @enderror"
                                     name="ukuran"
-                                    value="{{ old('ukuran',$inventoriPerme->ukuran) }}"
+                                    value="{{ old('ukuran',$inventarisPeralatan->ukuran) }}"
                                     />
                                     @error('ukuran')
                                         <div class="invalid-feedback">
@@ -147,7 +147,7 @@
                                         is-invalid
                                     @enderror"
                                     name="bahan"
-                                    value="{{ old('bahan',$inventoriPerme->bahan) }}"
+                                    value="{{ old('bahan',$inventarisPeralatan->bahan) }}"
                                     />
                                     @error('bahan')
                                         <div class="invalid-feedback">
@@ -166,7 +166,7 @@
                                         is-invalid
                                     @enderror"
                                     name="no_pabrik"
-                                    value="{{ old('no_pabrik',$inventoriPerme->no_pabrik) }}"
+                                    value="{{ old('no_pabrik',$inventarisPeralatan->no_pabrik) }}"
                                     />
                                     @error('no_pabrik')
                                         <div class="invalid-feedback">
@@ -185,7 +185,7 @@
                                         is-invalid
                                     @enderror"
                                     name="no_mesin"
-                                    value="{{ old('no_mesin',$inventoriPerme->no_mesin) }}"
+                                    value="{{ old('no_mesin',$inventarisPeralatan->no_mesin) }}"
                                     />
                                     @error('no_mesin')
                                         <div class="invalid-feedback">
@@ -204,7 +204,7 @@
                                         is-invalid
                                     @enderror"
                                     name="no_rangka"
-                                    value="{{ old('no_rangka',$inventoriPerme->no_rangka) }}"
+                                    value="{{ old('no_rangka',$inventarisPeralatan->no_rangka) }}"
                                     />
                                     @error('no_rangka')
                                         <div class="invalid-feedback">
@@ -223,7 +223,7 @@
                                         is-invalid
                                     @enderror"
                                     name="no_polisi"
-                                    value="{{ old('no_polisi',$inventoriPerme->no_polisi) }}"
+                                    value="{{ old('no_polisi',$inventarisPeralatan->no_polisi) }}"
                                     />
                                     @error('no_polisi')
                                         <div class="invalid-feedback">
@@ -242,7 +242,7 @@
                                         is-invalid
                                     @enderror"
                                     name="bpkb"
-                                    value="{{ old('bpkb',$inventoriPerme->bpkb) }}"
+                                    value="{{ old('bpkb',$inventarisPeralatan->bpkb) }}"
                                     />
                                     @error('bpkb')
                                         <div class="invalid-feedback">
@@ -261,7 +261,7 @@
                                         is-invalid
                                     @enderror"
                                     name="tahun"
-                                    value="{{ old('tahun',$inventoriPerme->tahun) }}"
+                                    value="{{ old('tahun',$inventarisPeralatan->tahun) }}"
                                     />
                                     @error('tahun')
                                         <div class="invalid-feedback">
@@ -276,7 +276,7 @@
                                 <select class="form-select select2" id="pengguna_barang_id" name="pengguna_barang_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($penggunaBarang as $item)   
-                                        <option value="{{ $item->id }}" {{ old('pengguna_barang_id',$inventoriPerme->pengguna_barang_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                        <option value="{{ $item->id }}" {{ old('pengguna_barang_id',$inventarisPeralatan->pengguna_barang_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -287,7 +287,7 @@
                                 <select class="form-select select2" id="asal_id" name="asal_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($asal as $item)   
-                                        <option value="{{ $item->id }}" {{ old('asal_id',$inventoriPerme->asal_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                        <option value="{{ $item->id }}" {{ old('asal_id',$inventarisPeralatan->asal_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -302,7 +302,7 @@
                                         @enderror"
                                         id="harga"
                                         name="harga"
-                                        value="{{ old('harga', $inventoriPerme->harga) }}"
+                                        value="{{ old('harga', $inventarisPeralatan->harga) }}"
                                         />
                                         @error('harga')
                                             <div class="invalid-feedback">
@@ -317,7 +317,7 @@
                                     <label class="form-label" for="keterangan">Keterangan</label>
                                     <textarea class="form-control @error('keterangan')
                                         is-invalid
-                                    @enderror" id="keterangan" name="keterangan" rows="3">{{ old('keterangan',$inventoriPerme->keterangan) }}</textarea>
+                                    @enderror" id="keterangan" name="keterangan" rows="3">{{ old('keterangan',$inventarisPeralatan->keterangan) }}</textarea>
                                     @error('keterangan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -326,8 +326,8 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary me-1">{{ __('locale.'.'Simpan') }}</button>
-                                <button type="reset" class="btn btn-outline-secondary">{{ __('locale.'.'Batal') }}</button>
+                                <button type="submit" class="btn btn-primary me-1">@lang('Save')</button>
+                                <button type="reset" class="btn btn-outline-secondary">@lang('Cancel')</button>
                             </div>
                         </div>
                     </form>
