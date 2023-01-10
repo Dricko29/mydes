@@ -205,4 +205,7 @@ return [
     "Layanan Mandiri" => "Layanan Mandiri",
     "Biodata" => "Biodata",
     "Keluarga" => "Keluarga",
+    "Pembangunan" => "Pembangunan",
+    "List Pembangunan" => "List Pembangunan",
+    "Dokumentasi Pembangunan" => "Dokumentasi Pembangunan",
 ];

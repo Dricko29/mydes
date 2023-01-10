@@ -32,7 +32,7 @@
       {
           "url": "site/pegawai",
           "name": "Pegawai",
-          "icon": "users",
+          "icon": "user-check",
           "slug": "pegawai"
       },
       {
@@ -51,6 +51,25 @@
                   "name": "Keluarga",
                   "icon": "circle",
                   "slug": "keluarga"
+              }
+          ]
+      },
+      {
+          "name": "Pembangunan",
+          "icon": "tool",
+          "slug": "",
+          "submenu": [
+              {
+                  "url": "site/pembangunan",
+                  "name": "List Pembangunan",
+                  "icon": "circle",
+                  "slug": "pembangunan"
+              },
+              {
+                  "url": "site/dokumentasiPembangunan",
+                  "name": "Dokumentasi Pembangunan",
+                  "icon": "circle",
+                  "slug": "dokumentasiPembangunan"
               }
           ]
       },
