@@ -5,6 +5,12 @@
           "name": "Dashboard",
           "icon": "home",
           "slug": "dashboard"
+      },
+      {
+          "url": "biodata",
+          "name": "Biodata",
+          "icon": "user",
+          "slug": "biodata.penduduk"
       }
   ]
 }

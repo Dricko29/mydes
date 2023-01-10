@@ -197,5 +197,9 @@ return [
     "Permission" => "Permission",
     "Cover" => "Cover",
     "message" => "Cake sesame snaps cupcake gingerbread danish I love gingerbread. Apple pie pie jujubes chupa chups muffin halvah lollipop. Chocolate cake oat cake tiramisu marzipan sugar plum. Donut sweet pie oat cake dragée fruitcake cotton candy lemon drops.",
-    "Settings" => "Settings"
+    "Settings" => "Settings",
+    "Pegawai" => "Pegawai",
+    "Kependudukan" => "Kependudukan",
+    "Penduduk" => "Penduduk",
+    "Keluarga" => "Keluarga",
 ];

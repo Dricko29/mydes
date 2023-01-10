@@ -30,6 +30,31 @@
           ]
       },
       {
+          "url": "site/pegawai",
+          "name": "Pegawai",
+          "icon": "users",
+          "slug": "pegawai"
+      },
+      {
+          "name": "Kependudukan",
+          "icon": "users",
+          "slug": "",
+          "submenu": [
+              {
+                  "url": "site/penduduk",
+                  "name": "Penduduk",
+                  "icon": "circle",
+                  "slug": "penduduk"
+              },
+              {
+                  "url": "site/keluarga",
+                  "name": "Keluarga",
+                  "icon": "circle",
+                  "slug": "keluarga"
+              }
+          ]
+      },
+      {
           "url": "site/settings/umum",
           "name": "Settings",
           "icon": "settings",
