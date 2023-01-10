@@ -7,10 +7,16 @@
           "slug": "dashboard"
       },
       {
-          "url": "biodata",
+          "url": "user/biodata",
           "name": "Biodata",
           "icon": "user",
-          "slug": "biodata.penduduk"
+          "slug": "biodata"
+      },
+      {
+          "url": "user/keluarga",
+          "name": "Keluarga",
+          "icon": "users",
+          "slug": "keluarga"
       }
   ]
 }

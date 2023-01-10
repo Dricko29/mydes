@@ -42,7 +42,7 @@
                             <tr>
                                 <td style="width: 220px">ALAMAT</td>
                                 <td style="width: 20px">:</td>
-                                <td>{{ Str::upper($keluarga->alamat ? $keluarga->alamat.',' : '') }} {{ Str::upper($penduduk->dusun->nama_dusun) }}</td>
+                                <td>{{ $keluarga->alamat ? $keluarga->alamat.',' : '' }}{{ Str::upper($penduduk->dusun->nama_dusun) }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 220px">RW / RT</td>
@@ -52,7 +52,7 @@
                             <tr>
                                 <td style="width: 220px">DESA</td>
                                 <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->get('nama_desa', 'Goa Boma')) }}</td>
+                                <td>{{ Str::upper(settings()->group('desa')->get('nama_desa', 'Goa Boma')) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -63,22 +63,22 @@
                             <tr>
                                 <td style="width: 150px">KECAMATAN</td>
                                 <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->get('nama_kecamatan', 'Monterado')) }}</td>
+                                <td>{{ Str::upper(settings()->group('desa')->get('nama_kecamatan', 'Monterado')) }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 150px">KABUPATEN</td>
                                 <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->get('nama_kabupaten', 'Bengkayang')) }}</td>
+                                <td>{{ Str::upper(settings()->group('desa')->get('nama_kabupaten', 'Bengkayang')) }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 150px">KODE POS</td>
                                 <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->get('kode_pos', '79082')) }}</td>
+                                <td>{{ Str::upper(settings()->group('desa')->get('kode_pos', '79082')) }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 150px">PROVINSI</td>
                                 <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->get('nama_provinsi', 'Kalimantan Barat')) }}</td>
+                                <td>{{ Str::upper(settings()->group('desa')->get('nama_provinsi', 'Kalimantan Barat')) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -93,7 +93,7 @@
                 <table class="table table-sm table-bordered">
                     <thead>
                         <tr class="text-center">
-                            <th>No.</th>
+                            <th style="width: 10px">No.</th>
                             <th>Nama Lengkap</th>
                             <th>NIK</th>
                             <th>Jenis Kelamin</th>
@@ -131,7 +131,7 @@
                 <table class="table table-sm table-bordered">
                     <thead>
                         <tr class="text-center">
-                            <th rowspan="2">No.</th>
+                            <th rowspan="2" style="width: 10px">No.</th>
                             <th rowspan="2">Status Perkawinan</th>
                             <th rowspan="2">Status Hubungan Dalam Keluarga</th>
                             <th rowspan="2">Kewarganegaraan</th>
@@ -179,15 +179,15 @@
         </div>
         <div class="col-6 text-center">
             <span style="color: black">
-                {{ settings()->get('nama_desa') }}, {{ \Carbon\Carbon::now()->locale('id_ID')->isoFormat('LL'); }}
+                {{ settings()->group('desa')->get('nama_desa') }}, {{ \Carbon\Carbon::now()->locale('id_ID')->isoFormat('LL'); }}
             </span>
-            <h5 style="color: black">KEPALA DESA {{ Str::upper(settings()->get('nama_desa', 'goa boma')) }}</h5>
+            <h5 style="color: black">KEPALA DESA {{ Str::upper(settings()->group('desa')->get('nama_desa', 'goa boma')) }}</h5>
             <br>
             <br>
             <br>
             <br>
             <br>
-            <h5 style="color: black">{{ Str::upper(settings()->get('kepala_desa')) }}</h5>
+            <h5 style="color: black">{{ Str::upper(settings()->group('desa')->get('nama_kapala_desa')) }}</h5>
         </div>
     </div>
 </div>

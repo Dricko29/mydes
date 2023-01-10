@@ -27,6 +27,9 @@ use App\Http\Controllers\Keluarga\CreatePendudukMasukController;
 use App\Http\Controllers\Keluarga\DeleteAnggotaKeluargaController;
 use App\Http\Controllers\Keluarga\UpdateAnggotaKeluargaController;
 use App\Http\Controllers\Akun\PrintKartuKeluargaPendudukController;
+use App\Http\Controllers\Desa\LayananMandiriController;
+use App\Http\Controllers\Penduduk\ResetPasswordController;
+use App\Http\Controllers\User\BiodataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +70,10 @@ Route::middleware([
     /* Route User*/
     Route::prefix('user')->name('user.')->middleware('role:user')->group(function(){
         Route::get('/dashboard', UserDashboardController::class)->name('dashboard');
+        Route::get('/biodata',\App\Http\Controllers\User\BiodataController::class)->name('biodata');
+        Route::get('/keluarga',\App\Http\Controllers\User\KeluargaController::class)->name('keluarga');
+        Route::get('/keluarga/print',\App\Http\Controllers\User\PrintKeluargaController::class)->name('keluarga.print');
+        Route::get('/biodata/print',\App\Http\Controllers\User\PrintBiodataController::class)->name('biodata.print');
     });
     Route::post('api/fetch-rw', [DropdownController::class, 'fetchRw']);
     Route::post('api/fetch-rt', [DropdownController::class, 'fetchRt']);
@@ -103,12 +110,16 @@ Route::middleware([
         Route::put('keluarga/{keluarga}/update/anggota', UpdateAnggotaKeluargaController::class)->name('keluarga.anggota.update');
         Route::delete('keluarga/{keluarga}/penduduk/{penduduk}/delete', DeleteAnggotaKeluargaController::class)->name('keluarga.anggota.delete');
         Route::resource('keluarga', KeluargaController::class);
+
+        Route::get('layananMandiri/{layananMandiri}/user/{user}/reset', ResetPasswordController::class)->name('layananMandiri.reset');
+        Route::resource('layananMandiri', LayananMandiriController::class);
     });
 
     // user
-    Route::get('biodata', BiodataPendudukController::class)->name('biodata.penduduk');
-    Route::get('biodata/print', PrintBiodataPendudukController::class)->name('biodata.print');
-    Route::get('kartu-keluarga', KartuKeluargaPendudukController::class)->name('kk.penduduk');
-    Route::get('kartu-keluarga/print', PrintKartuKeluargaPendudukController::class)->name('kk.print');
+    // Route::get('biodata', BiodataPendudukController::class)->name('biodata.penduduk');
+    // Route::get('biodata/print', PrintBiodataPendudukController::class)->name('biodata.print');
+    // Route::get('kartu-keluarga', KartuKeluargaPendudukController::class)->name('kk.penduduk');
+    // Route::get('kartu-keluarga/print', PrintKartuKeluargaPendudukController::class)->name('kk.print');
+
 
 });

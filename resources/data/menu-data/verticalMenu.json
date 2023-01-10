@@ -55,6 +55,12 @@
           ]
       },
       {
+          "url": "site/layananMandiri",
+          "name": "Layanan Mandiri",
+          "icon": "book",
+          "slug": "layananMandiri"
+      },
+      {
           "url": "site/settings/umum",
           "name": "Settings",
           "icon": "settings",

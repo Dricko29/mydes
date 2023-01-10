@@ -202,4 +202,7 @@ return [
     "Kependudukan" => "Kependudukan",
     "Penduduk" => "Penduduk",
     "Keluarga" => "Keluarga",
+    "Layanan Mandiri" => "Layanan Mandiri",
+    "Biodata" => "Biodata",
+    "Keluarga" => "Keluarga",
 ];

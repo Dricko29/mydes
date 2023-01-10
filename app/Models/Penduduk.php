@@ -6,6 +6,7 @@ use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Wildside\Userstamps\Userstamps;
 
 class Penduduk extends Model
@@ -100,5 +101,10 @@ class Penduduk extends Model
     public function logPendudukLahir() : BelongsTo
     {
         return $this->belongsTo(LogPendudukLahir::class);
+    }
+
+    public function layananMandiri() : HasOne
+    {
+        return $this->hasOne(LayananMandiri::class);
     }
 }
