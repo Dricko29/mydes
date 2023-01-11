@@ -38,7 +38,16 @@
                                     @endif
 								</li>
 								<li>
-									<div class="language-select option-select-area">
+									@if (session()->get('locale') == 'id')
+										
+									<a href="{{ url('lang/en') }}" class="language-select"><i class="fas fa-globe"></i> Inggris</a>
+									@else
+										
+									<a href="{{ url('lang/id') }}" class="language-select"><i class="fas fa-globe"></i> Indonesia</a>
+									@endif
+									{{-- {{ $request->session()->get('locale', 'id'); }} --}}
+									{{-- <div class="language-select option-select-area">
+
 										<i class="fas fa-globe"></i>
 										<select>
 											<option value="1">English</option>
@@ -46,8 +55,9 @@
 											<option value="3">Dutch</option>
 											<option value="4">Thai</option>
 											<option value="5">简体中</option>
+											<option value="6">Ind</option>
 										</select>
-									</div>
+									</div> --}}
 								</li>
 							</ul>
 						</div>

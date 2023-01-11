@@ -89,7 +89,7 @@
       {
           "url": "site/layananMandiri",
           "name": "Layanan Mandiri",
-          "icon": "book",
+          "icon": "info",
           "slug": "layananMandiri"
       },
       {

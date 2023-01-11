@@ -31,6 +31,12 @@
           <h4 class="card-title">List Inventaris Peralatan Dan Mesin</h4>
           <a href="{{ route('site.inventarisPeralatan.create') }}" class="btn btn-primary">@lang('Add')</a>
         </div>
+        <div class="card-body mt-2">
+          <a href="{{ route('site.form.laporan.cetak.inventaris') }}" class="btn btn-sm btn-primary">
+            <i data-feather="printer" class="me-25"></i>
+            <span>@lang('Cetak')</span>
+          </a>
+        </div>
         <div class="card-datatable">
           <table class="datatables-ajax table table-responsive" style="width: 100%">
             <thead>

@@ -11,6 +11,7 @@ use App\Models\InvAsal;
 use App\Models\InvKategoriPeralatan;
 use App\Models\InvPenggunaan;
 use App\Models\InvPenggunaBarang;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
 class InventarisPeralatanController extends Controller

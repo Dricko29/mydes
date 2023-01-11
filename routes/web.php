@@ -32,6 +32,9 @@ use App\Http\Controllers\Desa\InventarisPeralatanController;
 use App\Http\Controllers\Desa\LayananMandiriController;
 use App\Http\Controllers\Desa\PembangunanController;
 use App\Http\Controllers\Inventaris\PrintInventarisPeralatanController;
+use App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController;
+use App\Http\Controllers\Laporan\FormCetakLaporanInventarisController;
+use App\Http\Controllers\Pegawai\PegawaiStatusController;
 use App\Http\Controllers\Pembangunan\CreateDokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\DokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\PrintPembangunanController;
@@ -96,6 +99,9 @@ Route::middleware([
         Route::get('roles/list', [\App\Http\Controllers\Access\RoleController::class, 'listData'])->name('roles.list');
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
+        // route pegawai
+        Route::get('pegawai/{pegawai}/status', \App\Http\Controllers\Pegawai\PegawaiStatusController::class)->name('pegawai.status');
+        Route::get('pegawai/{pegawai}/ttd', \App\Http\Controllers\Pegawai\PegawaiTtdController::class)->name('pegawai.ttd');
         Route::resource('pegawai', PegawaiController::class);
         // route penduduk
         Route::get('penduduk/masuk', \App\Http\Controllers\Log\PendudukMasukController::class)->name('penduduk.masuk');
@@ -134,6 +140,9 @@ Route::middleware([
         Route::resource('dokumentasiPembangunan', DokumentasiPembangunanController::class);
 
         // route inventaris
+        Route::get('formLaporanInventaris', FormCetakLaporanInventarisController::class)->name('form.laporan.cetak.inventaris');
+        // route cetak laporan inventaris peralatan
+        Route::post('cetakLaporanInventarisPeralatan', CetakLaporanInventarisPeralatanController::class)->name('cetak.laporan.inventaris.peralatan');
         Route::get('print/inventarisPeralatan/{inventarisPeralatan}', PrintInventarisPeralatanController::class)->name('inventarisPeralatan.print');
         Route::resource('inventarisPeralatan', InventarisPeralatanController::class);
     });

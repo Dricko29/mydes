@@ -86,6 +86,10 @@
                 <span class="badge bg-light-success">{{ $pegawai->status ? 'Aktif' : 'Nonaktif' }}</span>
             </li>
             <li class="mb-75">
+                <span class="fw-bolder me-25">TTD:</span>
+                <span class="badge bg-light-success">{{ $pegawai->ttd ? 'Aktif' : 'Nonaktif' }}</span>
+            </li>
+            <li class="mb-75">
                 <span class="fw-bolder me-25">TTL:</span>
                 <span>{{ $pegawai->tempat_lahir }}, {{ $pegawai->tanggal_lahir }}</span>
             </li>
@@ -122,14 +126,15 @@
                 <span>{{ $pegawai->masa_jabatan }}</span>
             </li>
             </ul>
-            <div class="d-flex justify-content-center pt-2">
-              <a href="javascript:;" class="btn btn-primary me-1 edit-pegawai" data-id="{{ $pegawai->id }}">
+            <div class="d-flex justify-content-center">
+              {{-- <a href="javascript:;" class="btn btn-primary me-1 edit-pegawai" data-id="{{ $pegawai->id }}">
                 Edit
-              </a>
+              </a> --}}
               {{-- <a href="javascript:;" class="btn btn-primary me-1" data-bs-target="#editUser" data-bs-toggle="modal">
                 Edit
               </a> --}}
-              <a href="javascript:;" class="btn btn-outline-danger suspend-user">{{ $pegawai->status ? 'Nonaktifkan' : 'Aktifkan' }}</a>
+              <a href="{{ route('site.pegawai.status', $pegawai->id) }}" class="btn btn-outline-danger me-1">{{ $pegawai->status ? 'Nonaktifkan' : 'Aktifkan' }} Status</a>
+              <a href="{{ route('site.pegawai.ttd', $pegawai->id) }}" class="btn btn-outline-danger">{{ $pegawai->ttd ? 'Nonaktifkan' : 'Aktifkan' }} TTD</a>
             </div>
           </div>
         </div>

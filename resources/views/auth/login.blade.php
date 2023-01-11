@@ -13,8 +13,9 @@
       <!-- Login basic -->
       <div class="card mb-0">
         <div class="card-body">
-          <a href="#" class="brand-logo">
-            <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          <a href="/" class="brand-logo">
+            <img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 100px">
+            {{-- <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
               <defs>
                 <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
@@ -46,12 +47,12 @@
                   </g>
                 </g>
               </g>
-            </svg>
-            <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+            </svg> --}}
+            {{-- <h2 class="brand-text text-primary ms-1">Vuexy</h2> --}}
           </a>
 
-          <h4 class="card-title mb-1">Welcome to Vuexy! 👋</h4>
-          <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+          <h4 class="card-title mb-1">@lang('Welcome to') {{ settings()->group('umum')->get('app_nama') }}! 👋</h4>
+          <p class="card-text mb-2">@lang('Please sign-in to your account and start the adventure')</p>
 
           @if (session('status'))
             <div class="alert alert-success mb-1 rounded-0" role="alert">
@@ -80,7 +81,7 @@
                 <label class="form-label" for="login-password">Password</label>
                 @if (Route::has('password.request'))
                   <a href="{{ route('password.request') }}">
-                    <small>Forgot Password?</small>
+                    <small>@lang('Forgot your password?')</small>
                   </a>
                 @endif
               </div>
@@ -95,13 +96,13 @@
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="remember" name="remember" tabindex="3"
                   {{ old('remember') ? 'checked' : '' }} />
-                <label class="form-check-label" for="remember"> Remember Me </label>
+                <label class="form-check-label" for="remember"> @lang('Remember Me') </label>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100" tabindex="4">Sign in</button>
+            <button type="submit" class="btn btn-primary w-100" tabindex="4">@lang('Sign in')</button>
           </form>
 
-          <p class="text-center mt-2">
+          {{-- <p class="text-center mt-2">
             <span>New on our platform?</span>
             @if (Route::has('register'))
               <a href="{{ route('register') }}">
@@ -127,7 +128,7 @@
             <a href="#" class="btn btn-github">
               <i data-feather="github"></i>
             </a>
-          </div>
+          </div> --}}
         </div>
       </div>
       <!-- /Login basic -->

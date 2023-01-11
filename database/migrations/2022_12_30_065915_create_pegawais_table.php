@@ -31,6 +31,7 @@ return new class extends Migration
             $table->date('tanggal_skb')->nullable();
             $table->string('masa_jabatan');
             $table->boolean('status')->default(1);
+            $table->boolean('ttd')->default(0);
             $table->string('foto')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
