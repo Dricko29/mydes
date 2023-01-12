@@ -214,4 +214,5 @@ return [
     "Inventaris Bangunan" => "Inventaris Bangunan",
     "Inventaris Asset Tetap" => "Inventaris Asset Tetap",
     "Inventaris Konstruksi Berjalan" => "Inventaris Konstruksi Berjalan",
+    "Laporan Semua Aset" => "Laporan Semua Aset",
 ];
