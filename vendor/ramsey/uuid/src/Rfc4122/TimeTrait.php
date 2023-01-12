@@ -39,7 +39,7 @@ trait TimeTrait
      */
     public function getDateTime(): DateTimeInterface
     {
-        $time = $this->timeConverter->convertTime($this->fields->getTimestamp());
+        $time = $this->getTimeConverter()->convertTime($this->getFields()->getTimestamp());
 
         try {
             return new DateTimeImmutable(

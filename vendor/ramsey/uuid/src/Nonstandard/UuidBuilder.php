@@ -36,8 +36,8 @@ class UuidBuilder implements UuidBuilderInterface
      *     for converting timestamps extracted from a UUID to Unix timestamps
      */
     public function __construct(
-        private NumberConverterInterface $numberConverter,
-        private TimeConverterInterface $timeConverter
+        private readonly NumberConverterInterface $numberConverter,
+        private readonly TimeConverterInterface $timeConverter
     ) {
     }
 
@@ -45,7 +45,7 @@ class UuidBuilder implements UuidBuilderInterface
      * Builds and returns a Nonstandard\Uuid
      *
      * @param CodecInterface $codec The codec to use for building this instance
-     * @param string $bytes The byte string from which to construct a UUID
+     * @param non-empty-string $bytes The byte string from which to construct a UUID
      *
      * @return Uuid The Nonstandard\UuidBuilder returns an instance of
      *     Nonstandard\Uuid
@@ -68,6 +68,8 @@ class UuidBuilder implements UuidBuilderInterface
 
     /**
      * Proxy method to allow injecting a mock, for testing
+     *
+     * @param non-empty-string $bytes
      */
     protected function buildFields(string $bytes): Fields
     {

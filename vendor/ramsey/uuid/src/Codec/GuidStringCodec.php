@@ -59,12 +59,18 @@ class GuidStringCodec extends StringCodec
 
     public function decodeBytes(string $bytes): UuidInterface
     {
+        $hex = bin2hex($bytes);
+
         // Specifically call parent::decode to preserve correct byte order
-        return parent::decode(bin2hex($bytes));
+        return parent::decode($hex);
     }
 
     /**
      * Swaps bytes according to the GUID rules
+     *
+     * @param non-empty-string $bytes
+     *
+     * @return non-empty-string
      */
     private function swapBytes(string $bytes): string
     {

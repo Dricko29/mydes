@@ -17,6 +17,8 @@ namespace Ramsey\Uuid\Type;
 use Ramsey\Uuid\Exception\InvalidArgumentException;
 use ValueError;
 
+use function abs;
+use function assert;
 use function is_numeric;
 use function sprintf;
 use function str_starts_with;
@@ -35,10 +37,73 @@ use function str_starts_with;
  */
 final class Decimal implements NumberInterface
 {
-    private string $value;
+    /**
+     * @var numeric-string
+     */
+    private readonly string $value;
+
     private bool $isNegative = false;
 
-    public function __construct(float | int | string | self $value)
+    public function __construct(float | int | self | string $value)
+    {
+        $this->value = $value instanceof self ? (string) $value : $this->prepareValue($value);
+    }
+
+    public function isNegative(): bool
+    {
+        return $this->isNegative;
+    }
+
+    /**
+     * @return numeric-string
+     */
+    public function toString(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return numeric-string
+     */
+    public function __toString(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return numeric-string
+     */
+    public function jsonSerialize(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return array{string: string}
+     */
+    public function __serialize(): array
+    {
+        return ['string' => $this->value];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __unserialize(array $data): void
+    {
+        if (!isset($data['string'])) {
+            throw new ValueError(sprintf('%s(): Argument #1 ($data) is invalid', __METHOD__));
+        }
+
+        assert(is_string($data['string']));
+
+        $this->value = $this->prepareValue($data['string']);
+    }
+
+    /**
+     * @return numeric-string
+     */
+    private function prepareValue(float | int | string $value): string
     {
         $value = (string) $value;
 
@@ -63,67 +128,8 @@ final class Decimal implements NumberInterface
             $this->isNegative = true;
         }
 
-        $this->value = $value;
-    }
+        assert(is_numeric($value));
 
-    public function isNegative(): bool
-    {
-        return $this->isNegative;
-    }
-
-    public function toString(): string
-    {
-        return $this->value;
-    }
-
-    public function __toString(): string
-    {
-        return $this->toString();
-    }
-
-    public function jsonSerialize(): string
-    {
-        return $this->toString();
-    }
-
-    public function serialize(): string
-    {
-        return $this->toString();
-    }
-
-    /**
-     * @return array{string: string}
-     */
-    public function __serialize(): array
-    {
-        return ['string' => $this->toString()];
-    }
-
-    /**
-     * Constructs the object from a serialized string representation
-     *
-     * @param string $data The serialized string representation of the object
-     *
-     * @psalm-suppress UnusedMethodCall
-     */
-    public function unserialize(string $data): void
-    {
-        $this->__construct($data);
-    }
-
-    /**
-     * @param array{string?: string} $data
-     *
-     * @psalm-suppress UnusedMethodCall
-     */
-    public function __unserialize(array $data): void
-    {
-        // @codeCoverageIgnoreStart
-        if (!isset($data['string'])) {
-            throw new ValueError(sprintf('%s(): Argument #1 ($data) is invalid', __METHOD__));
-        }
-        // @codeCoverageIgnoreEnd
-
-        $this->unserialize($data['string']);
+        return $value;
     }
 }

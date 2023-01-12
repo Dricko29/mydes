@@ -19,6 +19,7 @@ use Ramsey\Uuid\Converter\NumberConverterInterface;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
 use Ramsey\Uuid\Exception\InvalidArgumentException;
 use Ramsey\Uuid\Rfc4122\FieldsInterface as Rfc4122FieldsInterface;
+use Ramsey\Uuid\TimeBasedUuidInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -27,7 +28,7 @@ use Ramsey\Uuid\Uuid;
  *
  * @psalm-immutable
  */
-final class UuidV1 extends Uuid implements UuidInterface
+final class UuidV1 extends Uuid implements UuidInterface, TimeBasedUuidInterface
 {
     use TimeTrait;
 
@@ -48,7 +49,7 @@ final class UuidV1 extends Uuid implements UuidInterface
         CodecInterface $codec,
         TimeConverterInterface $timeConverter
     ) {
-        if ($fields->getVersion() !== Uuid::UUID_TYPE_TIME) {
+        if ($fields->getVersion() !== Version::Time) {
             throw new InvalidArgumentException(
                 'Fields used to create a UuidV1 must represent a '
                 . 'version 1 (time-based) UUID'
