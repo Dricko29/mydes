@@ -19,12 +19,13 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Data</h4>
-                    <a href="{{ route('site.inventarisPeralatan.index') }}" class="btn btn-primary">@lang('Back')</a>
+                    <a href="{{ route('site.inventaris'.Str::ucfirst($jenis).'.index') }}" class="btn btn-primary">@lang('Back')</a>
                 </div>
                 <div class="card-body">
-                    <form class="form" action="{{ route('site.cetak.laporan.inventaris.peralatan') }}" target="blank" method="POST" enctype="multipart/form-data">
+                    <form class="form" action="{{ route('site.cetak.laporan.inventaris.'.$jenis.'') }}" target="blank" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
+                            <input type="hidden" name="inv-jenis" value="{{ $jenis }}">
                             <div class="col-md-6 col-12">
                                 <div class="mb-1">
                                 <label class="form-label" for="pegawai_id">Kategori</label>

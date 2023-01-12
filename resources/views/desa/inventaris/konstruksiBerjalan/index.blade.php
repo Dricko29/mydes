@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Inventaris Peralatan Dan Mesin')
+@section('title', 'Inventaris Konstruksi Berjalan')
 
 @section('vendor-style')
   {{-- vendor css files --}}
@@ -28,11 +28,11 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header border-bottom">
-          <h4 class="card-title">List Inventaris Peralatan Dan Mesin</h4>
-          <a href="{{ route('site.inventarisPeralatan.create') }}" class="btn btn-primary">@lang('Add')</a>
+          <h4 class="card-title">List Inventaris Konstruksi Berjalan</h4>
+          <a href="{{ route('site.inventarisKonstruksiBerjalan.create') }}" class="btn btn-primary">@lang('Add')</a>
         </div>
         <div class="card-body mt-2">
-          <a href="{{ route('site.form.laporan.cetak.inventaris', 'peralatan') }}" class="btn btn-sm btn-primary">
+          <a href="{{ route('site.form.laporan.cetak.inventaris', 'konstruksiBerjalan') }}" class="btn btn-sm btn-primary">
             <i data-feather="printer" class="me-25"></i>
             <span>@lang('Cetak')</span>
           </a>
@@ -44,10 +44,12 @@
                 <th style="width: 50px">No</th>
                 <th></th>
                 <th>Nama</th>
-                <th>Kode</th>
-                <th>No Register</th>
-                <th>Merk/Type</th>
-                <th>Tahun</th>
+                <th>Fisik Bangunan</th>
+                <th>Lokasi Bangunan</th>
+                <th>Luas Bangunan <small>m<sup>2</sup></small></th>
+                <th>Tanggal Proyek</th>
+                <th>Nomor Bangunan</th>
+                <th>Tanggal Bangunan</th>
                 <th>Asal</th>
                 <th>Harga</th>
               </tr>
@@ -110,17 +112,19 @@
         if (dt_ajax_table.length) {
             var dt_ajax = dt_ajax_table.dataTable({
             processing: true,
-            ajax: '{{ route('site.inventarisPeralatan.index') }}', // JSON file to add data
+            ajax: '{{ route('site.inventarisKonstruksiBerjalan.index') }}', // JSON file to add data
             columns: [
               // columns according to JSON
               { data: 'DT_RowIndex', orderable: false, searchable: false },
               // { data: 'aksi',orderable: false, searchable: false },
               { data: ' ' },
               { data: 'nama' },
-              { data: 'kode' },
-              { data: 'no_register' },
-              { data: 'merk' },
-              { data: 'tahun' },
+              { data: 'fisik_bangunan' },
+              { data: 'lokasi' },
+              { data: 'luas_bangunan' },
+              { data: 'tanggal_mulai' },
+              { data: 'no_bangunan' },
+              { data: 'tanggal_dokumen_bangunan' },
               { data: 'asal' },
               { data: 'harga' },
             ],
@@ -133,10 +137,10 @@
                 render: function (data, type, full, meta) {
                   var id = full['id'];
                   return (
-                    '<a href="/site/inventarisPeralatan/' + full['id'] +'" class="item-edit me-1" title="detail">' +
+                    '<a href="/site/inventarisKonstruksiBerjalan/' + full['id'] +'" class="item-edit me-1" title="detail">' +
                     feather.icons['eye'].toSvg({ class: 'font-small-4' }) +
                     '</a>'+
-                    '<a href="/site/inventarisPeralatan/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
+                    '<a href="/site/inventarisKonstruksiBerjalan/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
                     feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
                     '</a>'+
                    '<a href="javascript:;" class="item-edit delete-record me-1" title="hapus" onclick="hapus('+full['id']+')" data-id="'+full['id']+'">' +
@@ -174,33 +178,34 @@
                     extend: 'print',
                     text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
                     className: 'dropdown-item',
-                    title: "Laporan Data Inventaris Tanah",
-                    exportOptions: { columns: [0,2,3,4,5,6,7,8] }
+                    title: "Laporan Data Inventaris Gedung Dan Bangunan",
+                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10] }
                   },
                   {
                     extend: 'csv',
                     text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,2,3,4,5,6,7,8] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10] }
                   },
                   {
                     extend: 'excel',
                     text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,2,3,4,5,6,7,8] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10] }
                   },
                   {
                     extend: 'pdf',
                     text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,2,3,4,5,6,7,8] },
-                    title: "Laporan Data Inventaris Tanah",
+                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10] },
+                    title: "Laporan Data Inventaris Gedung Dan Bangunan",
+                    orientation: 'landscape',
                   },
                   {
                     extend: 'copy',
                     text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,2,3,4,5,6,7,8] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7,8,9,10] }
                   }
                 ],
                 init: function (api, node, config) {
@@ -220,7 +225,7 @@
         $('.dataTables_length .form-select').removeClass('form-select-sm').removeClass('form-control-sm');
     });
     function hapus(e){
-      var url = '{{ route("site.inventarisPeralatan.destroy", ":id") }}';
+      var url = '{{ route("site.inventarisKonstruksiBerjalan.destroy", ":id") }}';
           url = url.replace(':id', e);
 
       Swal.fire({
@@ -237,29 +242,29 @@
       }).then(function (result) {
           if (result.value) {
               $.ajax({
-                  url:url,
-                  method:'delete',
-                  headers:{
-                      'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                  },
-                  success:function(res){
-                      if (res.status == 'success') {
-                          toastr['success'](res.msg, '{{ __('Success') }}', {
-                              closeButton: true,
-                              tapToDismiss: false,
-                              progressBar: true,
-                          });
-                          $('.datatables-ajax').DataTable().ajax.reload()
-                        } else {
-                          toastr['error'](res.msg, '{{ __('Failed') }}', {
+                url:url,
+                method:'delete',
+                headers:{
+                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(res){
+                    if (res.status == 'success') {
+                        toastr['success'](res.msg, '{{ __('Success') }}', {
                             closeButton: true,
                             tapToDismiss: false,
                             progressBar: true,
-                          });
-                          $('.datatables-ajax').DataTable().ajax.reload()
-                      }
-                  }
-                });
+                        });
+                        $('.datatables-ajax').DataTable().ajax.reload()
+                      } else {
+                        toastr['error'](res.msg, '{{ __('Failed') }}', {
+                          closeButton: true,
+                          tapToDismiss: false,
+                          progressBar: true,
+                        });
+                        $('.datatables-ajax').DataTable().ajax.reload()
+                    }
+                }
+              });
           }
       });
     }

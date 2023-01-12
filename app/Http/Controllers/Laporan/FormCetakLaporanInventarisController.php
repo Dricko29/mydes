@@ -14,9 +14,9 @@ class FormCetakLaporanInventarisController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $jenis)
     {
         $pegawais = Pegawai::where('ttd', true)->get();
-        return view('desa.inventaris.form-cetak', compact('pegawais'));
+        return view('desa.inventaris.form-cetak', compact('pegawais', 'jenis'));
     }
 }

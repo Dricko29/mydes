@@ -1,6 +1,6 @@
 @extends('layouts/fullLayoutMaster')
 
-@section('title', 'Print Laporan Inventaris Peralatan')
+@section('title', 'Print Kartu Keluarga')
 
 @section('page-style')
 <style>
@@ -27,7 +27,7 @@
         <!-- Address and Contact starts -->
             <div align="center">
                 <h2 style="color: black">KARTU INVENTARIS BARANG (KIB)</h2>
-                <h2 style="color: black">PERALATAN DAN MESIN</h2>
+                <h2 style="color: black">TANAH</h2>
             </div>
             <div class="row mt-4 mb-2">
                 <div class="col-lg-4  mt-xl-0 mt-2">
@@ -90,11 +90,12 @@
                             <th rowspan="2">No.</th>
                             <th rowspan="2">NAMA</th>
                             <th colspan="2">NOMOR</th>
-                            <th rowspan="2">MERK/TYPE</th>
-                            <th rowspan="2">UKURAN/CC</th>
-                            <th rowspan="2">BAHAN</th>
-                            <th rowspan="2">TAHUN PEMBELIAN</th>
-                            <th colspan="5">NOMOR</th>
+                            <th rowspan="2">LUAS <span>m<sup>2</sup></span></th>
+                            <th rowspan="2">TAHUN PENGADAAN</th>
+                            <th rowspan="2">ALAMAT</th>
+                            <th rowspan="2">HAK TANAH</th>
+                            <th colspan="2">SERTIFIKAT</th>
+                            <th rowspan="2">PENGGUNAAN</th>
                             <th rowspan="2">ASAL</th>
                             <th rowspan="2">HARGA</th>
                             <th rowspan="2">KET</th>
@@ -103,29 +104,24 @@
                             {{-- nomor --}}
                             <th>KODE</th>
                             <th>NO REGISTRASI</th>
-                            <th>NO PABRIK</th>
-                            <th>NO RANGKA</th>
-                            <th>NO MESIN</th>
-                            <th>NO POLISI</th>
-                            <th>NO BPKB</th>
+                            <th>TANGGAL</th>
+                            <th>NOMOR</th>
                         </tr>
                     </thead>
                     <tbody style="color: black">
-                    @foreach ($inventarisPeralatan as $item)                 
+                    @foreach ($inventarisTanah as $item)                 
                     <tr class="text-center">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->nama }}</td>
                         <td>{{ $item->kode }}</td>
                         <td>{{ $item->no_register }}</td>
-                        <td>{{ $item->merk }}</td>
-                        <td>{{ $item->ukuran }}</td>
-                        <td>{{ $item->bahan }}</td>
+                        <td>{{ $item->luas }}</td>
                         <td>{{ $item->tahun }}</td>
-                        <td>{{ $item->no_pabrik }}</td>
-                        <td>{{ $item->no_rangka }}</td>
-                        <td>{{ $item->no_mesin }}</td>
-                        <td>{{ $item->no_polisi }}</td>
-                        <td>{{ $item->no_bpkb }}</td>
+                        <td>{{ $item->alamat }}</td>
+                        <td>{{ $item->invHakTanah->nama }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->tanggal_sertifikat)->format('d-m-Y') }}</td>
+                        <td>{{ $item->no_sertifikat }}</td>
+                        <td>{{ $item->invPenggunaan->nama }}</td>
                         <td>{{ $item->invAsal->nama }}</td>
                         <td>{{ $item->formatRupiah('harga') }}</td>
                         <td>{{ $item->ket }}</td>

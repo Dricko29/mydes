@@ -83,6 +83,30 @@
                   "name": "Inventaris Peralatan",
                   "icon": "circle",
                   "slug": "inventarisPeralatan"
+              },
+              {
+                  "url": "site/inventarisTanah",
+                  "name": "Inventaris Tanah",
+                  "icon": "circle",
+                  "slug": "inventarisTanah"
+              },
+              {
+                  "url": "site/inventarisBangunan",
+                  "name": "Inventaris Bangunan",
+                  "icon": "circle",
+                  "slug": "inventarisBangunan"
+              },
+              {
+                  "url": "site/inventarisAssetTetap",
+                  "name": "Inventaris Asset Tetap",
+                  "icon": "circle",
+                  "slug": "inventarisAssetTetap"
+              },
+              {
+                  "url": "site/inventarisKonstruksiBerjalan",
+                  "name": "Inventaris Konstruksi Berjalan",
+                  "icon": "circle",
+                  "slug": "inventarisKonstruksiBerjalan"
               }
           ]
       },

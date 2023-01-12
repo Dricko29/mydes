@@ -210,4 +210,8 @@ return [
     "Dokumentasi Pembangunan" => "Dokumentasi Pembangunan",
     "Inventaris" => "Inventaris",
     "Inventaris Peralatan" => "Inventaris Peralatan",
+    "Inventaris Tanah" => "Inventaris Tanah",
+    "Inventaris Bangunan" => "Inventaris Bangunan",
+    "Inventaris Asset Tetap" => "Inventaris Asset Tetap",
+    "Inventaris Konstruksi Berjalan" => "Inventaris Konstruksi Berjalan",
 ];

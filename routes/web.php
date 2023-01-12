@@ -8,39 +8,43 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Access\RoleController;
 use App\Http\Controllers\LoginDirectController;
 use App\Http\Controllers\Desa\PegawaiController;
+use App\Http\Controllers\User\BiodataController;
 use App\Http\Controllers\Desa\KeluargaController;
+use App\Http\Controllers\Desa\PembangunanController;
 use App\Http\Controllers\Access\PermissionController;
+use App\Http\Controllers\Desa\LayananMandiriController;
 use App\Http\Controllers\Setting\DesaSettingController;
 use App\Http\Controllers\Setting\UmumSettingController;
 use App\Http\Controllers\Akun\BiodataPendudukController;
+use App\Http\Controllers\Desa\InventarisTanahController;
+use App\Http\Controllers\Pegawai\PegawaiStatusController;
+use App\Http\Controllers\Penduduk\ResetPasswordController;
 use App\Http\Controllers\Dashboard\UserDashboardController;
+use App\Http\Controllers\Desa\InventarisBangunanController;
 use App\Http\Controllers\Dashboard\AdminDashboardController;
 use App\Http\Controllers\Dashboard\KadesDashboardController;
+use App\Http\Controllers\Desa\InventarisPeralatanController;
 use App\Http\Controllers\Setting\StoreDesaSettingController;
 use App\Http\Controllers\Setting\StoreUmumSettingController;
 use App\Http\Controllers\Akun\PrintBiodataPendudukController;
+use App\Http\Controllers\Desa\InventarisAssetTetapController;
 use App\Http\Controllers\Akun\KartuKeluargaPendudukController;
 use App\Http\Controllers\Dashboard\PetugasDashboardController;
+use App\Http\Controllers\Desa\DokumentasiPembangunanController;
 use App\Http\Controllers\Keluarga\AddAnggotaKeluargaController;
 use App\Http\Controllers\Keluarga\StorePendudukMasukController;
 use App\Http\Controllers\Keluarga\CreatePendudukMasukController;
+use App\Http\Controllers\Pembangunan\PrintPembangunanController;
 use App\Http\Controllers\Keluarga\DeleteAnggotaKeluargaController;
 use App\Http\Controllers\Keluarga\UpdateAnggotaKeluargaController;
 use App\Http\Controllers\Akun\PrintKartuKeluargaPendudukController;
-use App\Http\Controllers\Desa\DokumentasiPembangunanController;
-use App\Http\Controllers\Desa\InventarisPeralatanController;
-use App\Http\Controllers\Desa\LayananMandiriController;
-use App\Http\Controllers\Desa\PembangunanController;
+use App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController;
+use App\Http\Controllers\Laporan\FormCetakLaporanInventarisController;
 use App\Http\Controllers\Inventaris\PrintInventarisPeralatanController;
 use App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController;
-use App\Http\Controllers\Laporan\FormCetakLaporanInventarisController;
-use App\Http\Controllers\Pegawai\PegawaiStatusController;
-use App\Http\Controllers\Pembangunan\CreateDokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\DokumentasiPembangunanDetailController;
-use App\Http\Controllers\Pembangunan\PrintPembangunanController;
 use App\Http\Controllers\Pembangunan\StoreDokumentasiPembangunanDetailController;
-use App\Http\Controllers\Penduduk\ResetPasswordController;
-use App\Http\Controllers\User\BiodataController;
+use App\Http\Controllers\Pembangunan\CreateDokumentasiPembangunanDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,12 +143,30 @@ Route::middleware([
         // dokumentasi pembangunan
         Route::resource('dokumentasiPembangunan', DokumentasiPembangunanController::class);
 
-        // route inventaris
-        Route::get('formLaporanInventaris', FormCetakLaporanInventarisController::class)->name('form.laporan.cetak.inventaris');
-        // route cetak laporan inventaris peralatan
-        Route::post('cetakLaporanInventarisPeralatan', CetakLaporanInventarisPeralatanController::class)->name('cetak.laporan.inventaris.peralatan');
-        Route::get('print/inventarisPeralatan/{inventarisPeralatan}', PrintInventarisPeralatanController::class)->name('inventarisPeralatan.print');
+        // route cetak laporan inventaris
+        Route::get('formLaporanInventaris/{jenis}', FormCetakLaporanInventarisController::class)->name('form.laporan.cetak.inventaris');
+        // route inventaris peralatan
+        Route::post('cetakLaporanInventarisPeralatan', \App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController::class)->name('cetak.laporan.inventaris.peralatan');
+        Route::get('print/inventarisPeralatan/{inventarisPeralatan}', \App\Http\Controllers\Inventaris\PrintInventarisPeralatanController::class)->name('inventarisPeralatan.print');
         Route::resource('inventarisPeralatan', InventarisPeralatanController::class);
+
+        // inventaris tanah
+        Route::post('cetakLaporanInventarisTanah', \App\Http\Controllers\Laporan\CetakLaporanInventarisTanahController::class)->name('cetak.laporan.inventaris.tanah');
+        Route::get('print/inventarisTanah/{inventarisTanah}', \App\Http\Controllers\Inventaris\PrintInventarisTanahController::class)->name('inventarisTanah.print');
+        Route::resource('inventarisTanah', InventarisTanahController::class);
+        
+        // inventaris bangunan
+        Route::post('cetakLaporanInventarisBangunan', \App\Http\Controllers\Laporan\CetakLaporanInventarisBangunanController::class)->name('cetak.laporan.inventaris.bangunan');
+        Route::get('print/inventarisBangunan/{inventarisBangunan}', \App\Http\Controllers\Inventaris\PrintInventarisBangunanController::class)->name('inventarisBangunan.print');
+        Route::resource('inventarisBangunan', InventarisBangunanController::class);
+        // inventaris asset tetap
+        Route::post('cetakLaporanInventarisAssetTetap', \App\Http\Controllers\Laporan\CetakLaporanInventarisAssetTetapController::class)->name('cetak.laporan.inventaris.assetTetap');
+        Route::get('print/inventarisAssetTetap/{inventarisAssetTetap}', \App\Http\Controllers\Inventaris\PrintInventarisAssetTetapController::class)->name('inventarisAssetTetap.print');
+        Route::resource('inventarisAssetTetap', InventarisAssetTetapController::class);
+        // inventaris konstruksi berjalan
+        Route::post('cetakLaporanInventarisKonstruksiBerjalan', \App\Http\Controllers\Laporan\CetakLaporanInventarisKonstruksiBerjalanController::class)->name('cetak.laporan.inventaris.konstruksiBerjalan');
+        Route::get('print/inventarisKonstruksiBerjalan/{inventarisKonstruksiBerjalan}', \App\Http\Controllers\Inventaris\PrintInventarisKonstruksiBerjalanController::class)->name('inventarisKonstruksiBerjalan.print');
+        Route::resource('inventarisKonstruksiBerjalan', InventarisKonstruksiBerjalanController::class);
     });
 
 });

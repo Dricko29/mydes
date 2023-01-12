@@ -1,6 +1,6 @@
 @extends('layouts/fullLayoutMaster')
 
-@section('title', 'Print Laporan Inventaris Peralatan')
+@section('title', 'Print Laporan')
 
 @section('page-style')
 <style>
@@ -27,7 +27,7 @@
         <!-- Address and Contact starts -->
             <div align="center">
                 <h2 style="color: black">KARTU INVENTARIS BARANG (KIB)</h2>
-                <h2 style="color: black">PERALATAN DAN MESIN</h2>
+                <h2 style="color: black">KONSTRUKSI BERJALAN</h2>
             </div>
             <div class="row mt-4 mb-2">
                 <div class="col-lg-4  mt-xl-0 mt-2">
@@ -51,32 +51,6 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- <div class="col-lg-4  mt-xl-0 mt-2">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style="width: 150px">KECAMATAN</td>
-                                <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->group('desa')->get('nama_kecamatan', 'Monterado')) }}</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px">KABUPATEN</td>
-                                <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->group('desa')->get('nama_kabupaten', 'Bengkayang')) }}</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px">KODE POS</td>
-                                <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->group('desa')->get('kode_pos', '79082')) }}</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px">PROVINSI</td>
-                                <td style="width: 20px">:</td>
-                                <td>{{ Str::upper(settings()->group('desa')->get('nama_provinsi', 'Kalimantan Barat')) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -89,43 +63,43 @@
                         <tr class="text-center">
                             <th rowspan="2">No.</th>
                             <th rowspan="2">NAMA</th>
-                            <th colspan="2">NOMOR</th>
-                            <th rowspan="2">MERK/TYPE</th>
-                            <th rowspan="2">UKURAN/CC</th>
-                            <th rowspan="2">BAHAN</th>
-                            <th rowspan="2">TAHUN PEMBELIAN</th>
-                            <th colspan="5">NOMOR</th>
+                            <th rowspan="2">BANGUNAN</th>
+                            <th colspan="2">KONSTRUKSI BANGUNAN</th>
+                            <th rowspan="2">LUAS BANGUNAN <span>m<sup>2</sup></span></th>
+                            <th rowspan="2">LOKASI</th>
+                            <th colspan="2">DOKUMEN</th>
+                            <th rowspan="2">TANGGAL MULAI</th>
+                            <th rowspan="2">LUAS TANAH <span>m<sup>2</sup></span></th>
+                            <th rowspan="2">STATUS TANAH</th>
+                            <th rowspan="2">NOMOR TANAH</th>
                             <th rowspan="2">ASAL</th>
                             <th rowspan="2">HARGA</th>
                             <th rowspan="2">KET</th>
                         </tr>
                         <tr class="text-center">
                             {{-- nomor --}}
-                            <th>KODE</th>
-                            <th>NO REGISTRASI</th>
-                            <th>NO PABRIK</th>
-                            <th>NO RANGKA</th>
-                            <th>NO MESIN</th>
-                            <th>NO POLISI</th>
-                            <th>NO BPKB</th>
+                            <th>BERTINGKAT</th>
+                            <th>BETON</th>
+                            <th>TANGGAL</th>
+                            <th>NOMOR</th>
                         </tr>
                     </thead>
                     <tbody style="color: black">
-                    @foreach ($inventarisPeralatan as $item)                 
+                    @foreach ($inventarisKonstruksiBerjalan as $item)                 
                     <tr class="text-center">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->nama }}</td>
-                        <td>{{ $item->kode }}</td>
-                        <td>{{ $item->no_register }}</td>
-                        <td>{{ $item->merk }}</td>
-                        <td>{{ $item->ukuran }}</td>
-                        <td>{{ $item->bahan }}</td>
-                        <td>{{ $item->tahun }}</td>
-                        <td>{{ $item->no_pabrik }}</td>
-                        <td>{{ $item->no_rangka }}</td>
-                        <td>{{ $item->no_mesin }}</td>
-                        <td>{{ $item->no_polisi }}</td>
-                        <td>{{ $item->no_bpkb }}</td>
+                        <td>{{ $item->invFisikBangunan->nama }}</td>
+                        <td>{{ $item->bertingkat }}</td>
+                        <td>{{ $item->beton ? 'Beton' : 'Tidak' }}</td>
+                        <td>{{ $item->luas_bangunan }}</td>
+                        <td>{{ $item->lokasi }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->tanggal_dokumen_bangunan)->format('d-m-Y') }}</td>
+                        <td>{{ $item->no_bangunan }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->tanggal_mulai)->format('d-m-Y') }}</td>
+                        <td>{{ $item->luas_tanah }}</td>
+                        <td>{{ $item->invStatusTanah->nama }}</td>
+                        <td>{{ $item->kode_tanah }}</td>
                         <td>{{ $item->invAsal->nama }}</td>
                         <td>{{ $item->formatRupiah('harga') }}</td>
                         <td>{{ $item->ket }}</td>
@@ -172,7 +146,7 @@
     $(function () {
   'use strict';
 
-  window.print();
+//   window.print();
 });
 </script>
 @endsection
