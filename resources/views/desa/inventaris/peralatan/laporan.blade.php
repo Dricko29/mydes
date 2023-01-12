@@ -27,7 +27,7 @@
         <!-- Address and Contact starts -->
             <div align="center">
                 <h2 style="color: black">KARTU INVENTARIS BARANG (KIB)</h2>
-                <h2 style="color: black">PERALATAN DAN MESIN</h2>
+                <h2 style="color: black">PERALATAN DAN MESIN - {{ $title }}</h2>
             </div>
             <div class="row mt-4 mb-2">
                 <div class="col-lg-4  mt-xl-0 mt-2">
@@ -111,28 +111,27 @@
                         </tr>
                     </thead>
                     <tbody style="color: black">
-                    @foreach ($inventarisPeralatan as $item)                 
-                    <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->kode }}</td>
-                        <td>{{ $item->no_register }}</td>
-                        <td>{{ $item->merk }}</td>
-                        <td>{{ $item->ukuran }}</td>
-                        <td>{{ $item->bahan }}</td>
-                        <td>{{ $item->tahun }}</td>
-                        <td>{{ $item->no_pabrik }}</td>
-                        <td>{{ $item->no_rangka }}</td>
-                        <td>{{ $item->no_mesin }}</td>
-                        <td>{{ $item->no_polisi }}</td>
-                        <td>{{ $item->no_bpkb }}</td>
-                        <td>{{ $item->invAsal->nama }}</td>
-                        <td>{{ $item->formatRupiah('harga') }}</td>
-                        <td>{{ $item->ket }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-
+                        @foreach ($inventarisPeralatan as $item)                 
+                        <tr class="text-center">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->kode }}</td>
+                            <td>{{ $item->no_register }}</td>
+                            <td>{{ $item->merk }}</td>
+                            <td>{{ $item->ukuran }}</td>
+                            <td>{{ $item->bahan }}</td>
+                            <td>{{ $item->tahun }}</td>
+                            <td>{{ $item->no_pabrik }}</td>
+                            <td>{{ $item->no_rangka }}</td>
+                            <td>{{ $item->no_mesin }}</td>
+                            <td>{{ $item->no_polisi }}</td>
+                            <td>{{ $item->no_bpkb }}</td>
+                            <td>{{ $item->invAsal->nama }}</td>
+                            <td>{{ $item->formatRupiah('harga') }}</td>
+                            <td>{{ $item->ket }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

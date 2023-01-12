@@ -57,7 +57,7 @@ class InventarisTanah extends Model
         });
 
         static::updating(function ($model) {
-            if ($model->inv_kategori_tanah_id == InventarisTanah::where('id', $model->id)->first('inv_kategori_tanah_id')->inv_kategori_tanah_id) {
+            if ($model->kategori_tanah_id == InventarisTanah::where('id', $model->id)->first('kategori_tanah_id')->kategori_tanah_id) {
                 if ($model->kode == '') {
                     $model->kode = InventarisTanah::where('id', $model->id)->first('kode')->kode;
                 }
@@ -68,7 +68,7 @@ class InventarisTanah extends Model
                     $model->no_register = InventarisTanah::where('id', $model->id)->first('no_register')->no_register;
                 }
             } else {
-                $model->serial =  InventarisTanah::where('inv_kategori_tanah_id', $model->kategori_tanah_id)->max('serial') + 1;
+                $model->serial =  InventarisTanah::where('kategori_tanah_id', $model->kategori_tanah_id)->max('serial') + 1;
                 if ($model->kode == '') {
                     $model->kode = $model->invKategoriTanah->kode . '-' . str_pad($model->serial, 5, '0', STR_PAD_LEFT);
                 }

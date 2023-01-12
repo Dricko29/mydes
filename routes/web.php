@@ -39,6 +39,7 @@ use App\Http\Controllers\Keluarga\DeleteAnggotaKeluargaController;
 use App\Http\Controllers\Keluarga\UpdateAnggotaKeluargaController;
 use App\Http\Controllers\Akun\PrintKartuKeluargaPendudukController;
 use App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController;
+use App\Http\Controllers\Desa\SemuaAssetController;
 use App\Http\Controllers\Laporan\FormCetakLaporanInventarisController;
 use App\Http\Controllers\Inventaris\PrintInventarisPeralatanController;
 use App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController;
@@ -167,6 +168,9 @@ Route::middleware([
         Route::post('cetakLaporanInventarisKonstruksiBerjalan', \App\Http\Controllers\Laporan\CetakLaporanInventarisKonstruksiBerjalanController::class)->name('cetak.laporan.inventaris.konstruksiBerjalan');
         Route::get('print/inventarisKonstruksiBerjalan/{inventarisKonstruksiBerjalan}', \App\Http\Controllers\Inventaris\PrintInventarisKonstruksiBerjalanController::class)->name('inventarisKonstruksiBerjalan.print');
         Route::resource('inventarisKonstruksiBerjalan', InventarisKonstruksiBerjalanController::class);
+        
+        Route::post('cetakLaporanSemuaAsset', \App\Http\Controllers\Laporan\CetakLaporanInventarisSemuaAssetController::class)->name('cetak.laporan.inventaris.semuaAsset');
+        Route::get('semuaAssets', SemuaAssetController::class)->name('inventarisSemuaAsset.index');
     });
 
 });

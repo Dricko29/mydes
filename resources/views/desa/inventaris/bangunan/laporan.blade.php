@@ -27,7 +27,7 @@
         <!-- Address and Contact starts -->
             <div align="center">
                 <h2 style="color: black">KARTU INVENTARIS BARANG (KIB)</h2>
-                <h2 style="color: black">GEDUNG DAN BANGUNAN</h2>
+                <h2 style="color: black">GEDUNG DAN BANGUNAN - {{ $title }}</h2>
             </div>
             <div class="row mt-4 mb-2">
                 <div class="col-lg-4  mt-xl-0 mt-2">

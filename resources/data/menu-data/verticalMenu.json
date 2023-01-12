@@ -107,6 +107,12 @@
                   "name": "Inventaris Konstruksi Berjalan",
                   "icon": "circle",
                   "slug": "inventarisKonstruksiBerjalan"
+              },
+              {
+                  "url": "site/semuaAssets",
+                  "name": "Laporan Semua Aset",
+                  "icon": "circle",
+                  "slug": "semuaAssets"
               }
           ]
       },
