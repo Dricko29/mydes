@@ -71,6 +71,28 @@
               <!--/ upload and reset button -->
             </div>
             <!--/ header section -->
+
+            <!-- header section -->
+                <div class="col-md-12 col-12">
+                    <div class="mb-1">
+                        <img src="{{ asset(settings()->group('umum')->get('app_banner')) }}" id="preview-image-before-upload" alt="preview image" style="max-height: 250px;">
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-12">
+                    <div class="mb-1">
+                      <label for="customFile" class="form-label">Banner</label>
+                      <input class="form-control @error('banner')
+                        is-invalid
+                      @enderror" type="file" id="banner" name="app_banner" value="{{ old('gambar') }}"/>
+                      @error('banner')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                </div>
+            <!--/ header section -->
             <div class="col-12 col-sm-6 mb-1">
               <label class="form-label" for="app_nama">App Nama</label>
               <input
@@ -570,6 +592,23 @@
             });
           });
         }
+    });
+    $(document).ready(function (e) {
+
+      
+      $('#banner').change(function(){
+                
+        let reader = new FileReader();
+    
+        reader.onload = (e) => { 
+    
+          $('#preview-image-before-upload').attr('src', e.target.result); 
+        }
+    
+        reader.readAsDataURL(this.files[0]); 
+      
+      });
+      
     });
   </script>
 @endsection

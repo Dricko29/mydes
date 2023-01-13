@@ -13,7 +13,7 @@ class UpdatePengaduanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdatePengaduanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'status' => ['numeric', 'between:1,2'],
+            'respon' => ['required', 'max:255', 'string']
         ];
     }
 }

@@ -29,7 +29,7 @@
       <div class="card">
         <div class="card-header border-bottom">
           <h4 class="card-title">List Pengaduan</h4>
-          <a href="{{ route('site.pengaduan.create') }}" class="btn btn-primary">@lang('Add')</a>
+          {{-- <a href="{{ route('site.pengaduan.create') }}" class="btn btn-primary">@lang('Add')</a> --}}
         </div>
         <div class="card-datatable">
           <table class="datatables-ajax table-hover table table-responsive" style="width: 100%">

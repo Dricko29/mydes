@@ -6,7 +6,10 @@ use Carbon\Carbon;
 use App\Models\Pengaduan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\TanggapanPengaduan;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StorePengaduanRequest;
 use App\Http\Requests\UpdatePengaduanRequest;
@@ -42,6 +45,7 @@ class PengaduanController extends Controller
                 ->rawColumns(['status'])
                 ->make(true);
         }
+        // return $request->status;
         return view('desa.pengaduan.index');
     }
 
@@ -52,7 +56,7 @@ class PengaduanController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -63,7 +67,7 @@ class PengaduanController extends Controller
      */
     public function store(StorePengaduanRequest $request)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -74,7 +78,7 @@ class PengaduanController extends Controller
      */
     public function show(Pengaduan $pengaduan)
     {
-        //
+        return view('desa.pengaduan.show', compact('pengaduan'));
     }
 
     /**
@@ -85,7 +89,8 @@ class PengaduanController extends Controller
      */
     public function edit(Pengaduan $pengaduan)
     {
-        //
+        $respon = TanggapanPengaduan::where('pengaduan_id', $pengaduan->id)->where('created_by', Auth::user()->id)->first();
+        return view('desa.pengaduan.edit', compact('pengaduan', 'respon'));
     }
 
     /**
@@ -97,7 +102,25 @@ class PengaduanController extends Controller
      */
     public function update(UpdatePengaduanRequest $request, Pengaduan $pengaduan)
     {
-        //
+        try {
+            $id = $pengaduan->id;
+            DB::beginTransaction();
+            $pengaduan->forceFill([
+                'status' => $request->status
+            ])->save();
+            
+            TanggapanPengaduan::create([
+                'pengaduan_id' => $pengaduan->id,
+                'respon' => $request->respon
+            ]);
+            DB::commit();
+            return redirect()->route('site.pengaduan.index')->with('success', __('Data Updated Successfully!'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            // return redirect()->route('site.pengaduan.index')->with('error', __('Whoops! Something went wrong.'));
+            return redirect()->route('site.pengaduan.index')->with('error', $th->getMessage());
+            
+        }
     }
 
     /**

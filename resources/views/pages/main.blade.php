@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="{{ asset('') }}/assets/css/odometer.min.css" />
 		<link rel="stylesheet" href="{{ asset('') }}/assets/css/style.css" />
 		<link rel="stylesheet" href="{{ asset('') }}/assets/css/responsive.css" />
+		@yield('css')
 		<title>{{ settings()->group('umum')->get('app_nama', 'MyDes') }} - @yield('title')</title>
 		<link rel="icon" type="image/png" href="{{ asset(settings()->group('umum')->get('app_logo', 'assets/images/fav-icon.png')) }}" />
 	</head>

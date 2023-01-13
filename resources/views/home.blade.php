@@ -1,61 +1,39 @@
 @extends('pages.main')
 
 @section('css')
-    
+<style>
+	.home-banner {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* background-image: url("../images/desa/banner/default-banner.jpg"); */
+  background-image: url({{ asset(settings()->group('umum')->get('app_banner', 'images/desa/banner/default-banner.jpg')) }});
+  position: relative;
+}
+
+.home-banner::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+</style>
 @endsection
 
 @section('title', 'Home')
 
 @section('content')
-		<section class="main-banner plr-100 bg-f9fbfe">
-			<div class="banner-social-icons">
-				<ul>
-					<li>
-						<a href="https://www.facebook.com/" target="_blank"
-							><i class="fab fa-facebook-f"></i
-						></a>
-					</li>
-					<li>
-						<a href="https://www.linkedin.com/" target="_blank"
-							><i class="fab fa-linkedin-in"></i
-						></a>
-					</li>
-					<li>
-						<a href="https://twitter.com/" target="_blank"
-							><i class="fab fa-twitter"></i
-						></a>
-					</li>
-					<li>
-						<a href="https://www.instagram.com/" target="_blank"
-							><i class="fab fa-instagram"></i
-						></a>
-					</li>
-				</ul>
-			</div>
-			<div class="container-fluid">
-				<div class="row align-items-center">
-					<div class="col-lg-7">
-						<div class="banner-text-area banner-text-area-1">
-							<h6>DISCOVER THE CITY</h6>
-							<h1>Corporation Has Become A Central Element</h1>
-							<p>
-								Lorem ipsum dolor sit amet consectetuer adipiscing phasellus
-								hendrerit lorem dolor sit amet magna nibh nec urna in nisi neque
-								aliquet ve, dapibus id dolor sit amet magna aliqu amet.
-							</p>
-							<a class="default-button" href="about.html">Learn More</a>
-						</div>
-					</div>
-					<div class="col-lg-5">
-						<div class="banner-img-area-1">
-							<img src="assets/images/banner/banner-1-1.jpg" alt="image" />
-							<a
-								class="video-popup"
-								href="https://www.youtube.com/watch?v=ukfISpWHVWI"
-								><i class="fas fa-play"></i
-							></a>
-						</div>
-					</div>
+		<section class="home-banner">
+			<div class="container">
+				<div class="uni-banner-text-area">
+					<ul>
+						<li><img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt=""></li>
+					</ul>
+					<h1 class="mt-4">Selamat Datang di Website Pemerintahan Desa {{ Str::ucFirst(settings()->group('desa')->get('nama_desa')) }}</h1>
 				</div>
 			</div>
 		</section>

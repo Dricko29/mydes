@@ -175,6 +175,7 @@ Route::middleware([
         Route::get('semuaAssets', SemuaAssetController::class)->name('inventarisSemuaAsset.index');
 
         // pengaduan
+        Route::post('pengaduan/{pengaduan}/tanggapan', \App\Http\Controllers\TanggapanPengaduan\StoreTanggapanController::class)->name('tanggapan.pengaduan.store');
         Route::resource('pengaduan', PengaduanController::class);
     });
 

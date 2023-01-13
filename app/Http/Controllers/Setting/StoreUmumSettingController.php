@@ -22,6 +22,10 @@ class StoreUmumSettingController extends Controller
             $path = $request->file('app_logo')->store('aplikasi/logo');
             Settings()->group('umum')->set('app_logo', $path);
         }
+        if ($request->file('app_banner')) {
+            $path = $request->file('app_banner')->store('aplikasi/banner');
+            Settings()->group('umum')->set('app_banner', $path);
+        }
         return redirect()->back()->with('success', __('Data Created Successfully!'));
     }
 }
