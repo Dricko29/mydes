@@ -83,6 +83,18 @@
               />
             </div>
             <div class="col-12 col-sm-6 mb-1">
+              <label class="form-label" for="alamat_kantor">Alamat Kantor</label>
+              <input
+                type="text"
+                class="form-control"
+                id="alamat_kantor"
+                name="alamat_kantor"
+                placeholder="Alamat Kantor"
+                value="{{ settings()->group('desa')->get('alamat_kantor'); }}"
+                data-msg="Please enter address"
+              />
+            </div>
+            <div class="col-12 col-sm-6 mb-1">
               <label class="form-label" for="nama_kecamatan">Nama Kecamatan</label>
               <input
                 type="text"

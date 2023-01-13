@@ -191,44 +191,42 @@
 			</div>
 		</section>
 
+		{{-- info penduduk --}}
 		<section class="fun-facts fun-facts-1 pt-70 pb-100">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-3 col-md-6 col-sm-6 col-6">
 						<div class="fun-facts-card">
-							<i class="flaticon-smart-city"></i>
-							<h2><span class="odometer" data-count="46712">00</span></h2>
-							<p>People In The City</p>
+							<i class="fas fa-user"></i>
+							<h2><span class="odometer" data-count="{{ $jmlPenduduk }}">00</span></h2>
+							<p>Jumlah Penduduk</p>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6 col-6">
 						<div class="fun-facts-card">
-							<i class="flaticon-location-1"></i>
+							<i class="fas fa-users"></i>
 							<h2>
-								<span class="odometer" data-count="22">00</span>
-								<span class="sign-icon">K</span>
+								<span class="odometer" data-count="{{ $jmlKeluarga }}">00</span>
 							</h2>
-							<p>Square Of City</p>
+							<p>Jumlah Keluarga</p>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6 col-6">
 						<div class="fun-facts-card">
-							<i class="flaticon-park-1"></i>
+							<i class="fas fa-male"></i>
 							<h2>
-								<span class="odometer" data-count="300">00</span>
-								<span class="sign-icon">+</span>
+								<span class="odometer" data-count="{{ $jmlPendudukLaki }}">00</span>
 							</h2>
-							<p>Year Of Foundation</p>
+							<p>Jumlah Penduduk Laki-Laki</p>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6 col-6">
 						<div class="fun-facts-card last-card">
-							<i class="flaticon-award"></i>
+							<i class="fas fa-female"></i>
 							<h2>
-								<span class="odometer" data-count="1000">00</span>
-								<span class="sign-icon">+</span>
+								<span class="odometer" data-count="{{ $jmlPendudukPerempuan }}">00</span>
 							</h2>
-							<p>Successful Programs</p>
+							<p>Jumlah Penduduk Perempuan</p>
 						</div>
 					</div>
 				</div>
@@ -382,6 +380,7 @@
 			</div>
 		</section>
 
+		{{-- pegawai --}}
 		<section class="feedback pt-100 pb-70 bg-f9fbfe">
 			<div class="container">
 				<div class="default-section-title default-section-title-middle">
@@ -486,6 +485,7 @@
 				</div>
 				<div class="section-content">
 					<div class="row justify-content-center">
+						@foreach ($pegawais as $item)
 						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
 							<div class="team-card">
 								<div class="team-card-img">
@@ -516,116 +516,12 @@
 									</div>
 								</div>
 								<div class="team-card-text">
-									<h4>Mila Wilson</h4>
-									<p>City Secratery</p>
+									<h4>{{ $item->nama }}</h4>
+									<p>{{ $item->jabatan->nama }}</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-							<div class="team-card">
-								<div class="team-card-img">
-									<img src="assets/images/team/t2.jpg" alt="image" />
-									<div class="team-social-icons">
-										<ul>
-											<li>
-												<a href="https://www.facebook.com/" target="_blank"
-													><i class="fab fa-facebook-f"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.linkedin.com/" target="_blank"
-													><i class="fab fa-linkedin-in"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://twitter.com/" target="_blank"
-													><i class="fab fa-twitter"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.instagram.com/" target="_blank"
-													><i class="fab fa-instagram"></i
-												></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="team-card-text">
-									<h4>Bren Stork</h4>
-									<p>Counsil President</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-							<div class="team-card">
-								<div class="team-card-img">
-									<img src="assets/images/team/t3.jpg" alt="image" />
-									<div class="team-social-icons">
-										<ul>
-											<li>
-												<a href="https://www.facebook.com/" target="_blank"
-													><i class="fab fa-facebook-f"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.linkedin.com/" target="_blank"
-													><i class="fab fa-linkedin-in"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://twitter.com/" target="_blank"
-													><i class="fab fa-twitter"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.instagram.com/" target="_blank"
-													><i class="fab fa-instagram"></i
-												></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="team-card-text">
-									<h4>Mukesh Sarkar</h4>
-									<p>City Mayor</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-							<div class="team-card">
-								<div class="team-card-img">
-									<img src="assets/images/team/t4.jpg" alt="image" />
-									<div class="team-social-icons">
-										<ul>
-											<li>
-												<a href="https://www.facebook.com/" target="_blank"
-													><i class="fab fa-facebook-f"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.linkedin.com/" target="_blank"
-													><i class="fab fa-linkedin-in"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://twitter.com/" target="_blank"
-													><i class="fab fa-twitter"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.instagram.com/" target="_blank"
-													><i class="fab fa-instagram"></i
-												></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="team-card-text">
-									<h4>David Jon</h4>
-									<p>Assistant Mayor</p>
-								</div>
-							</div>
-						</div>
+						@endforeach
 					</div>
 				</div>
 			</div>

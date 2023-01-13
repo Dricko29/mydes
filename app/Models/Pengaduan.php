@@ -13,7 +13,7 @@ class Pengaduan extends Model
     use Userstamps;
     protected $guarded = ['id'];
 
-    public function TanggapanPengaduan() : HasMany
+    public function tanggapanPengaduans() : HasMany
     {
         return $this->hasMany(TanggapanPengaduan::class);
     }

@@ -29,14 +29,14 @@
       <div class="card">
         <div class="card-header border-bottom">
           <h4 class="card-title">List Pengaduan</h4>
-          <a href="{{ route('pengaduan.create') }}" class="btn btn-primary">@lang('Add')</a>
+          <a href="{{ route('site.pengaduan.create') }}" class="btn btn-primary">@lang('Add')</a>
         </div>
         <div class="card-datatable">
           <table class="datatables-ajax table-hover table table-responsive" style="width: 100%">
             <thead>
               <tr>
                 <th style="width: 50px">No</th>
-                <th style="width: 100px"></th>
+                <th></th>
                 <th>Foto</th>
                 <th>Nama</th>
                 <th>NIK</th>
@@ -104,7 +104,7 @@
         if (dt_ajax_table.length) {
             var dt_ajax = dt_ajax_table.dataTable({
             processing: true,
-            ajax: '{{ route('pengaduan.index') }}', // JSON file to add data
+            ajax: '{{ route('site.pengaduan.index') }}', // JSON file to add data
             columns: [
               // columns according to JSON
               { data: 'DT_RowIndex', name:'DT_RowIndex', orderable: false, searchable: false },
@@ -248,7 +248,7 @@
         $('.dataTables_length .form-select').removeClass('form-select-sm').removeClass('form-control-sm');
     });
     function hapus(e){
-      var url = '{{ route("pengaduan.destroy", ":id") }}';
+      var url = '{{ route("site.pengaduan.destroy", ":id") }}';
           url = url.replace(':id', e);
 
       Swal.fire({

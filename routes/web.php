@@ -39,6 +39,7 @@ use App\Http\Controllers\Keluarga\DeleteAnggotaKeluargaController;
 use App\Http\Controllers\Keluarga\UpdateAnggotaKeluargaController;
 use App\Http\Controllers\Akun\PrintKartuKeluargaPendudukController;
 use App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController;
+use App\Http\Controllers\Desa\PengaduanController;
 use App\Http\Controllers\Desa\SemuaAssetController;
 use App\Http\Controllers\Laporan\FormCetakLaporanInventarisController;
 use App\Http\Controllers\Inventaris\PrintInventarisPeralatanController;
@@ -46,6 +47,7 @@ use App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController;
 use App\Http\Controllers\Pembangunan\DokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\StoreDokumentasiPembangunanDetailController;
 use App\Http\Controllers\Pembangunan\CreateDokumentasiPembangunanDetailController;
+use App\Http\Controllers\Statik\ListPengaduanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,6 +173,15 @@ Route::middleware([
         
         Route::post('cetakLaporanSemuaAsset', \App\Http\Controllers\Laporan\CetakLaporanInventarisSemuaAssetController::class)->name('cetak.laporan.inventaris.semuaAsset');
         Route::get('semuaAssets', SemuaAssetController::class)->name('inventarisSemuaAsset.index');
+
+        // pengaduan
+        Route::resource('pengaduan', PengaduanController::class);
     });
 
 });
+
+// guest
+Route::get('pengaduan/{pengaduan}/detail', \App\Http\Controllers\Statik\DetailPengaduanController::class)->name('detail.pengaduan');
+Route::get('pengaduan/list', \App\Http\Controllers\Statik\ListPengaduanController::class)->name('list.pengaduan');
+Route::get('pengaduan', \App\Http\Controllers\Statik\CreatePengaduanController::class)->name('pengaduan');
+Route::post('pengaduan', \App\Http\Controllers\Statik\StorePengaduanController::class)->name('pengaduan.store');

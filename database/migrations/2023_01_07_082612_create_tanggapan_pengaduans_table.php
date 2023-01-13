@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tanggapan_pengaduans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pengaduan_id');
+            $table->foreignId('pengaduan_id')->constrained('pengaduans');
             $table->text('respon');
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();

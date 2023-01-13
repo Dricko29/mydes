@@ -55,23 +55,16 @@
           ]
       },
       {
+          "url": "site/pembangunan",
           "name": "Pembangunan",
           "icon": "tool",
-          "slug": "",
-          "submenu": [
-              {
-                  "url": "site/pembangunan",
-                  "name": "List Pembangunan",
-                  "icon": "circle",
-                  "slug": "pembangunan"
-              },
-              {
-                  "url": "site/dokumentasiPembangunan",
-                  "name": "Dokumentasi Pembangunan",
-                  "icon": "circle",
-                  "slug": "dokumentasiPembangunan"
-              }
-          ]
+          "slug": "pembangunan"
+      },
+      {
+          "url": "site/pengaduan",
+          "name": "Pengaduan",
+          "icon": "activity",
+          "slug": "pengaduan"
       },
       {
           "name": "Inventaris",

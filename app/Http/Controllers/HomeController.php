@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
+use App\Models\Keluarga;
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +17,17 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('home');
+        $jmlPendudukLaki = Penduduk::count('attr_kelamin_id', 1);
+        $jmlPendudukPerempuan = Penduduk::count('attr_kelamin_id', 2);
+        $jmlPenduduk = Penduduk::count();
+        $jmlKeluarga = Keluarga::count();
+        $pegawais = Pegawai::all();
+        return view('home', compact(
+            'jmlPendudukLaki',
+            'jmlPendudukPerempuan',
+            'jmlPenduduk',
+            'jmlKeluarga',
+            'pegawais'
+        ));
     }
 }
