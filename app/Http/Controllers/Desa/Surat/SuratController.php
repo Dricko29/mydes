@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Desa\Surat;
 
+use App\Models\Surat;
 use Illuminate\Http\Request;
-use App\Models\KlasifikasiSurat;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSuratRequest;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\StoreKlasifikasiSuratRequest;
-use App\Http\Requests\UpdateKlasifikasiSuratRequest;
+use App\Http\Requests\UpdateSuratRequest;
+use App\Models\KlasifikasiSurat;
 
-class KlasifikasiSuratController extends Controller
+class SuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,24 +21,20 @@ class KlasifikasiSuratController extends Controller
     {
         if ($request->ajax()) {
             $status = $request->status;
-            $model = KlasifikasiSurat::when($status, function($query) use ($status){
-                $query->where('status', $status);
-            });
-            
+            $model = Surat::query();
             return DataTables::eloquent($model)
                 ->addIndexColumn()
-                ->addColumn('info_status', function($model){
+                ->addColumn('info_status', function ($model) {
                     if ($model->status == 1) {
                         return '<span class="badge bg-primary">Aktif</span>';
                     } else {
                         return '<span class="badge bg-danger">Nonaktif</span>';
                     }
-                    
                 })
                 ->rawColumns(['info_status'])
                 ->make(true);
         }
-        return view('desa.surat.klasifikasi.index');
+        return view('desa.surat.pengaturan.index');
     }
 
     /**
@@ -47,28 +44,29 @@ class KlasifikasiSuratController extends Controller
      */
     public function create()
     {
-        return view('desa.surat.klasifikasi.create');
+        $klasifikasi = KlasifikasiSurat::all();
+        return view('desa.surat.pengaturan.create', compact('klasifikasi'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreKlasifikasiSuratRequest  $request
+     * @param  \App\Http\Requests\StoreSuratRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreKlasifikasiSuratRequest $request)
+    public function store(StoreSuratRequest $request)
     {
-        KlasifikasiSurat::create($request->validated());
-        return redirect()->route('site.klasifikasiSurat.index')->with('success', __('Data Created Successfully!'));
+        Surat::create($request->validated()+ ['masa_berlaku' => $request->masa_berlaku . ' ' . $request->lama]);
+        return redirect()->route('site.surat.index')->with('success', __('Data Created Successfully!'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\KlasifikasiSurat  $klasifikasiSurat
+     * @param  \App\Models\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function show(KlasifikasiSurat $klasifikasiSurat)
+    public function show(Surat $surat)
     {
         //
     }
@@ -76,37 +74,36 @@ class KlasifikasiSuratController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\KlasifikasiSurat  $klasifikasiSurat
+     * @param  \App\Models\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function edit(KlasifikasiSurat $klasifikasiSurat)
+    public function edit(Surat $surat)
     {
-        return view('desa.surat.klasifikasi.edit', compact('klasifikasiSurat'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateKlasifikasiSuratRequest  $request
-     * @param  \App\Models\KlasifikasiSurat  $klasifikasiSurat
+     * @param  \App\Http\Requests\UpdateSuratRequest  $request
+     * @param  \App\Models\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKlasifikasiSuratRequest $request, KlasifikasiSurat $klasifikasiSurat)
+    public function update(UpdateSuratRequest $request, Surat $surat)
     {
-        $klasifikasiSurat->update($request->validated());
-        return redirect()->route('site.klasifikasiSurat.index')->with('success', __('Data Updated Successfully!'));
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\KlasifikasiSurat  $klasifikasiSurat
+     * @param  \App\Models\Surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KlasifikasiSurat $klasifikasiSurat)
+    public function destroy(Surat $surat)
     {
         try {
-            $klasifikasiSurat->delete();
+            $surat->delete();
             return response()->json([
                 'status' => 'success',
                 'msg' => __('Data Deleted Successfully!')
@@ -122,7 +119,7 @@ class KlasifikasiSuratController extends Controller
     public function bulkDelete(Request $request)
     {
         try {
-            KlasifikasiSurat::whereIn('id', $request->id)->delete();
+            Surat::whereIn('id', $request->id)->delete();
             return response()->json([
                 'status' => 'success',
                 'msg' => __('Data Deleted Successfully!')
@@ -133,6 +130,5 @@ class KlasifikasiSuratController extends Controller
                 'msg' => __('Whoops! Something went wrong.')
             ]);
         }
-        
     }
 }

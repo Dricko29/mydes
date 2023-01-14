@@ -70,6 +70,12 @@
                   "name": "Syarat Surat",
                   "icon": "circle",
                   "slug": "syaratSurat"
+              },
+              {
+                  "url": "site/surat",
+                  "name": "Pengaturan Surat",
+                  "icon": "circle",
+                  "slug": "surat"
               }
           ]
       },
