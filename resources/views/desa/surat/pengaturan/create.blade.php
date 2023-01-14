@@ -110,6 +110,24 @@
                   </div>
               @enderror
             </div>
+
+            <div class="col-12 col-sm-12 mb-1">
+              <label class="form-label" for="link">Link</label>
+              <input
+                type="text"
+                class="form-control @error('link')
+                    is-invalid
+                @enderror"
+                id="link"
+                name="link"
+                value="{{ old('link') }}"
+              />
+              @error('link')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+              @enderror
+            </div>
      
             <div class="col-12">
               <button type="submit" class="btn btn-primary mt-1 me-1">@lang('Save')</button>

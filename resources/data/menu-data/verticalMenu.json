@@ -76,6 +76,12 @@
                   "name": "Pengaturan Surat",
                   "icon": "circle",
                   "slug": "surat"
+              },
+              {
+                  "url": "site/cetakSurat",
+                  "name": "Cetak Surat",
+                  "icon": "circle",
+                  "slug": "cetakSurat"
               }
           ]
       },

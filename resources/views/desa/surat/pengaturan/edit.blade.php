@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('Edit').' Klasifikasi Surat')
+@section('title', __('Edit').' Pengaturan Surat')
 
 @section('vendor-style')
   <!-- vendor css files -->
@@ -26,15 +26,25 @@
     <!-- profile -->
     <div class="card">
       <div class="card-header border-bottom">
-        <h4 class="card-title">Edit Klasifikasi Surat</h4>
-        <a href="{{ route('site.klasifikasiSurat.index') }}" class="btn btn-primary">@lang('Back')</a>
+        <h4 class="card-title">Pengaturan Surat</h4>
+        <a href="{{ route('site.surat.index') }}" class="btn btn-primary">@lang('Back')</a>
       </div>
       <div class="card-body py-2 my-25">
         <!-- form -->
-        <form class="validate-form" action="{{ route('site.klasifikasiSurat.update', $klasifikasiSurat->id) }}" method="post" enctype="multipart/form-data">
+        <form class="validate-form" action="{{ route('site.surat.update', $surat->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <div class="row">
+
+            <div class="col-12 col-sm-12 mb-1">
+              <label class="form-label" for="klasifikasi_surat_id">Klasifikasi Surat</label>
+              <select class="form-select select2" id="klasifikasi_surat_id" name="klasifikasi_surat_id">
+                <option value="">Pilih Klasifikasi Surat</option>
+                @foreach ($klasifikasi as $item)
+                    <option value="{{ $item->id }}" {{ old('klasifikasi_surat_id', $surat->klasifikasi_surat_id) == $item->id ? 'selected' : '' }}>{{ $item->kode }} | {{ $item->nama }}</option>
+                @endforeach
+              </select>
+            </div>
             <div class="col-12 col-sm-12 mb-1">
               <label class="form-label" for="nama">Nama</label>
               <input
@@ -44,7 +54,7 @@
                 @enderror"
                 id="nama"
                 name="nama"
-                value="{{ old('nama', $klasifikasiSurat->nama) }}"
+                value="{{ old('nama', $surat->nama) }}"
               />
               @error('nama')
                   <div class="invalid-feedback">
@@ -53,18 +63,49 @@
               @enderror
             </div>
 
+              <div class="col-12 col-sm-8 mb-1">
+                  <div class="mb-1">
+                      <label class="form-label" for="masa_berlaku">Masa Berlaku</label>
+                      <input
+                      type="text"
+                      id="masa_berlaku"
+                      class="form-control @error('masa_berlaku')
+                          is-invalid
+                      @enderror"
+                      name="masa_berlaku"
+                      value="{{ old('masa_berlaku', Str::beforeLast($surat->masa_berlaku, ' ')) }}"
+                      required
+                      />
+                      @error('masa_berlaku')
+                          <div class="invalid-feedback">
+                              {{ $message }}
+                          </div>
+                      @enderror
+                  </div>
+              </div>
+
+            <div class="col-12 col-sm-4 mb-1">
+              <label class="form-label" for="lama">Lama</label>
+              <select class="form-select select2" id="lama" name="lama">
+                  <option value="Hari">Hari</option>
+                  <option value="Minggu">Minggu</option>
+                  <option value="Bulan">Bulan</option>
+                  <option value="Tahun">Tahun</option>
+              </select>
+            </div>
+
             <div class="col-12 col-sm-12 mb-1">
-              <label class="form-label" for="kode">Kode</label>
+              <label class="form-label" for="jenis">Jenis</label>
               <input
                 type="text"
-                class="form-control @error('kode')
+                class="form-control @error('jenis')
                     is-invalid
                 @enderror"
-                id="kode"
-                name="kode"
-                value="{{ old('kode',$klasifikasiSurat->kode) }}"
+                id="jenis"
+                name="jenis"
+                value="{{ old('jenis', $surat->jenis) }}"
               />
-              @error('kode')
+              @error('jenis')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
@@ -72,23 +113,23 @@
             </div>
 
             <div class="col-12 col-sm-12 mb-1">
-              <label class="form-label" for="ket">Keterangan</label>
+              <label class="form-label" for="link">Link</label>
               <input
                 type="text"
-                class="form-control @error('ket')
+                class="form-control @error('link')
                     is-invalid
                 @enderror"
-                id="ket"
-                name="ket"
-                value="{{ old('ket',$klasifikasiSurat->ket) }}"
+                id="link"
+                name="link"
+                value="{{ old('link', $surat->link) }}"
               />
-              @error('ket')
+              @error('link')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
               @enderror
             </div>
-           
+     
             <div class="col-12">
               <button type="submit" class="btn btn-primary mt-1 me-1">@lang('Save')</button>
               <button type="reset" class="btn btn-outline-secondary mt-1">@lang('Cancel')</button>

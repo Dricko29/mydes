@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('surat_syarats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('surat_id')->constrained('surats');
+            $table->foreignId('surat_id')->constrained('surats')->cascadeOnDelete();
             $table->foreignId('syarat_surat_id')->constrained('syarat_surats');
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('masa_berlaku');
             $table->string('jenis');
+            $table->string('link');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();

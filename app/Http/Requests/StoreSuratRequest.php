@@ -26,7 +26,8 @@ class StoreSuratRequest extends FormRequest
         return [
             'klasifikasi_surat_id' => ['required','unique:surats'],
             'nama' => ['required', 'string', 'max:255'],
-            'jenis' => ['required']
+            'jenis' => ['required'],
+            'link'=> ['required', 'string', 'unique:surats'], 
         ];
     }
 }

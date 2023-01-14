@@ -17,7 +17,7 @@ use App\Http\Controllers\Desa\InventarisAssetTetapController;
 use App\Http\Controllers\Desa\DokumentasiPembangunanController;
 use App\Http\Controllers\Desa\Surat\KlasifikasiSuratController;
 use App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController;
-
+use App\Http\Controllers\Desa\Surat\CetakSuratBiodataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,6 +160,10 @@ Route::middleware([
         Route::get('surat/{surat}/status', \App\Http\Controllers\Desa\Surat\StatusSuratController::class)->name('surat.staus');
         Route::get('surat/{surat}/persyaratan', \App\Http\Controllers\Desa\Surat\PersyaratanSuratController::class)->name('persyaratan.surat');
         Route::post('surat/{surat}/assign', \App\Http\Controllers\Desa\Surat\AssignPersyaratanSuratController::class)->name('assign.persyaratan.surat');
+        // cetak
+        Route::get('cetakSurat', \App\Http\Controllers\Desa\Surat\CetakSuratController::class)->name('cetak.surat');
+        Route::get('surat/biodata', \App\Http\Controllers\Desa\Surat\SuratBiodataController::class)->name('surat.biodata');
+        Route::post('surat/cetak/biodata', CetakSuratBiodataController::class)->name('cetak.surat.biodata');
         Route::resource('surat', \App\Http\Controllers\Desa\Surat\SuratController::class);
     });
 

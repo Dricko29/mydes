@@ -220,4 +220,5 @@ return [
     "Klasifikasi Surat" => "Klasifikasi Surat",
     "Syarat Surat" => "Syarat Surat",
     "Pengaturan Surat" => "Pengaturan Surat",
+    "Cetak Surat" => "Cetak Surat",
 ];

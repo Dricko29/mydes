@@ -79,7 +79,8 @@ class SuratController extends Controller
      */
     public function edit(Surat $surat)
     {
-        //
+        $klasifikasi = KlasifikasiSurat::all();
+        return view('desa.surat.pengaturan.edit', compact('klasifikasi', 'surat'));
     }
 
     /**
@@ -91,7 +92,8 @@ class SuratController extends Controller
      */
     public function update(UpdateSuratRequest $request, Surat $surat)
     {
-        //
+        $surat->update($request->validated());
+        return redirect()->route('site.surat.index')->with('success', __('Data Updated Successfully!'));
     }
 
     /**
@@ -111,7 +113,8 @@ class SuratController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
-                'msg' => __('Whoops! Something went wrong.')
+                // 'msg' => __('Whoops! Something went wrong.')
+                'msg' => $th->getMessage()
             ]);
         }
     }

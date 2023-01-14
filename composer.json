@@ -16,6 +16,7 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
+        "phpoffice/phpword": "^1.0",
         "qcod/laravel-settings": "^1.1",
         "spatie/laravel-permission": "^5.7",
         "wildside/userstamps": "^2.2",
