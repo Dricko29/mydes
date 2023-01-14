@@ -11,6 +11,25 @@
           "slug": ""
       },
       {
+          "name": "Kependudukan",
+          "icon": "users",
+          "slug": "",
+          "submenu": [
+              {
+                  "url": "site/penduduk",
+                  "name": "Penduduk",
+                  "icon": "circle",
+                  "slug": "penduduk"
+              },
+              {
+                  "url": "site/keluarga",
+                  "name": "Keluarga",
+                  "icon": "circle",
+                  "slug": "keluarga"
+              }
+          ]
+      },
+      {
           "name": "Roles & Permission",
           "icon": "shield",
           "slug": "",
@@ -36,21 +55,21 @@
           "slug": "pegawai"
       },
       {
-          "name": "Kependudukan",
-          "icon": "users",
+          "name": "Surat",
+          "icon": "inbox",
           "slug": "",
           "submenu": [
               {
-                  "url": "site/penduduk",
-                  "name": "Penduduk",
+                  "url": "site/klasifikasiSurat",
+                  "name": "Klasifikasi Surat",
                   "icon": "circle",
-                  "slug": "penduduk"
+                  "slug": "klasifikasiSurat"
               },
               {
-                  "url": "site/keluarga",
-                  "name": "Keluarga",
+                  "url": "site/syaratSurat",
+                  "name": "Syarat Surat",
                   "icon": "circle",
-                  "slug": "keluarga"
+                  "slug": "syaratSurat"
               }
           ]
       },

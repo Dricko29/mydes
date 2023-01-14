@@ -16,6 +16,7 @@ $(function () {
     assetPath = $('body').attr('data-asset-path');
   }
 
+
   // DataTable with buttons
   // --------------------------------------------------------------------
 

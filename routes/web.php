@@ -41,6 +41,9 @@ use App\Http\Controllers\Akun\PrintKartuKeluargaPendudukController;
 use App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController;
 use App\Http\Controllers\Desa\PengaduanController;
 use App\Http\Controllers\Desa\SemuaAssetController;
+use App\Http\Controllers\Desa\Surat\KlasifikasiSuratController;
+use App\Http\Controllers\Desa\Surat\StatusKlasifikasiSuratController;
+use App\Http\Controllers\Desa\Surat\SyaratSuratController;
 use App\Http\Controllers\Laporan\FormCetakLaporanInventarisController;
 use App\Http\Controllers\Inventaris\PrintInventarisPeralatanController;
 use App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController;
@@ -177,6 +180,14 @@ Route::middleware([
         // pengaduan
         Route::post('pengaduan/{pengaduan}/tanggapan', \App\Http\Controllers\TanggapanPengaduan\StoreTanggapanController::class)->name('tanggapan.pengaduan.store');
         Route::resource('pengaduan', PengaduanController::class);
+
+        // surat
+        Route::post('klasifikasiSurat/bulkDelete', [KlasifikasiSuratController::class, 'bulkDelete'])->name('kalsifikasiSurat.bulkDelete');
+        Route::get('klasifikasiSurat/{klasifikasiSurat}/status', \App\Http\Controllers\Desa\Surat\StatusKlasifikasiSuratController::class)->name('klasifikasiSurat.staus');
+        Route::resource('klasifikasiSurat', KlasifikasiSuratController::class);
+        
+        Route::post('syaratSurat/bulkDelete', [SyaratSuratController::class, 'bulkDelete'])->name('syaratSurat.bulkDelete');
+        Route::resource('syaratSurat', SyaratSuratController::class);
     });
 
 });

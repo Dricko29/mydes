@@ -216,4 +216,7 @@ return [
     "Inventaris Konstruksi Berjalan" => "Inventaris Konstruksi Berjalan",
     "Laporan Semua Aset" => "Laporan Semua Aset",
     "Pengaduan" => "Pengaduan",
+    "Surat" => "Surat",
+    "Klasifikasi Surat" => "Klasifikasi Surat",
+    "Syarat Surat" => "Syarat Surat",
 ];
