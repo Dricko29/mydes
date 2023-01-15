@@ -1,23 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\Desa\KeluargaController;
-use App\Http\Controllers\Desa\PengaduanController;
-use App\Http\Controllers\Desa\SemuaAssetController;
-use App\Http\Controllers\Desa\PembangunanController;
-use App\Http\Controllers\Desa\Surat\SuratController;
-use App\Http\Controllers\Desa\LayananMandiriController;
-use App\Http\Controllers\Desa\InventarisTanahController;
-use App\Http\Controllers\Desa\Surat\SyaratSuratController;
-use App\Http\Controllers\Desa\InventarisBangunanController;
-use App\Http\Controllers\Desa\InventarisPeralatanController;
-use App\Http\Controllers\Desa\InventarisAssetTetapController;
-use App\Http\Controllers\Desa\DokumentasiPembangunanController;
-use App\Http\Controllers\Desa\Surat\KlasifikasiSuratController;
-use App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController;
-use App\Http\Controllers\Desa\Surat\CetakSuratBiodataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,9 +68,11 @@ Route::middleware([
         Route::get('penduduk/lahir', \App\Http\Controllers\Log\PendudukLahirController::class)->name('penduduk.lahir');
         Route::post('penduduk/masuk', \App\Http\Controllers\Log\StorePendudukMasukController::class)->name('penduduk.masuk.store');
         Route::post('penduduk/lahir', \App\Http\Controllers\Log\StorePendudukLahirController::class)->name('penduduk.lahir.store');
-        Route::get('penduduk/{penduduk}/print', [\App\Http\Controllers\Desa\PendudukController::class, 'print'])->name('penduduk.print');
-        Route::get('penduduk/{penduduk}/biodata', [\App\Http\Controllers\Desa\PendudukController::class, 'biodata'])->name('penduduk.biodata');
-        Route::resource('penduduk', \App\Http\Controllers\Desa\PendudukController::class);
+
+        Route::get('penduduk/{penduduk}/print', \App\Http\Controllers\Desa\Penduduk\PrintBiodataPendudukController::class)->name('penduduk.print');
+        Route::get('penduduk/{penduduk}/biodata',\App\Http\Controllers\Desa\Penduduk\BiodataPendudukController::class)->name('penduduk.biodata');
+        Route::post('penduduk/bulkDelete', \App\Http\Controllers\Desa\Penduduk\BulkDeletePendudukController::class)->name('penduduk.bulkDelete');
+        Route::resource('penduduk', \App\Http\Controllers\Desa\Penduduk\PendudukController::class);
         // route akun penduduk
         Route::prefix('akun')->name('akun.')->group(function(){
             Route::get('/penduduk/{penduduk}/create', \App\Http\Controllers\Akun\CreateAkunPendudukController::class)->name('penduduk.create');
@@ -101,13 +86,13 @@ Route::middleware([
         Route::post('keluarga/form/pendudukMasuk', \App\Http\Controllers\Keluarga\StorePendudukMasukController::class)->name('keluarga.pendudukMasuk.store');
         Route::put('keluarga/{keluarga}/update/anggota', \App\Http\Controllers\Keluarga\UpdateAnggotaKeluargaController::class)->name('keluarga.anggota.update');
         Route::delete('keluarga/{keluarga}/penduduk/{penduduk}/delete', \App\Http\Controllers\Keluarga\DeleteAnggotaKeluargaController::class)->name('keluarga.anggota.delete');
-        Route::resource('keluarga', KeluargaController::class);
+        Route::resource('keluarga', \App\Http\Controllers\Desa\KeluargaController::class);
         // Route layanan mandiri
         Route::get('layananMandiri/{layananMandiri}/user/{user}/reset', \App\Http\Controllers\Penduduk\ResetPasswordController::class)->name('layananMandiri.reset');
-        Route::resource('layananMandiri', LayananMandiriController::class);
+        Route::resource('layananMandiri', \App\Http\Controllers\Desa\LayananMandiriController::class);
         // route pembangunan
         Route::get('pembangunan/{pembangunan}/print', \App\Http\Controllers\Pembangunan\PrintPembangunanController::class)->name('pembangunan.print');
-        Route::resource('pembangunan', PembangunanController::class);
+        Route::resource('pembangunan', \App\Http\Controllers\Desa\PembangunanController::class);
         // dokumentasi pembangunan detail
         Route::get('dokumentasi/pembangunan/{pembangunan}', \App\Http\Controllers\Pembangunan\DokumentasiPembangunanDetailController::class)->name('dokumentasi.pembangunan');
         Route::get('dokumentasi/pembangunan/{pembangunan}/create', \App\Http\Controllers\Pembangunan\CreateDokumentasiPembangunanDetailController::class)->name('dokumentasi.pembangunan.detail.create');
@@ -142,7 +127,7 @@ Route::middleware([
         Route::resource('inventarisKonstruksiBerjalan', \App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController::class);
         
         Route::post('cetakLaporanSemuaAsset', \App\Http\Controllers\Laporan\CetakLaporanInventarisSemuaAssetController::class)->name('cetak.laporan.inventaris.semuaAsset');
-        Route::get('semuaAssets', SemuaAssetController::class)->name('inventarisSemuaAsset.index');
+        Route::get('semuaAssets', \App\Http\Controllers\Desa\SemuaAssetController::class)->name('inventarisSemuaAsset.index');
 
         // pengaduan
         Route::post('pengaduan/{pengaduan}/tanggapan', \App\Http\Controllers\TanggapanPengaduan\StoreTanggapanController::class)->name('tanggapan.pengaduan.store');
@@ -161,10 +146,15 @@ Route::middleware([
         Route::get('surat/{surat}/persyaratan', \App\Http\Controllers\Desa\Surat\PersyaratanSuratController::class)->name('persyaratan.surat');
         Route::post('surat/{surat}/assign', \App\Http\Controllers\Desa\Surat\AssignPersyaratanSuratController::class)->name('assign.persyaratan.surat');
         // cetak
+        Route::get('cetakSurat/pengantar/{id}', \App\Http\Controllers\Desa\Surat\SuratPengantarController::class)->name('surat.pengantar');
+        Route::post('cetakSurat/pengantar', \App\Http\Controllers\Desa\Surat\CetakSuratPengantarController::class)->name('surat.pengantar.proses');
+        Route::get('cetakSurat/biodata/{id}', \App\Http\Controllers\Desa\Surat\SuratBiodataController::class)->name('surat.biodata');
+        Route::post('cetakSurat/biodata', \App\Http\Controllers\Desa\Surat\CetakSuratBiodataController::class)->name('surat.biodata.proses');
         Route::get('cetakSurat', \App\Http\Controllers\Desa\Surat\CetakSuratController::class)->name('cetak.surat');
-        Route::get('surat/biodata', \App\Http\Controllers\Desa\Surat\SuratBiodataController::class)->name('surat.biodata');
-        Route::post('surat/cetak/biodata', CetakSuratBiodataController::class)->name('cetak.surat.biodata');
+        Route::get('unduh/surat/{id}', \App\Http\Controllers\Desa\Surat\UnduhSuratController::class)->name('unduh.surat');
+        Route::post('arsipSurat/bulkDelete', \App\Http\Controllers\Desa\Surat\BulkDeleteArsipSuratController::class)->name('arsipSurat.bulkDelete');
         Route::resource('surat', \App\Http\Controllers\Desa\Surat\SuratController::class);
+        Route::resource('logSurat', \App\Http\Controllers\Desa\Surat\ArsipSuratController::class);
     });
 
 });

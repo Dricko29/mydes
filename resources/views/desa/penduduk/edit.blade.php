@@ -37,7 +37,7 @@
             <div class="d-flex mb-1">
               <a href="#" class="me-25">
                 <img
-                  src="{{asset($penduduk->foto ? $penduduk->foto : 'images/portrait/small/avatar-s-11.jpg')}}"
+                  src="{{asset($penduduk->foto_url)}}"
                   id="account-upload-img"
                   class="uploadedAvatar rounded me-50"
                   alt="profile image"
@@ -45,7 +45,7 @@
                   width="100"
                 />
               </a>
-              <input type="hidden" name="oldFoto" value="{{ $penduduk->foto }}">
+              <input type="hidden" name="oldFoto" value="{{ $penduduk->foto_url }}">
               <!-- upload and reset button -->
               <div class="d-flex align-items-end mt-75 ms-1">
                 <div>
@@ -71,36 +71,7 @@
               <h4 class="fw-bold">Data Diri</h4>
               <hr>
             </div>
-            {{-- <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="tanggal_masuk">Tanggal Masuk</label>
-              <input type="text" class="form-control picker @error('tanggal_masuk')
-                is-invalid
-              @enderror" 
-              name="tanggal_masuk" 
-              id="tanggal_masuk" 
-              value="{{ old('tanggal_masuk', \Carbon\Carbon::now()) }}" 
-              autocomplete="off"/>
-              @error('tanggal_masuk')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-            </div>
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="tanggal_lapor">Tanggal Lapor</label>
-              <input type="text" class="form-control picker @error('tanggal_lapor')
-                is-invalid
-              @enderror" 
-              name="tanggal_lapor" 
-              id="tanggal_lapor" 
-              value="{{ old('tanggal_lapor',\Carbon\Carbon::now()) }}" 
-              autocomplete="off"/>
-              @error('tanggal_lapor')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-              @enderror
-            </div> --}}
+
             <div class="col-12 col-sm-6 mb-1">
               <label class="form-label" for="nama">Nama</label>
               <input

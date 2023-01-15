@@ -15,7 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
-class CetakSuratBiodataController extends Controller
+class CetakSuratPengantarController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -36,7 +36,8 @@ class CetakSuratBiodataController extends Controller
             $request->validate([
                 'nomor' => ['unique:nomor_surats'],
                 'penduduk_id' => ['required'],
-                'pegawai_id' => ['required']
+                'keperluan' => ['required', 'string'],
+                'pegawai_id' => ['required'] 
             ]);
             $nomor_surat = NomorSurat::create([
                 'surat_id' => $request->surat,
@@ -44,7 +45,7 @@ class CetakSuratBiodataController extends Controller
             ]);
 
             // Creating the new document...
-            $phpWord = new TemplateProcessor(storage_path('app/public/template-surat/surat-biodata.docx'));
+            $phpWord = new TemplateProcessor(storage_path('app/public/template-surat/surat-pengantar.docx'));
 
             /* Note: any element you append to a document must reside inside of a Section. */
 
@@ -54,60 +55,50 @@ class CetakSuratBiodataController extends Controller
             $phpWord->setValue('des', Str::upper(settings()->group('desa')->get('nama_desa')));
             $phpWord->setValue('alamat_kantor', Str::upper(settings()->group('desa')->get('alamat_kantor')));
             $phpWord->setImageValue('logo', array('path' => asset(settings()->group('umum')->get('app_logo')), 'height' => 120, 'ratio' => false));
-
-            // keluarga
-            $phpWord->setValue('nomor_surat', Str::upper($nomor_surat->nomor));
-            $phpWord->setValue('judul_surat', Str::upper('surat biodata penduduk'));
-            $phpWord->setValue('nama_kepala_keluarga', Str::ucfirst($kepala->nama));
-            $phpWord->setValue('no_keluarga', $penduduk->keluarga->no_keluarga);
-            $phpWord->setValue('alamat', Str::ucfirst($penduduk->alamat));
             $phpWord->setValue('desa', Str::ucfirst(settings()->group('desa')->get('nama_desa')));
             $phpWord->setValue('kecamatan', Str::ucfirst(settings()->group('desa')->get('nama_kecamatan')));
             $phpWord->setValue('kabupaten', Str::ucfirst(settings()->group('desa')->get('nama_kabupaten')));
 
-            // individu
-            $phpWord->setValue('nama_lengkap', Str::ucfirst($penduduk->nama));
-            $phpWord->setValue('nik', $penduduk->nik);
-            $phpWord->setValue('alamat_sebelumnya', Str::ucfirst($penduduk->alamat));
-            $phpWord->setValue('paspor', $penduduk->paspor);
-            $phpWord->setValue('tanggal_paspor', Carbon::parse($penduduk->tanggal_paspor)->format('d-m-Y'));
-            $phpWord->setValue('kelamin', Str::ucfirst($penduduk->attrKelamin->nama));
+            // keluarga
+            $phpWord->setValue('nomor_surat', Str::upper($nomor_surat->nomor));
+            $phpWord->setValue('judul_surat', Str::upper('surat pengantar'));
+            
+            $phpWord->setValue('nama_penduduk', Str::upper($penduduk->nama));
             $phpWord->setValue('tempat_lahir', Str::ucfirst($penduduk->tempat_lahir));
             $phpWord->setValue('tanggal_lahir', Carbon::parse($penduduk->tanggal_lahir)->format('d-m-Y'));
-            $phpWord->setValue('no_akta_lahir', $penduduk->no_akta_kelahiran);
-            $phpWord->setValue('golongan_darah', $penduduk->attrGolonganDarah->nama);
+            $phpWord->setValue('umur', Carbon::parse($penduduk->tanggal_lahir)->age);
+            $phpWord->setValue('warganegara', Str::ucfirst($penduduk->attrWarganegara->nama));
             $phpWord->setValue('agama', Str::ucfirst($penduduk->attrAgama->nama));
-            $phpWord->setValue('status', Str::ucfirst($penduduk->attrStatus->nama));
-            $phpWord->setValue('no_akta_pernikahan', $penduduk->no_akta_pernikahan);
-            $phpWord->setValue('tanggal_pernikahan', Carbon::parse($penduduk->tanggal_pernikahan)->format('d-m-Y'));
-            $phpWord->setValue('no_akta_perceraian', $penduduk->no_akta_perceraian);
-            $phpWord->setValue('tanggal_perceraian', Carbon::parse($penduduk->tanggal_perceraian)->format('d-m-Y'));
-            $phpWord->setValue('hubungan', Str::ucfirst($penduduk->attrHubungan->nama));
-            $phpWord->setValue('cacat', Str::ucfirst('-'));
-            $phpWord->setValue('pendidikan_kk', Str::ucfirst($penduduk->attrPendidikanKeluarga->nama));
+            $phpWord->setValue('kelamin', Str::ucfirst($penduduk->attrKelamin->nama));
             $phpWord->setValue('pekerjaan', Str::ucfirst($penduduk->attrPekerjaan->nama));
-            $phpWord->setValue('nama_ibu', Str::ucfirst($penduduk->nama_ibu));
-            $phpWord->setValue('nik_ibu', $penduduk->nik_ibu);
-            $phpWord->setValue('nama_ayah', Str::ucfirst($penduduk->nama_ayah));
-            $phpWord->setValue('nik_ayah', $penduduk->nik_ayah);
+            $phpWord->setValue('rt',$penduduk->rukunTetangga->nama_rt);
+            $phpWord->setValue('rw',$penduduk->rukunWarga->nama_rw);
+            $phpWord->setValue('dusun',$penduduk->dusun->nama_dusun);
+            $phpWord->setValue('nik', $penduduk->nik);
+            $phpWord->setValue('no_keluarga', $penduduk->keluarga->no_keluarga);
+            $phpWord->setValue('keperluan', Str::ucfirst($request->keperluan));
+            $phpWord->setValue('tanggal_awal', Carbon::parse($request->tanggal_awal)->format('d-m-Y'));
+            $phpWord->setValue('tanggal_akhir', Carbon::parse($request->tanggal_akhir)->format('d-m-Y'));
+            $phpWord->setValue('golongan_darah', $penduduk->attrGolonganDarah->nama);
+            
             $phpWord->setValue('tanggal', Carbon::now()->isoFormat('LL'));
-            $phpWord->setValue('ttd', Str::upper($pegawai->jabatan->nama));
-            if ($pegawai->id != 1) {
+            if($pegawai->id != 1){
                 $phpWord->setValue('an', 'an');
-            } else {
+            }else{
                 $phpWord->setValue('an', '');
             }
+            $phpWord->setValue('ttd', Str::upper($pegawai->jabatan->nama));
             $phpWord->setValue('nama_pegawai', Str::upper($pegawai->nama));
             $phpWord->setValue('nip_pegawai', $pegawai->nip);
 
             // Saving the document as OOXML file...
             // save database
-            $folder = 'arsip/surat/biodata/';
-            $name = 'biodata_'.$penduduk->nama.'.docx';
-            $full = $folder.$name;
+            $folder = 'arsip/surat/pengantar/';
+            $name = 'pengantar_'.$penduduk->nama . '.docx';
+            $full = $folder . $name;
 
             // save kestrorage
-            $path = 'app/public/arsip/surat/biodata/';
+            $path = 'app/public/arsip/surat/pengantar/';
 
             LogSurat::create([
                 'penduduk_id' => $penduduk->id,
@@ -115,21 +106,19 @@ class CetakSuratBiodataController extends Controller
                 'pegawai_id' => $pegawai->id,
                 'file' => $full
             ]);
-            $directories = Storage::directories('app/public/arsip/surat/biodata/');
-            if($directories){
+            $directories = Storage::directories('app/public/arsip/surat/pengantar/');
+            if ($directories) {
                 return true;
-            }else{
-                Storage::makeDirectory('arsip/surat/biodata/');
+            } else {
+                Storage::makeDirectory('arsip/surat/pengantar/');
             }
-            $phpWord->saveAs(storage_path($path.$name));
+            $phpWord->saveAs(storage_path($path . $name));
 
             DB::commit();
-            
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
         }
-        return response()->download(storage_path($path.$name));
-
+        return response()->download(storage_path($path . $name));
     }
 }

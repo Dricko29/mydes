@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Desa;
+namespace App\Http\Controllers\Desa\Penduduk;
 
 use App\Models\Dusun;
 use App\Models\AttrSuku;
@@ -10,16 +10,16 @@ use App\Models\AttrBahasa;
 use App\Models\AttrStatus;
 use App\Models\AttrKelamin;
 use App\Models\AttrHubungan;
+use Illuminate\Http\Request;
 use App\Models\AttrPekerjaan;
 use App\Models\AttrPendidikan;
 use App\Models\AttrStatusDasar;
 use App\Models\AttrStatusKawin;
 use App\Models\AttrWarganegara;
 use App\Models\AttrGolonganDarah;
+use App\Http\Controllers\Controller;
 use App\Models\AttrHubunganKeluarga;
 use App\Models\AttrPendidikanKeluarga;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StorePendudukRequest;
@@ -35,6 +35,8 @@ class PendudukController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            $status = $request->status;
+            $kelamin = $request->kelamin;
             $model = Penduduk::with([
                 'keluarga',
                 'attrKelamin',
@@ -54,20 +56,28 @@ class PendudukController extends Controller
                 'dusun',
                 'rukunWarga',
                 'rukunTetangga'
-            ])->latest();
+            ])->when($status, function ($query) use ($status) {
+                $query->where('attr_status_id', $status);
+            })->when($kelamin, function ($query) use ($kelamin) {
+                $query->where('attr_kelamin_id', $kelamin);
+            });
             return DataTables::eloquent($model)
                 ->addIndexColumn()
-                ->addColumn('keluarga.no_keluarga', function($model){
+                ->addColumn('keluarga.no_keluarga', function ($model) {
                     if ($model->keluarga) {
                         return $model->keluarga->no_keluarga;
                     } else {
                         return "-";
                     }
-                    
                 })
                 ->make(true);
         }
-        return view('desa.penduduk.index');
+        $statusPenduduk = AttrStatus::all();
+        $kelaminPenduduk = AttrKelamin::all();
+        return view('desa.penduduk.index', compact(
+            'statusPenduduk',
+            'kelaminPenduduk',
+        ));
     }
 
     /**
@@ -226,22 +236,5 @@ class PendudukController extends Controller
             'status' => 'success',
             'msg' => __('Data Deleted Successfully!'),
         ]);
-    }
-
-    public function biodata(Penduduk $penduduk)
-    {
-        $pageConfigs = ['pageHeader' => false];
-        return view('desa.penduduk.biodata', compact(
-            'pageConfigs',
-            'penduduk'
-        ));
-    }
-    public function print(Penduduk $penduduk)
-    {
-        $pageConfigs = ['pageHeader' => false];
-        return view('desa.penduduk.print', compact(
-            'pageConfigs',
-            'penduduk'
-        ));
     }
 }

@@ -221,4 +221,5 @@ return [
     "Syarat Surat" => "Syarat Surat",
     "Pengaturan Surat" => "Pengaturan Surat",
     "Cetak Surat" => "Cetak Surat",
+    "Arsip Surat" => "Arsip Surat",
 ];

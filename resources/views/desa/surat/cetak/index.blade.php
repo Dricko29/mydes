@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Pengaturan Surat')
+@section('title', 'Cetak Surat')
 
 @section('vendor-style')
   {{-- vendor css files --}}
@@ -29,8 +29,8 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header border-bottom">
-          <h4 class="card-title">List Pengaturan Surat</h4>
-          <a href="{{ route('site.surat.create') }}" class="btn btn-primary">@lang('Add')</a>
+          <h4 class="card-title">List Cetak Surat</h4>
+          {{-- <a href="{{ route('site.surat.create') }}" class="btn btn-primary">@lang('Add')</a> --}}
         </div>
 
         <div class="card-datatable">
@@ -41,6 +41,7 @@
                 <th style="width: 20%">Aksi</th>
                 <th style="width: 30%">Nama</th>
                 <th>Masa Berlaku</th>
+                <th>Kode</th>
                 <th>Jenis</th>
                 <th>Status</th>
               </tr>
@@ -114,6 +115,7 @@
               { data: 'action' },
               { data: 'nama' },
               { data: 'masa_berlaku' },
+              { data: 'klasifikasi_surat.kode' },
               { data: 'jenis' },
               { data: 'info_status' },
             ],
@@ -180,32 +182,32 @@
                     text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
                     className: 'dropdown-item',
                     title: "Daftar Data Klasifikasi Surat",
-                    exportOptions: { columns: [1,3,4,5,6] }
+                    exportOptions: { columns: [0,2,3,4,5,6] }
                   },
                   {
                     extend: 'csv',
                     text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,3,4,5,6] }
+                    exportOptions: { columns: [0,2,3,4,5,6] }
                   },
                   {
                     extend: 'excel',
                     text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,3,4,5,6] }
+                    exportOptions: { columns: [0,2,3,4,5,6] }
                   },
                   {
                     extend: 'pdf',
                     text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,3,4,5,6] },
+                    exportOptions: { columns: [0,2,3,4,5,6] },
                     title: "Daftar Data Klasifikasi Surat",
                   },
                   {
                     extend: 'copy',
                     text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,3,4,5,6] }
+                    exportOptions: { columns: [0,2,3,4,5,6] }
                   }
                 ],
                 init: function (api, node, config) {

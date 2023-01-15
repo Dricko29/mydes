@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('surat_id')->constrained('surats');
             $table->tinyInteger('status')->default(1);
             $table->foreignId('pegawai_id')->constrained('pegawais');
+            $table->string('file')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

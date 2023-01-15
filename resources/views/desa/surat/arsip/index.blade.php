@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Penduduk')
+@section('title', 'Asrip Surat')
 
 @section('vendor-style')
   {{-- vendor css files --}}
@@ -29,65 +29,37 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header border-bottom">
-          <h4 class="card-title">List Penduduk</h4>
-            <div class="btn-group">
-              <button
-                class="btn btn-sm btn-primary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                @lang('Add')
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ Route('site.penduduk.lahir') }}">Penduduk Lahir</a>
-                <a class="dropdown-item" href="{{ route('site.penduduk.masuk') }}">Penduduk Masuk</a>
-              </div>
-            </div>
+          <h4 class="card-title">List Asrip Surat</h4>
+          {{-- <a href="{{ route('site.arsipSurat.create') }}" class="btn btn-primary">@lang('Add')</a> --}}
         </div>
-        <div class="card-body border-bottom">
+        {{-- <div class="card-body border-bottom">
           <div class="row">
             <div class="col-md-4">
               <label class="form-label" for="status">Status</label>
               <select class="form-select select2" id="status" name="status">
                 <option value="">Semua</option>
-                @foreach ($statusPenduduk as $item)
-                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="col-md-4">
-              <label class="form-label" for="kelamin">Kelamin</label>
-              <select class="form-select select2" id="kelamin" name="kelamin">
-                <option value="">Semua</option>
-                @foreach ($kelaminPenduduk as $item)
-                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
+                <option value="1">Aktif</option>
+                <option value="2">Nonaktif</option>
               </select>
             </div>
           </div>
-        </div>
+        </div> --}}
 
         <div class="card-datatable">
           <table class="datatables-ajax table-hover table pt-0 table-responsive" style="width: 100%">
             <thead>
               <tr>
-                <th></th>
+                <th> </th>
                 <th>No</th>
                 <th></th>
-                <th>Foto</th>
+                <th>Kode</th>
+                <th>Jenis Surat</th>
                 <th>Nama</th>
-                <th>NIK</th>
-                <th>NO KK</th>
-                <th>Jenis Kelamin</th>
-                <th>Agama</th>
-                <th>Pendidikan</th>
-                <th>Pekerjaan</th>
-                <th>Alamat</th>
-                <th>Dusun</th>
-                <th>RW</th>
-                <th>RT</th>
+                <th>Keterangan</th>
+                <th>Ditandatangi</th>
+                <th>Tanggal</th>
+                <th>User</th>
+                <th>Info</th>
               </tr>
             </thead>
           </table>
@@ -152,25 +124,20 @@
         if (dt_ajax_table.length) {
             var dt_ajax = dt_ajax_table.dataTable({
             processing: true,
-            ajax: '{{ route('site.penduduk.index') }}', // JSON file to add data
+            ajax: '{{ route('site.logSurat.index') }}', // JSON file to add data
             columns: [
               // columns according to JSON
-              // { data: 'aksi',orderable: false, searchable: false },
               { data: 'id' },
               { data: 'DT_RowIndex', name:'DT_RowIndex', orderable: false, searchable: false },
-              { data: '' },
-              { data: '' },
-              { data: 'nama' },
-              { data: 'nik' },
-              { data: 'keluarga.no_keluarga' },
-              { data: 'attr_kelamin.nama' },
-              { data: 'attr_agama.nama' },
-              { data: 'attr_pendidikan_keluarga.nama' },
-              { data: 'attr_pekerjaan.nama' },
-              { data: 'alamat' },
-              { data: 'dusun.nama_dusun' },
-              { data: 'rukun_warga.nama_rw' },
-              { data: 'rukun_tetangga.nama_rt' },
+              { data: ' ' },
+              { data: 'surat.klasifikasi_surat.kode' },
+              { data: 'surat.nama' },
+              { data: 'penduduk.nama' },
+              { data: 'surat.klasifikasi_surat.ket' },
+              { data: 'pegawai.nama' },
+              { data: 'created_at' },
+              { data: 'user' },
+              { data: 'info_status' },
             ],
             columnDefs: [
               {
@@ -192,54 +159,27 @@
                 }
               },
               {
-                    // User full name and username
-                    targets: 3,
-                    render: function (data, type, full, meta) {
-                    var $name = full['nama'],
-                        $nik = full['nik'],
-                        $image = full['foto_url'];
-                    if ($image) {
-                        // For Avatar image
-                        var $output =
-                        '<img src="' + assetPath  + $image + '" alt="Avatar" height="32" width="32">';
-                    } else {
-                        // For Avatar badge
-                        var stateNum = Math.floor(Math.random() * 6) + 1;
-                        var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                        var $state = states[stateNum],
-                        $name = full['nama'],
-                        $initials = $name.match(/\b\w/g) || [];
-                        $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                        $output = '<span class="avatar-content">' + $initials + '</span>';
-                    }
-                    var colorClass = $image === '' ? ' bg-light-' + $state + ' ' : '';
-                    // Creates full output for row
-                    var $row_output =
-                        '<div class="d-flex justify-content-left align-items-center">' +
-                        '<div class="avatar-wrapper">' +
-                        '<div class="avatar ' +
-                        colorClass +
-                        ' me-1">' +
-                        $output +
-                        '</div>' +
-                        '</div>';
-                    return $row_output;
-                    }
-              },
-              {
                 // Actions
                 targets: 2,
                 title: 'Aksi',
                 orderable: false,
                 render: function (data, type, full, meta) {
                   var id = full['id'];
+                  var status = full['status'];
+                  if (status == 1) {
+                    var icon = feather.icons['unlock'].toSvg({ class: 'font-small-4' });
+                    var info = 'nonaktifkan';
+                  } else {
+                    var icon = feather.icons['lock'].toSvg({ class: 'font-small-4' })   
+                    var info = 'aktifkan';
+                  };
                   return (
-                    '<a href="/site/penduduk/' + full['id'] +'" class="item-edit me-1" title="detail">' +
-                    feather.icons['eye'].toSvg({ class: 'font-small-4' }) +
+                    '<a href="/site/unduh/surat/' + full['id'] +'" class="item-edit me-1" title="unduh">' +
+                    feather.icons['download'].toSvg({ class: 'font-small-4' }) +
                     '</a>'+
-                    '<a href="/site/penduduk/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
-                    feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
-                    '</a>'+
+                    // '<a href="/site/logSurat/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
+                    // feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
+                    // '</a>'+
                    '<a href="javascript:;" class="item-edit delete-record me-1" title="hapus" onclick="hapus('+full['id']+')" data-id="'+full['id']+'">' +
                     feather.icons['trash'].toSvg({ class: 'font-small-4' }) +
                     '</a>'
@@ -276,34 +216,33 @@
                     extend: 'print',
                     text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
                     className: 'dropdown-item',
-                    title: "Daftar Data Penduduk",
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    title: "Daftar Data Klasifikasi Surat",
+                    exportOptions: { columns: [1,3,4,5,6,7,8,9,10] }
                   },
                   {
                     extend: 'csv',
                     text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [1,3,4,5,6,7,8,9,10] }
                   },
                   {
                     extend: 'excel',
                     text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [1,3,4,5,6,7,8,9,10] }
                   },
                   {
                     extend: 'pdf',
                     text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] },
-                    orientation: 'landscape',
-                    title: "Daftar Data Penduduk",
+                    exportOptions: { columns: [1,3,4,5,6,7,8,9,10] },
+                    title: "Daftar Data Klasifikasi Surat",
                   },
                   {
                     extend: 'copy',
                     text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [1,3,4,5,6,7,8,9,10] }
                   }
                 ],
                 init: function (api, node, config) {
@@ -340,15 +279,9 @@
           });
         }
       $(document).ready(function(){
-        $("#status").on("change", function () {
+              $("#status").on("change", function () {
           dt_ajax_table.on('preXhr.dt', function ( e, settings, data ) {
               data.status = $('#status').val();
-          })
-          $('.datatables-ajax').DataTable().ajax.reload()
-        });
-        $("#kelamin").on("change", function () {
-          dt_ajax_table.on('preXhr.dt', function ( e, settings, data ) {
-              data.kelamin = $('#kelamin').val();
           })
           $('.datatables-ajax').DataTable().ajax.reload()
         });
@@ -378,7 +311,7 @@
                 }).then(function (result) {
                     if (result.value) {
                         $.ajax({
-                            url:'{{ route('site.penduduk.bulkDelete') }}',
+                            url:'{{ route('site.arsipSurat.bulkDelete') }}',
                             data:{id:id},
                             method:'post',
                             headers:{
@@ -416,7 +349,7 @@
 
     // single delete
     function hapus(e){
-      var url = '{{ route("site.penduduk.destroy", ":id") }}';
+      var url = '{{ route("site.logSurat.destroy", ":id") }}';
           url = url.replace(':id', e);
 
       Swal.fire({

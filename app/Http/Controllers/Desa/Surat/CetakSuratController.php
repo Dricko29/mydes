@@ -24,11 +24,11 @@ class CetakSuratController extends Controller
     {
         if ($request->ajax()) {
             $status = $request->status;
-            $model = Surat::query();
+            $model = Surat::with('klasifikasiSurat');
             return DataTables::eloquent($model)
                 ->addIndexColumn()
                 ->addColumn('action', function($model){
-                    return '<a href="'.$model->link.'" class="btn btn-sm btn-success">Buat</a>';
+                    return '<a href="'.$model->link.'/'.$model->id.'" class="btn btn-sm btn-success">Buat</a>';
                 })
                 ->addColumn('info_status', function ($model) {
                     if ($model->status == 1) {

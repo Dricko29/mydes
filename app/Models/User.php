@@ -5,6 +5,7 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -60,4 +61,25 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getFotoUrlAttribute()
+    {
+        return $this->foto
+            ? Storage::disk('public')->url($this->foto)
+            : $this->defaultFotoUrl();
+    }
+
+    /**
+     * Get the default profile photo URL if no profile photo has been uploaded.
+     *
+     * @return string
+     */
+    protected function defaultFotoUrl()
+    {
+        $name = trim(collect(explode(' ', $this->name))->map(function ($segment) {
+            return mb_substr($segment, 0, 1);
+        })->join(' '));
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&color=7F9CF5&background=EBF4FF';
+    }
 }

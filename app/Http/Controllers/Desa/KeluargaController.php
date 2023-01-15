@@ -46,7 +46,7 @@ class KeluargaController extends Controller
                 ->addIndexColumn()
                 ->addColumn('foto', function($model){
                     if ($model->penduduks->count()) {
-                        return $model->penduduks->first()->foto;
+                        return $model->penduduks->first()->foto_url;
                     } else {
                         return '-';
                     }

@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('Add').' Pengaturan Surat')
+@section('title', __('Edit').' Pengaturan Surat')
 
 @section('vendor-style')
   <!-- vendor css files -->
@@ -8,7 +8,7 @@
   <link rel='stylesheet' href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
   <link rel='stylesheet' href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
 @endsection
 @section('page-style')
   <!-- Page css files -->
@@ -31,8 +31,9 @@
       </div>
       <div class="card-body py-2 my-25">
         <!-- form -->
-        <form class="validate-form" action="{{ route('site.surat.store') }}" method="post" enctype="multipart/form-data">
+        <form class="validate-form" action="{{ route('site.surat.update', $surat->id) }}" method="post" enctype="multipart/form-data">
           @csrf
+          @method('PUT')
           <div class="row">
 
             <div class="col-12 col-sm-12 mb-1">
@@ -40,7 +41,7 @@
               <select class="form-select select2" id="klasifikasi_surat_id" name="klasifikasi_surat_id">
                 <option value="">Pilih Klasifikasi Surat</option>
                 @foreach ($klasifikasi as $item)
-                    <option value="{{ $item->id }}" {{ old('klasifikasi_surat_id') == $item->id ? 'selected' : '' }}>{{ $item->kode }} | {{ $item->nama }}</option>
+                    <option value="{{ $item->id }}" {{ old('klasifikasi_surat_id', $surat->klasifikasi_surat_id) == $item->id ? 'selected' : '' }}>{{ $item->kode }} | {{ $item->nama }}</option>
                 @endforeach
               </select>
             </div>
@@ -53,7 +54,7 @@
                 @enderror"
                 id="nama"
                 name="nama"
-                value="{{ old('nama') }}"
+                value="{{ old('nama', $surat->nama) }}"
               />
               @error('nama')
                   <div class="invalid-feedback">
@@ -72,7 +73,7 @@
                           is-invalid
                       @enderror"
                       name="masa_berlaku"
-                      value="{{ old('masa_berlaku') }}"
+                      value="{{ old('masa_berlaku', Str::beforeLast($surat->masa_berlaku, ' ')) }}"
                       required
                       />
                       @error('masa_berlaku')
@@ -102,7 +103,7 @@
                 @enderror"
                 id="jenis"
                 name="jenis"
-                value="{{ old('jenis') }}"
+                value="{{ old('jenis', $surat->jenis) }}"
               />
               @error('jenis')
                   <div class="invalid-feedback">
@@ -120,7 +121,7 @@
                 @enderror"
                 id="link"
                 name="link"
-                value="{{ old('link') }}"
+                value="{{ old('link', $surat->link) }}"
               />
               @error('link')
                   <div class="invalid-feedback">

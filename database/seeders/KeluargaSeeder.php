@@ -15,6 +15,6 @@ class KeluargaSeeder extends Seeder
      */
     public function run()
     {
-        Keluarga::factory(1000)->create();
+        Keluarga::factory(100)->create();
     }
 }

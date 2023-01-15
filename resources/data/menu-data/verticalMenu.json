@@ -60,6 +60,18 @@
           "slug": "",
           "submenu": [
               {
+                  "url": "site/logSurat",
+                  "name": "Arsip Surat",
+                  "icon": "circle",
+                  "slug": "logSurat"
+              },
+                {
+                  "url": "site/cetakSurat",
+                  "name": "Cetak Surat",
+                  "icon": "circle",
+                  "slug": "cetakSurat"
+              },
+              {
                   "url": "site/klasifikasiSurat",
                   "name": "Klasifikasi Surat",
                   "icon": "circle",
@@ -76,12 +88,6 @@
                   "name": "Pengaturan Surat",
                   "icon": "circle",
                   "slug": "surat"
-              },
-              {
-                  "url": "site/cetakSurat",
-                  "name": "Cetak Surat",
-                  "icon": "circle",
-                  "slug": "cetakSurat"
               }
           ]
       },

@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Desa\Surat;
 
-use Carbon\Carbon;
 use App\Models\Surat;
 use App\Models\Pegawai;
 use App\Models\Penduduk;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use PhpOffice\PhpWord\TemplateProcessor;
 
-class SuratBiodataController extends Controller
+class SuratPengantarController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -24,6 +21,6 @@ class SuratBiodataController extends Controller
         $surat = Surat::find($id);
         $pegawais = Pegawai::all();
         $penduduks = Penduduk::all();
-        return view('desa.surat.cetak.surat-biodata', compact('penduduks', 'pegawais', 'surat'));
+        return view('desa.surat.cetak.surat-pengantar', compact('penduduks', 'pegawais', 'surat'));
     }
 }

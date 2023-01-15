@@ -5,14 +5,13 @@
 
 @section('vendor-style')
   {{-- vendor css files --}}
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
-  <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 @endsection
 
 @section('page-style')
@@ -45,37 +44,14 @@
                 <a class="dropdown-item" href="{{ route('site.penduduk.masuk') }}">Penduduk Masuk</a>
               </div>
             </div>
+          {{-- <a href="{{ route('site.penduduk.create') }}" class="btn btn-primary">@lang('Add')</a> --}}
         </div>
-        <div class="card-body border-bottom">
-          <div class="row">
-            <div class="col-md-4">
-              <label class="form-label" for="status">Status</label>
-              <select class="form-select select2" id="status" name="status">
-                <option value="">Semua</option>
-                @foreach ($statusPenduduk as $item)
-                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="col-md-4">
-              <label class="form-label" for="kelamin">Kelamin</label>
-              <select class="form-select select2" id="kelamin" name="kelamin">
-                <option value="">Semua</option>
-                @foreach ($kelaminPenduduk as $item)
-                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-        </div>
-
         <div class="card-datatable">
-          <table class="datatables-ajax table-hover table pt-0 table-responsive" style="width: 100%">
+          <table class="datatables-ajax table-hover table table-responsive" style="width: 100%">
             <thead>
               <tr>
-                <th></th>
-                <th>No</th>
-                <th></th>
+                <th style="width: 50px">No</th>
+                <th style="width: 100px"></th>
                 <th>Foto</th>
                 <th>Nama</th>
                 <th>NIK</th>
@@ -106,23 +82,21 @@
   <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.bootstrap5.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.checkboxes.min.js')) }}"></script>
+  <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/jszip.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/pdfmake.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/vfs_fonts.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.html5.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.print.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.rowGroup.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
   {{-- Page js files --}}
+  {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-advanced.js')) }}"></script> --}}
   <script>
       @if (Session::has('success'))
       toastr['success']("{{ session('success') }}", '{{ __('Success') }}', {
@@ -137,13 +111,11 @@
           progressBar: true,
       }); 
       @endif
-
     $(function () {
         var isRtl = $('html').attr('data-textdirection') === 'rtl';
 
         var dt_ajax_table = $('.datatables-ajax'),
             assetPath = '../../../app-assets/';
-            select2 = $('.select2');
 
         if ($('body').attr('data-framework') === 'laravel') {
             assetPath = $('body').attr('data-asset-path');
@@ -155,11 +127,10 @@
             ajax: '{{ route('site.penduduk.index') }}', // JSON file to add data
             columns: [
               // columns according to JSON
-              // { data: 'aksi',orderable: false, searchable: false },
-              { data: 'id' },
               { data: 'DT_RowIndex', name:'DT_RowIndex', orderable: false, searchable: false },
-              { data: '' },
-              { data: '' },
+              // { data: 'aksi',orderable: false, searchable: false },
+              { data: ' ' },
+              { data: ' ' },
               { data: 'nama' },
               { data: 'nik' },
               { data: 'keluarga.no_keluarga' },
@@ -174,30 +145,12 @@
             ],
             columnDefs: [
               {
-                // For Checkboxes
-                targets: 0,
-                orderable: false,
-                render: function (data, type, full, meta) {
-                  return (
-                    '<div class="form-check"> <input class="form-check-input dt-checkboxes" type="checkbox" value="'+full['id']+'" id="checkbox' +
-                    data +
-                    '" /><label class="form-check-label" for="checkbox' +
-                    data +
-                    '"></label></div>'
-                  );
-                },
-                checkboxes: {
-                  selectAllRender:
-                    '<div class="form-check"> <input class="form-check-input" type="checkbox" value="" id="checkboxSelectAll" /><label class="form-check-label" for="checkboxSelectAll"></label></div>'
-                }
-              },
-              {
                     // User full name and username
-                    targets: 3,
+                    targets: 2,
                     render: function (data, type, full, meta) {
                     var $name = full['nama'],
                         $nik = full['nik'],
-                        $image = full['foto_url'];
+                        $image = full['foto'];
                     if ($image) {
                         // For Avatar image
                         var $output =
@@ -228,7 +181,7 @@
               },
               {
                 // Actions
-                targets: 2,
+                targets: 1,
                 title: 'Aksi',
                 orderable: false,
                 render: function (data, type, full, meta) {
@@ -246,7 +199,6 @@
                   );
                 }
               }
-
             ],
             dom:
             '<"d-flex justify-content-between align-items-center header-actions mx-2 row mt-75"' +
@@ -277,25 +229,25 @@
                     text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
                     className: 'dropdown-item',
                     title: "Daftar Data Penduduk",
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [0,3,4,5,6,7,8,9,10,11,12,13] }
                   },
                   {
                     extend: 'csv',
                     text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [0,3,4,5,6,7,8,9,10,11,12,13] }
                   },
                   {
                     extend: 'excel',
                     text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [0,3,4,5,6,7,8,9,10,11,12,13] }
                   },
                   {
                     extend: 'pdf',
                     text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] },
+                    exportOptions: { columns: [0,3,4,5,6,7,8,9,10,11,12,13] },
                     orientation: 'landscape',
                     title: "Daftar Data Penduduk",
                   },
@@ -303,7 +255,7 @@
                     extend: 'copy',
                     text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [1,4,5,6,7,8,9,10,11,12,13,14] }
+                    exportOptions: { columns: [0,3,4,5,6,7,8,9,10,11,12,13] }
                   }
                 ],
                 init: function (api, node, config) {
@@ -314,13 +266,6 @@
                   }, 50);
                 }
               },
-              {
-                text: 'Hapus',
-                className: 'bulk_delete btn btn-danger',
-                init: function (api, node, config) {
-                  $(node).removeClass('btn-secondary');
-                }
-              }
             ],
             });
         }
@@ -328,93 +273,7 @@
         // Filter form control to default size for all tables
         $('.dataTables_filter .form-control').removeClass('form-control-sm');
         $('.dataTables_length .form-select').removeClass('form-select-sm').removeClass('form-control-sm');
-
-        // For all Select2
-        if (select2.length) {
-          select2.each(function () {
-            var $this = $(this);
-            $this.wrap('<div class="position-relative"></div>');
-            $this.select2({
-              dropdownParent: $this.parent()
-            });
-          });
-        }
-      $(document).ready(function(){
-        $("#status").on("change", function () {
-          dt_ajax_table.on('preXhr.dt', function ( e, settings, data ) {
-              data.status = $('#status').val();
-          })
-          $('.datatables-ajax').DataTable().ajax.reload()
-        });
-        $("#kelamin").on("change", function () {
-          dt_ajax_table.on('preXhr.dt', function ( e, settings, data ) {
-              data.kelamin = $('#kelamin').val();
-          })
-          $('.datatables-ajax').DataTable().ajax.reload()
-        });
-      });
-
-      // bulk delete
-      $(document).on('click', '.bulk_delete', function(){
-          var id = [];
-          {
-              $('.dt-checkboxes:checked').each(function(){
-                  id.push($(this).val());
-              });
-              if(id.length > 0)
-              {
-                Swal.fire({
-                    title: '{{ __('Are you sure?') }}',
-                    text: '{{ __('You will delete this data!') }}',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: '{{ __('Yes, Delete!') }}',
-                    cancelButtonText: '{{ __('Cancel') }}',
-                    customClass: {
-                    confirmButton: 'btn btn-primary',
-                    cancelButton: 'btn btn-outline-danger ms-1'
-                    },
-                    buttonsStyling: false
-                }).then(function (result) {
-                    if (result.value) {
-                        $.ajax({
-                            url:'{{ route('site.penduduk.bulkDelete') }}',
-                            data:{id:id},
-                            method:'post',
-                            headers:{
-                                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                            },
-                            success:function(res){
-                                if (res.status == 'success') {
-                                    toastr['success'](res.msg, '{{ __('Success') }}', {
-                                        closeButton: true,
-                                        tapToDismiss: false,
-                                        progressBar: true,
-                                    });
-                                    $('.datatables-ajax').DataTable().ajax.reload()
-                                  } else {
-                                    toastr['error'](res.msg, '{{ __('Failed') }}', {
-                                      closeButton: true,
-                                      tapToDismiss: false,
-                                      progressBar: true,
-                                    });
-                                    $('.datatables-ajax').DataTable().ajax.reload()
-                                }
-                            }
-                          });
-                    }
-                });
-              }
-              else
-              {
-                  alert("{{ __('Please select the data to be deleted') }}");
-              }
-          }
-      });
-
     });
-
-    // single delete
     function hapus(e){
       var url = '{{ route("site.penduduk.destroy", ":id") }}';
           url = url.replace(':id', e);

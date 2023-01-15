@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Carbon\Traits\Timestamp;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Wildside\Userstamps\Userstamps;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Penduduk extends Model
 {
@@ -106,5 +108,26 @@ class Penduduk extends Model
     public function layananMandiri() : HasOne
     {
         return $this->hasOne(LayananMandiri::class);
+    }
+
+    protected $appends = [
+        'foto_url',
+    ];
+
+    public function getFotoUrlAttribute()
+    {
+        return $this->foto
+            ? $this->foto
+            : $this->defaultFotoUrl();
+    }
+
+    /**
+     * Get the default profile photo URL if no profile photo has been uploaded.
+     *
+     * @return string
+     */
+    protected function defaultFotoUrl()
+    {
+        return 'desa/penduduk/avatar.png';
     }
 }

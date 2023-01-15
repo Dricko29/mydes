@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Wildside\Userstamps\Userstamps;
 
 class LogSurat extends Model
@@ -12,4 +13,20 @@ class LogSurat extends Model
     use Userstamps;
     
     protected $guarded = ['id'];
+
+    public function penduduk() : BelongsTo
+    {
+        return $this->belongsTo(Penduduk::class, 'penduduk_id');
+    }
+    
+    public function surat() : BelongsTo
+    {
+        return $this->belongsTo(Surat::class, 'surat_id');
+    }
+    
+    public function pegawai() : BelongsTo
+    {
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+    }
+    
 }

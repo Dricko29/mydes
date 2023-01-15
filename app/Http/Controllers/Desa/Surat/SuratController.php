@@ -21,7 +21,9 @@ class SuratController extends Controller
     {
         if ($request->ajax()) {
             $status = $request->status;
-            $model = Surat::query();
+            $model = Surat::when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            });
             return DataTables::eloquent($model)
                 ->addIndexColumn()
                 ->addColumn('info_status', function ($model) {

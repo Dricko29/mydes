@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use Wildside\Userstamps\Userstamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Wildside\Userstamps\Userstamps;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NomorSurat extends Model
 {
@@ -25,7 +26,7 @@ class NomorSurat extends Model
         static::creating(function ($model) {
             $model->serial =  NomorSurat::where('surat_id', $model->surat_id)->max('serial') + 1;
             if ($model->nomor == '') {
-                $model->nomor = $model->surat->klasifikasiSurat->kode . '/' . str_pad($model->serial, 5, '0', STR_PAD_LEFT);
+                $model->nomor = $model->surat->klasifikasiSurat->kode . '/' . str_pad($model->serial, 3, '0', STR_PAD_LEFT).'/'.Carbon::now()->format('m') . '/' . Carbon::now()->format('Y');
             }
         });
 
@@ -37,7 +38,7 @@ class NomorSurat extends Model
             } else {
                 $model->serial =  NomorSurat::where('surat_id', $model->surat_id)->max('serial') + 1;
                 if ($model->nomor == '') {
-                    $model->nomor = $model->surat->klasifikasiSurat->kode . '/' . str_pad($model->serial, 5, '0', STR_PAD_LEFT);
+                    $model->nomor = $model->surat->klasifikasiSurat->kode . '/' . str_pad($model->serial, 3, '0', STR_PAD_LEFT) . '/' . Carbon::now()->format('m') . '/' . Carbon::now()->format('Y');
                 }
             }
         });
