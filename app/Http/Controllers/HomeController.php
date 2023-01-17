@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use App\Models\Keluarga;
 use App\Models\Penduduk;
+use App\Models\Blog\Blog;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,6 +18,9 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // blog
+        $blogs = Blog::with('category', 'tags', 'creator')->where('status', 1)->latest()->paginate(3);
+        // return $blogs;
         $jmlPendudukLaki = Penduduk::count('attr_kelamin_id', 1);
         $jmlPendudukPerempuan = Penduduk::count('attr_kelamin_id', 2);
         $jmlPenduduk = Penduduk::count();
@@ -27,7 +31,8 @@ class HomeController extends Controller
             'jmlPendudukPerempuan',
             'jmlPenduduk',
             'jmlKeluarga',
-            'pegawais'
+            'pegawais',
+            'blogs'
         ));
     }
 }

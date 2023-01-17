@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder
         // $this->call(InvKategoriAssetSeeder::class);
         // $this->call(InvJenisAssetSeeder::class);
         // $this->call(InvFisikBangunanSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(BlogSeeder::class);
         
     }
 }

@@ -65,13 +65,13 @@
                   "icon": "circle",
                   "slug": "logSurat"
               },
-              { 
+              {
                   "url": "site/cetakSurat",
                   "name": "Cetak Surat",
                   "icon": "circle",
                   "slug": "cetakSurat"
               },
-              { 
+              {
                   "url": "site/permohonanSurat",
                   "name": "Permohonan Surat",
                   "icon": "circle",
@@ -157,6 +157,31 @@
           "name": "Layanan Mandiri",
           "icon": "info",
           "slug": "layananMandiri"
+      },
+      {
+          "name": "Blog",
+          "icon": "monitor",
+          "slug": "",
+          "submenu": [
+              {
+                  "url": "site/blog/tags",
+                  "name": "Tag",
+                  "icon": "circle",
+                  "slug": "tags"
+              },
+              {
+                  "url": "site/blog/categories",
+                  "name": "Category",
+                  "icon": "circle",
+                  "slug": "categories"
+              },
+              {
+                  "url": "site/blog/blogs",
+                  "name": "Berita",
+                  "icon": "circle",
+                  "slug": "blogs"
+              }
+          ]
       },
       {
           "url": "site/settings/umum",

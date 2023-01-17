@@ -225,4 +225,6 @@ return [
     "Permohonan Surat" => "Permohonan Surat",
     "Ajukan Surat" => "Ajukan Surat",
     "Arsip" => "Arsip",
+    "Tag" => "Tag",
+    "Category" => "Category",
 ];

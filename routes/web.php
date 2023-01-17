@@ -162,6 +162,17 @@ Route::middleware([
         Route::post('permohonanSurat/bulkDelete', \App\Http\Controllers\Desa\PermohonanSurat\BulkDeletePermohonanSuratController::class)->name('permohonanSurat.bulkDelete');
         Route::post('permohonanSurat/{permohonanSurat}/tolak', TolakPermohonanSuratController::class)->name('permohonanSurat.tolak');
         Route::resource('permohonanSurat', \App\Http\Controllers\Desa\PermohonanSuratController::class);
+
+        // blog
+        Route::prefix('blog')->name('blog.')->group(function(){
+            Route::get('cekSlug', \App\Http\Controllers\Blog\Slug\SlugController::class)->name('cek.slug');
+            Route::post('tags/bulkDelete', \App\Http\Controllers\Blog\BulkDelete\BulkDeleteTagController::class)->name('tags.bulkDelete');
+            Route::resource('tags', \App\Http\Controllers\Blog\TagController::class);
+            Route::post('categories/bulkDelete', \App\Http\Controllers\Blog\BulkDelete\BulkDeleteCategoryController::class)->name('categories.bulkDelete');
+            Route::resource('categories', \App\Http\Controllers\Blog\CategoryController::class);
+            Route::post('blogs/bulkDelete', \App\Http\Controllers\Blog\BulkDelete\BulkDeleteBlogController::class)->name('blogs.bulkDelete');
+            Route::resource('blogs', \App\Http\Controllers\Blog\BlogController::class);
+        });
     });
 });
 // guest
