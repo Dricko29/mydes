@@ -89,7 +89,7 @@ class PengaduanController extends Controller
      */
     public function edit(Pengaduan $pengaduan)
     {
-        $respon = TanggapanPengaduan::where('pengaduan_id', $pengaduan->id)->where('created_by', Auth::user()->id)->first();
+        $respon = TanggapanPengaduan::where('pengaduan_id', $pengaduan->id)->where('created_by', Auth::user()->id)->latest()->first();
         return view('desa.pengaduan.edit', compact('pengaduan', 'respon'));
     }
 

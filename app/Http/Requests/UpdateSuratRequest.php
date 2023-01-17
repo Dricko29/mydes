@@ -29,6 +29,7 @@ class UpdateSuratRequest extends FormRequest
             'nama' => ['required', 'string', 'max:255'],
             'jenis' => ['required'],
             'link' => ['required', 'string', Rule::unique('surats')->ignore($this->surat)], 
+            'layanan' => ['required'],
         ];
     }
 }

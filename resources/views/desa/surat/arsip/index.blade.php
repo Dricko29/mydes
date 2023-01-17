@@ -52,6 +52,7 @@
                 <th> </th>
                 <th>No</th>
                 <th></th>
+                <th>Nomor Surat</th>
                 <th>Kode</th>
                 <th>Jenis Surat</th>
                 <th>Nama</th>
@@ -130,6 +131,7 @@
               { data: 'id' },
               { data: 'DT_RowIndex', name:'DT_RowIndex', orderable: false, searchable: false },
               { data: ' ' },
+              { data: 'nomor_surat.nomor' },
               { data: 'surat.klasifikasi_surat.kode' },
               { data: 'surat.nama' },
               { data: 'penduduk.nama' },

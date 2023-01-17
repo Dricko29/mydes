@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Penduduk extends Model
 {
@@ -108,6 +109,11 @@ class Penduduk extends Model
     public function layananMandiri() : HasOne
     {
         return $this->hasOne(LayananMandiri::class);
+    }
+
+    public function surats() : BelongsToMany
+    {
+        return $this->belongsToMany(Surat::class, 'permohonan_surats', 'penduduk_id', 'surat_id');
     }
 
     protected $appends = [

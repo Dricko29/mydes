@@ -33,7 +33,7 @@
 					<ul>
 						<li><img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt=""></li>
 					</ul>
-					<h1 class="mt-4">Selamat Datang di Website Pemerintahan Desa {{ Str::ucFirst(settings()->group('desa')->get('nama_desa')) }}</h1>
+					<h1 class="mt-4">@lang('Welcome to') Website Pemerintahan Desa {{ Str::ucFirst(settings()->group('desa')->get('nama_desa')) }}</h1>
 				</div>
 			</div>
 		</section>
@@ -467,7 +467,7 @@
 						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
 							<div class="team-card">
 								<div class="team-card-img">
-									<img src="assets/images/team/t1.jpg" alt="image" />
+									<img src="{{ asset($item->foto ? $item->foto : 'assets/images/team/t1.jpg') }}" alt="image" />
 									<div class="team-social-icons">
 										<ul>
 											<li>

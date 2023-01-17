@@ -26,14 +26,21 @@ class SuratController extends Controller
             });
             return DataTables::eloquent($model)
                 ->addIndexColumn()
-                ->addColumn('info_status', function ($model) {
+                ->editColumn('layanan', function($model){
+                    if ($model->layanan == 1) {
+                        return '<span class="badge bg-primary">Aktif</span>';
+                    } else {
+                        return '<span class="badge bg-danger">Nonaktif</span>';
+                    }
+                })
+                ->editColumn('status', function($model){
                     if ($model->status == 1) {
                         return '<span class="badge bg-primary">Aktif</span>';
                     } else {
                         return '<span class="badge bg-danger">Nonaktif</span>';
                     }
                 })
-                ->rawColumns(['info_status'])
+                ->rawColumns(['status', 'layanan'])
                 ->make(true);
         }
         return view('desa.surat.pengaturan.index');

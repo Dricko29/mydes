@@ -47,7 +47,7 @@
                                     rows="5" 
                                     class="form-control @error('respon')
                                         is-invalid
-                                    @enderror">{{ old('respon', $respon->respon) }}</textarea>
+                                    @enderror">{{ old('respon', $respon) }}</textarea>
                                 </div>
                             </div>
                             

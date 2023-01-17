@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('nomor_surats', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('log_surat_id')->constrained('log_surats');
             $table->foreignId('surat_id')->constrained('surats');
             $table->string('nomor');
             $table->integer('serial')->nullable();

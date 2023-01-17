@@ -56,6 +56,7 @@
                 <th>Masa Berlaku</th>
                 <th>Jenis</th>
                 <th>Status</th>
+                <th>Layanan</th>
               </tr>
             </thead>
           </table>
@@ -129,7 +130,8 @@
               { data: 'nama' },
               { data: 'masa_berlaku' },
               { data: 'jenis' },
-              { data: 'info_status' },
+              { data: 'status' },
+              { data: 'layanan' },
             ],
             columnDefs: [
               {

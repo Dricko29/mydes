@@ -10,6 +10,7 @@ use App\Models\Penduduk;
 use App\Models\NomorSurat;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\PermohonanSurat;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -38,7 +39,14 @@ class CetakSuratBiodataController extends Controller
                 'penduduk_id' => ['required'],
                 'pegawai_id' => ['required']
             ]);
+            $logSurat = LogSurat::create([
+                'penduduk_id' => $penduduk->id,
+                'surat_id' => $request->surat,
+                'pegawai_id' => $pegawai->id,
+            ]);
+
             $nomor_surat = NomorSurat::create([
+                'log_surat_id' => $logSurat->id,
                 'surat_id' => $request->surat,
                 'nomor' => $request->nomor
             ]);
@@ -109,12 +117,9 @@ class CetakSuratBiodataController extends Controller
             // save kestrorage
             $path = 'app/public/arsip/surat/biodata/';
 
-            LogSurat::create([
-                'penduduk_id' => $penduduk->id,
-                'surat_id' => $request->surat,
-                'pegawai_id' => $pegawai->id,
+            $logSurat->forceFill([
                 'file' => $full
-            ]);
+            ])->save();
             $directories = Storage::directories('app/public/arsip/surat/biodata/');
             if($directories){
                 return true;
@@ -122,6 +127,11 @@ class CetakSuratBiodataController extends Controller
                 Storage::makeDirectory('arsip/surat/biodata/');
             }
             $phpWord->saveAs(storage_path($path.$name));
+            if ($request->permohonan) {
+                $permohonan = PermohonanSurat::find($request->permohonan)->forceFill([
+                    'status' => 2
+                ])->save();
+            }
 
             DB::commit();
             

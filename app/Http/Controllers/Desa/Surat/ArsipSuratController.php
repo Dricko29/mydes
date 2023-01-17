@@ -23,7 +23,7 @@ class ArsipSuratController extends Controller
     {
         if ($request->ajax()) {
             $status = $request->status;
-            $model = LogSurat::with('penduduk', 'surat.klasifikasiSurat', 'pegawai');
+            $model = LogSurat::with('penduduk', 'surat.klasifikasiSurat', 'pegawai', 'nomorSurat')->latest();
             return DataTables::eloquent($model)
                 ->addIndexColumn()
                 // ->addColumn('action', function ($model) {

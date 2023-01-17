@@ -20,6 +20,11 @@ class NomorSurat extends Model
         return $this->belongsTo(Surat::class, 'surat_id');
     }
 
+    public function logSurat() : BelongsTo
+    {
+        return $this->belongsTo(LogSurat::class, 'log_surat_id');
+    }
+
     public static function boot()
     {
         parent::boot();

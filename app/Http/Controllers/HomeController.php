@@ -21,7 +21,7 @@ class HomeController extends Controller
         $jmlPendudukPerempuan = Penduduk::count('attr_kelamin_id', 2);
         $jmlPenduduk = Penduduk::count();
         $jmlKeluarga = Keluarga::count();
-        $pegawais = Pegawai::all();
+        $pegawais = Pegawai::with('jabatan')->get();
         return view('home', compact(
             'jmlPendudukLaki',
             'jmlPendudukPerempuan',

@@ -129,6 +129,15 @@
                   </div>
               @enderror
             </div>
+
+            <div class="col-12 col-sm-12 mb-1">
+              <label class="form-label" for="layanan">Layanan</label>
+              <select class="form-select select2" id="layanan" name="layanan">
+                <option value="">Pilih Layanan</option>
+                <option value="1" {{ old('layanan', $surat->layanan) == 1 ? 'selected' : '' }}>Aktif</option>
+                <option value="2" {{ old('layanan', $surat->layanan) == 2 ? 'selected' : '' }}>Nonaktif</option>
+              </select>
+            </div>
      
             <div class="col-12">
               <button type="submit" class="btn btn-primary mt-1 me-1">@lang('Save')</button>

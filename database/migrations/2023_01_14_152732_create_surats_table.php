@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('jenis');
             $table->string('link');
             $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('layanan')->default(1);
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

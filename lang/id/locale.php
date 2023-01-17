@@ -222,4 +222,7 @@ return [
     "Pengaturan Surat" => "Pengaturan Surat",
     "Cetak Surat" => "Cetak Surat",
     "Arsip Surat" => "Arsip Surat",
+    "Permohonan Surat" => "Permohonan Surat",
+    "Ajukan Surat" => "Ajukan Surat",
+    "Arsip" => "Arsip",
 ];

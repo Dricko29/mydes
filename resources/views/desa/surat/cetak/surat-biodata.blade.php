@@ -19,7 +19,10 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Form Cetak Surat Biodata</h4>
-                    <a href="{{ route('site.cetak.surat') }}" class="btn btn-primary">@lang('Back')</a>
+                    <div class="d-flex">
+                        <a href="{{ route('site.cetak.surat') }}" class="btn btn-primary me-1">@lang('Cetak Surat')</a>
+                        <a href="{{ route('site.permohonanSurat.index') }}" class="btn btn-warning">@lang('Daftar Permohonan')</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <form class="form" action="{{ route('site.surat.biodata.proses') }}" method="POST" enctype="multipart/form-data">

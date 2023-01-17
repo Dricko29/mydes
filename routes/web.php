@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Akun\PermohonanSuratController;
+use App\Http\Controllers\Akun\StorePermohonanSuratController;
+use App\Http\Controllers\Desa\PermohonanSurat\TolakPermohonanSuratController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +48,11 @@ Route::middleware([
         Route::get('/keluarga',\App\Http\Controllers\User\KeluargaController::class)->name('keluarga');
         Route::get('/keluarga/print',\App\Http\Controllers\User\PrintKeluargaController::class)->name('keluarga.print');
         Route::get('/biodata/print',\App\Http\Controllers\User\PrintBiodataController::class)->name('biodata.print');
+        Route::get('/surat', \App\Http\Controllers\Akun\SuratUserController::class)->name('surat.user');
+        Route::get('/surat/ajukan', \App\Http\Controllers\Akun\AjukanSuratController::class)->name('surat.ajukan');
+        Route::get('/form/surat/{id}', \App\Http\Controllers\Akun\FormSuratController::class)->name('form.surat');
+        Route::post('kirim/permohonan', \App\Http\Controllers\Akun\StorePermohonanSuratController::class)->name('kirim.permohonan');
+        Route::get('/arsip/surat', \App\Http\Controllers\Akun\ArsipSuratUserController::class)->name('arsip.surat');
     });
     Route::post('api/fetch-rw', [\App\Http\Controllers\DropdownController::class, 'fetchRw']);
     Route::post('api/fetch-rt', [\App\Http\Controllers\DropdownController::class, 'fetchRt']);
@@ -100,19 +108,16 @@ Route::middleware([
         Route::delete('dokumentasi/pembangunan/{pembangunan}/dokumentasiPembangunan/{dokumentasiPembangunan}', \App\Http\Controllers\Pembangunan\DeleteDokumentasiPembangunanDetailController::class)->name('dokumentasi.pembangunan.detail.delete');
         // dokumentasi pembangunan
         Route::resource('dokumentasiPembangunan', \App\Http\Controllers\Desa\DokumentasiPembangunanController::class);
-
         // route cetak laporan inventaris
         Route::get('formLaporanInventaris/{jenis}', \App\Http\Controllers\Laporan\FormCetakLaporanInventarisController::class)->name('form.laporan.cetak.inventaris');
         // route inventaris peralatan
         Route::post('cetakLaporanInventarisPeralatan', \App\Http\Controllers\Laporan\CetakLaporanInventarisPeralatanController::class)->name('cetak.laporan.inventaris.peralatan');
         Route::get('print/inventarisPeralatan/{inventarisPeralatan}', \App\Http\Controllers\Inventaris\PrintInventarisPeralatanController::class)->name('inventarisPeralatan.print');
         Route::resource('inventarisPeralatan', \App\Http\Controllers\Desa\InventarisPeralatanController::class);
-
         // inventaris tanah
         Route::post('cetakLaporanInventarisTanah', \App\Http\Controllers\Laporan\CetakLaporanInventarisTanahController::class)->name('cetak.laporan.inventaris.tanah');
         Route::get('print/inventarisTanah/{inventarisTanah}', \App\Http\Controllers\Inventaris\PrintInventarisTanahController::class)->name('inventarisTanah.print');
-        Route::resource('inventarisTanah', \App\Http\Controllers\Desa\InventarisTanahController::class);
-        
+        Route::resource('inventarisTanah', \App\Http\Controllers\Desa\InventarisTanahController::class);    
         // inventaris bangunan
         Route::post('cetakLaporanInventarisBangunan', \App\Http\Controllers\Laporan\CetakLaporanInventarisBangunanController::class)->name('cetak.laporan.inventaris.bangunan');
         Route::get('print/inventarisBangunan/{inventarisBangunan}', \App\Http\Controllers\Inventaris\PrintInventarisBangunanController::class)->name('inventarisBangunan.print');
@@ -125,22 +130,17 @@ Route::middleware([
         Route::post('cetakLaporanInventarisKonstruksiBerjalan', \App\Http\Controllers\Laporan\CetakLaporanInventarisKonstruksiBerjalanController::class)->name('cetak.laporan.inventaris.konstruksiBerjalan');
         Route::get('print/inventarisKonstruksiBerjalan/{inventarisKonstruksiBerjalan}', \App\Http\Controllers\Inventaris\PrintInventarisKonstruksiBerjalanController::class)->name('inventarisKonstruksiBerjalan.print');
         Route::resource('inventarisKonstruksiBerjalan', \App\Http\Controllers\Desa\InventarisKonstruksiBerjalanController::class);
-        
         Route::post('cetakLaporanSemuaAsset', \App\Http\Controllers\Laporan\CetakLaporanInventarisSemuaAssetController::class)->name('cetak.laporan.inventaris.semuaAsset');
         Route::get('semuaAssets', \App\Http\Controllers\Desa\SemuaAssetController::class)->name('inventarisSemuaAsset.index');
-
         // pengaduan
         Route::post('pengaduan/{pengaduan}/tanggapan', \App\Http\Controllers\TanggapanPengaduan\StoreTanggapanController::class)->name('tanggapan.pengaduan.store');
         Route::resource('pengaduan', \App\Http\Controllers\Desa\PengaduanController::class);
-
         // surat
         Route::post('klasifikasiSurat/bulkDelete', [\App\Http\Controllers\Desa\Surat\KlasifikasiSuratController::class, 'bulkDelete'])->name('kalsifikasiSurat.bulkDelete');
         Route::get('klasifikasiSurat/{klasifikasiSurat}/status', \App\Http\Controllers\Desa\Surat\StatusKlasifikasiSuratController::class)->name('klasifikasiSurat.staus');
-        Route::resource('klasifikasiSurat', \App\Http\Controllers\Desa\Surat\KlasifikasiSuratController::class);
-        
+        Route::resource('klasifikasiSurat', \App\Http\Controllers\Desa\Surat\KlasifikasiSuratController::class);       
         Route::post('syaratSurat/bulkDelete', [\App\Http\Controllers\Desa\Surat\SyaratSuratController::class, 'bulkDelete'])->name('syaratSurat.bulkDelete');
-        Route::resource('syaratSurat', \App\Http\Controllers\Desa\Surat\SyaratSuratController::class);
-        
+        Route::resource('syaratSurat', \App\Http\Controllers\Desa\Surat\SyaratSuratController::class);     
         Route::post('surat/bulkDelete', [\App\Http\Controllers\Desa\Surat\SuratController::class, 'bulkDelete'])->name('surat.bulkDelete');
         Route::get('surat/{surat}/status', \App\Http\Controllers\Desa\Surat\StatusSuratController::class)->name('surat.staus');
         Route::get('surat/{surat}/persyaratan', \App\Http\Controllers\Desa\Surat\PersyaratanSuratController::class)->name('persyaratan.surat');
@@ -154,11 +154,16 @@ Route::middleware([
         Route::get('unduh/surat/{id}', \App\Http\Controllers\Desa\Surat\UnduhSuratController::class)->name('unduh.surat');
         Route::post('arsipSurat/bulkDelete', \App\Http\Controllers\Desa\Surat\BulkDeleteArsipSuratController::class)->name('arsipSurat.bulkDelete');
         Route::resource('surat', \App\Http\Controllers\Desa\Surat\SuratController::class);
-        Route::resource('logSurat', \App\Http\Controllers\Desa\Surat\ArsipSuratController::class);
+        Route::resource('logSurat', \App\Http\Controllers\Desa\Surat\ArsipSuratController::class);  
+        
+        // permohonan surat
+        Route::get('permohonan/{permohonan}/surat/{surat}/penduduk/{penduduk}', \App\Http\Controllers\Desa\PermohonanSurat\PeriksaPermohonanController::class)->name('periksa.permohonan');
+        Route::get('permohonan/{permohonan}/status/{status}', \App\Http\Controllers\Desa\PermohonanSurat\StatusPermohonanSuratController::class)->name('status.permohonanSurat');
+        Route::post('permohonanSurat/bulkDelete', \App\Http\Controllers\Desa\PermohonanSurat\BulkDeletePermohonanSuratController::class)->name('permohonanSurat.bulkDelete');
+        Route::post('permohonanSurat/{permohonanSurat}/tolak', TolakPermohonanSuratController::class)->name('permohonanSurat.tolak');
+        Route::resource('permohonanSurat', \App\Http\Controllers\Desa\PermohonanSuratController::class);
     });
-
 });
-
 // guest
 Route::get('pengaduan/{pengaduan}/detail', \App\Http\Controllers\Statik\DetailPengaduanController::class)->name('detail.pengaduan');
 Route::get('pengaduan/list', \App\Http\Controllers\Statik\ListPengaduanController::class)->name('list.pengaduan');

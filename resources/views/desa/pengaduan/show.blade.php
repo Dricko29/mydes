@@ -58,20 +58,14 @@
               
           <div class="d-flex align-items-start mb-3">
             <div class="avatar me-75">
-              <img src="{{ asset(App\Models\User::find($item->created_by)->profile_photo_url) }}" width="38" height="38" alt="Avatar" />
+              <img src="{{ $item->Creator->profile_photo_url }}" width="38" height="38" alt="Avatar" />
             </div>
             <div class="author-info">
-              <h6 class="fw-bolder mb-25">{{ App\Models\User::find($item->created_by)->name }}</h6>
-              <p class="card-text">{{ \Carbon\Carbon::parse(App\Models\User::find($item->created_by)->created_at)->format('d M Y') }}</p>
+              <h6 class="fw-bolder mb-25">{{ $item->Creator->name }}</h6>
+              <p class="card-text">{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</p>
               <p class="card-text">
                 {{ $item->respon }}
               </p>
-              {{-- <a href="#">
-                <div class="d-inline-flex align-items-center">
-                  <i data-feather="corner-up-left" class="font-medium-3 me-50"></i>
-                  <span>Reply</span>
-                </div>
-              </a> --}}
             </div>
           </div>
           @endforeach
@@ -90,7 +84,7 @@
             <div class="row">
 
               <div class="col-12">
-                <textarea class="form-control mb-2" name="respon" rows="4" placeholder="Comment"></textarea>
+                <textarea class="form-control mb-2" name="respon" rows="4" placeholder="Tanggapan"></textarea>
               </div>
               {{-- <div class="col-12">
                 <div class="form-check mb-2">
@@ -101,7 +95,7 @@
                 </div>
               </div> --}}
               <div class="col-12">
-                <button type="submit" class="btn btn-primary">Post Comment</button>
+                <button type="submit" class="btn btn-primary">Kirim Tanggapan</button>
               </div>
             </div>
           </form>

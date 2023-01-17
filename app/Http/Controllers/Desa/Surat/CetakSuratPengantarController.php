@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PermohonanSurat;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -39,7 +40,16 @@ class CetakSuratPengantarController extends Controller
                 'keperluan' => ['required', 'string'],
                 'pegawai_id' => ['required'] 
             ]);
+
+
+            $logSurat = LogSurat::create([
+                'penduduk_id' => $penduduk->id,
+                'surat_id' => $request->surat,
+                'pegawai_id' => $pegawai->id,
+            ]);
+            
             $nomor_surat = NomorSurat::create([
+                'log_surat_id' => $logSurat->id,
                 'surat_id' => $request->surat,
                 'nomor' => $request->nomor
             ]);
@@ -100,12 +110,10 @@ class CetakSuratPengantarController extends Controller
             // save kestrorage
             $path = 'app/public/arsip/surat/pengantar/';
 
-            LogSurat::create([
-                'penduduk_id' => $penduduk->id,
-                'surat_id' => $request->surat,
-                'pegawai_id' => $pegawai->id,
+            $logSurat->forceFill([
                 'file' => $full
-            ]);
+            ])->save();
+
             $directories = Storage::directories('app/public/arsip/surat/pengantar/');
             if ($directories) {
                 return true;
@@ -114,6 +122,12 @@ class CetakSuratPengantarController extends Controller
             }
             $phpWord->saveAs(storage_path($path . $name));
 
+            if ($request->permohonan) {
+                $permohonan = PermohonanSurat::find($request->permohonan)->forceFill([
+                    'status' => 2
+                ])->save();
+            }
+           
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();

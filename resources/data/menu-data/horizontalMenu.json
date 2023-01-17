@@ -1,22 +1,47 @@
 {
-  "menu": [
-      {
-          "url": "dashboard",
-          "name": "Dashboard",
-          "icon": "home",
-          "slug": "dashboard"
-      },
-      {
-          "url": "user/biodata",
-          "name": "Biodata",
-          "icon": "user",
-          "slug": "biodata"
-      },
-      {
-          "url": "user/keluarga",
-          "name": "Keluarga",
-          "icon": "users",
-          "slug": "keluarga"
-      }
-  ]
+    "menu": [
+        {
+            "url": "dashboard",
+            "name": "Dashboard",
+            "icon": "home",
+            "slug": "dashboard"
+        },
+        {
+            "url": "user/biodata",
+            "name": "Biodata",
+            "icon": "user",
+            "slug": "biodata"
+        },
+        {
+            "url": "user/keluarga",
+            "name": "Keluarga",
+            "icon": "users",
+            "slug": "keluarga"
+        },
+        {
+            "name": "Surat",
+            "icon": "list",
+            "slug": "",
+            "submenu": [
+                {
+                    "url": "user/surat",
+                    "name": "Surat",
+                    "icon": "mail",
+                    "slug": "user.surat.user"
+                },
+                {
+                    "url": "user/surat/ajukan",
+                    "name": "Ajukan Surat",
+                    "icon": "list",
+                    "slug": "user.surat.ajukan"
+                },
+                {
+                    "url": "user/arsip/surat",
+                    "name": "Arsip",
+                    "icon": "box",
+                    "slug": "user.arsip.surat"
+                }
+            ]
+        }
+    ]
 }

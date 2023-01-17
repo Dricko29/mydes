@@ -65,11 +65,17 @@
                   "icon": "circle",
                   "slug": "logSurat"
               },
-                {
+              { 
                   "url": "site/cetakSurat",
                   "name": "Cetak Surat",
                   "icon": "circle",
                   "slug": "cetakSurat"
+              },
+              { 
+                  "url": "site/permohonanSurat",
+                  "name": "Permohonan Surat",
+                  "icon": "circle",
+                  "slug": "permohonanSurat"
               },
               {
                   "url": "site/klasifikasiSurat",

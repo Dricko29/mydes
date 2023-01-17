@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Akun;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LayananMandiri;
 use Illuminate\Support\Facades\Auth;
 
 class BiodataPendudukController extends Controller
@@ -18,7 +19,8 @@ class BiodataPendudukController extends Controller
     public function __invoke(Request $request)
     {
         $user = Auth::user();
-        $penduduk = Penduduk::where('user_id', $user->id)->firstOrFail();
+        $layananMandiri = LayananMandiri::where('user_id', $user->id)->firstOrFail();
+        $penduduk = Penduduk::where('penduduk_id', $layananMandiri->penduduk_id)->firstOrFail();
         abort_if(!auth()->user() == $penduduk->user_id, 403);
         $pageConfigs = [
             'mainLayoutType' => 'horizontal', // Options[String]: vertical(default), horizontal

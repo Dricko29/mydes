@@ -23,4 +23,9 @@ class Surat extends Model
     {
         return $this->belongsTo(KlasifikasiSurat::class, 'klasifikasi_surat_id');
     }
+
+    public function penduduks() : BelongsToMany
+    {
+        return $this->belongsToMany(Penduduk::class, 'permohonan_surats', 'surat_id', 'penduduk_id');
+    }
 }
