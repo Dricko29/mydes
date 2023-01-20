@@ -15,13 +15,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="description"
-    content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    content="sistem informasi penduduk, moder ui">
   <meta name="keywords"
-    content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
-  <meta name="author" content="PIXINVENT">
+    content="mydesa, sistem informasi penduduk">
+  <meta name="author" content="MYDES">
   <title>@yield('title') - {{ settings()->group('umum')->get('app_nama') }}</title>
-  <link rel="apple-touch-icon" href="{{ asset('images/ico/favicon-32x32.png') }}">
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo/favicon.ico') }}">
+  <link rel="apple-touch-icon" href="{{ asset(settings()->group('umum')->get('app_logo')) }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset(settings()->group('umum')->get('app_logo')) }}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
     rel="stylesheet">
 

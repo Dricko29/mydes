@@ -40,6 +40,7 @@
                 <th>Nama</th>
                 <th>NIK</th>
                 <th>Email</th>
+                <th>No HP</th>
                 <th>Tanggal Terdaftar</th>
                 <th>Status</th>
               </tr>
@@ -108,11 +109,12 @@
               { data: 'DT_RowIndex', name:'DT_RowIndex', orderable: false, searchable: false },
               // { data: 'aksi',orderable: false, searchable: false },
               { data: ' ' },
-              { data: 'penduduk.nama' },
-              { data: 'penduduk.nik' },
-              { data: 'user.email' },
+              { data: 'nama' },
+              { data: 'nik' },
+              { data: 'email' },
+              { data: 'no_tlp' },
               { data: 'created_at' },
-              { data: 'last_login' },
+              { data: 'status' },
             ],
             columnDefs: [
               //   {
@@ -158,7 +160,10 @@
                 render: function (data, type, full, meta) {
                   var id = full['id'];
                   return (
-                    '<a href="/site/layananMandiri/' + full['id'] +'/user/'+full['user_id']+'/reset" class="item-edit me-1" title="detail">' +
+                    '<a href="/site/layananMandiri/' + full['id'] +'/edit" class="item-edit me-1" title="verifikasi">' +
+                    feather.icons['eye'].toSvg({ class: 'font-small-4' }) +
+                    '</a>'+
+                    '<a href="/site/layananMandiri/' + full['id'] +'/user/'+full['user_id']+'/reset" class="item-edit me-1" title="reset">' +
                     feather.icons['key'].toSvg({ class: 'font-small-4' }) +
                     '</a>'+
                    '<a href="javascript:;" class="item-edit delete-record me-1" title="hapus" onclick="hapus('+full['id']+')" data-id="'+full['id']+'">' +
@@ -197,32 +202,32 @@
                     text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
                     className: 'dropdown-item',
                     title: "Daftar Data Pegawai",
-                    exportOptions: { columns: [0,3,4,5] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7] }
                   },
                   {
                     extend: 'csv',
                     text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,3,4,5] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7] }
                   },
                   {
                     extend: 'excel',
                     text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,3,4,5] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7] }
                   },
                   {
                     extend: 'pdf',
                     text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,3,4,5] },
+                    exportOptions: { columns: [0,2,3,4,5,6,7] },
                     title: "Daftar Data Pegawai",
                   },
                   {
                     extend: 'copy',
                     text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
                     className: 'dropdown-item',
-                    exportOptions: { columns: [0,3,4,5] }
+                    exportOptions: { columns: [0,2,3,4,5,6,7] }
                   }
                 ],
                 init: function (api, node, config) {

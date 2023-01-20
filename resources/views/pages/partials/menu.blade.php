@@ -36,6 +36,9 @@
 									<a href="{{ route('home') }}" class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">Home</a>
 								</li>
 								<li class="nav-item">
+									<a href="{{ route('berita') }}" class="nav-link {{ Route::currentRouteName() == 'berita' ? 'active' : '' }}">Berita</a>
+								</li>
+								<li class="nav-item">
 									<a href="#" class="nav-link dropdown-toggle">Projects</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item">

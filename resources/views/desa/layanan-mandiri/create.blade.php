@@ -61,6 +61,23 @@
               @enderror
             </div>
             <div class="col-12 col-sm-12 mb-1">
+              <label class="form-label" for="no_keluarga">NO KK</label>
+              <input
+                type="text"
+                class="form-control @error('no_keluarga')
+                    is-invalid
+                @enderror"
+                id="no_keluarga"
+                name="no_keluarga"
+                value="{{ old('no_keluarga') }}"
+              />
+              @error('no_keluarga')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+              @enderror
+            </div>
+            <div class="col-12 col-sm-12 mb-1">
               <label class="form-label" for="email">Email</label>
               <input
                 type="text"
@@ -72,6 +89,23 @@
                 value="{{ old('email') }}"
               />
               @error('email')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+              @enderror
+            </div>
+            <div class="col-12 col-sm-12 mb-1">
+              <label class="form-label" for="no_tlp">No Telpon / HP</label>
+              <input
+                type="text"
+                class="form-control @error('no_tlp')
+                    is-invalid
+                @enderror"
+                id="no_tlp"
+                name="no_tlp"
+                value="{{ old('no_tlp') }}"
+              />
+              @error('no_tlp')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>

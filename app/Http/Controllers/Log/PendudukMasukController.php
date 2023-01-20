@@ -23,6 +23,10 @@ use App\Http\Requests\StorePendudukRequest;
 
 class PendudukMasukController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|petugas|kades']);
+    }
     /**
      * Handle the incoming request.
      *

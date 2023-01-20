@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class StoreDesaSettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Handle the incoming request.
      *

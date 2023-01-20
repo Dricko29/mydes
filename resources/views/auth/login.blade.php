@@ -102,11 +102,11 @@
             <button type="submit" class="btn btn-primary w-100" tabindex="4">@lang('Sign in')</button>
           </form>
 
-          {{-- <p class="text-center mt-2">
+          <p class="text-center mt-2">
             <span>New on our platform?</span>
             @if (Route::has('register'))
-              <a href="{{ route('register') }}">
-                <span>Create an account</span>
+              <a href="{{ route('layananMandiri.register') }}">
+                <span>@lang('Create an account')</span>
               </a>
             @endif
           </p>
@@ -128,7 +128,7 @@
             <a href="#" class="btn btn-github">
               <i data-feather="github"></i>
             </a>
-          </div> --}}
+          </div>
         </div>
       </div>
       <!-- /Login basic -->

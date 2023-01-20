@@ -27,6 +27,10 @@ use App\Http\Requests\UpdatePendudukRequest;
 
 class PendudukController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|petugas|kades']);
+    }
     /**
      * Display a listing of the resource.
      *

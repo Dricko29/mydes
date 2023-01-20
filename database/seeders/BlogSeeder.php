@@ -15,7 +15,7 @@ class BlogSeeder extends Seeder
      */
     public function run()
     {
-        Blog::factory(10)->create();
+        Blog::factory(100)->create();
         foreach(Blog::all() as $blog ){
             $tags = \App\Models\Blog\Tag::inRandomOrder()->take(rand(1,3))->pluck('id');
             $blog->tags()->attach($tags);

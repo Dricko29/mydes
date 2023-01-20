@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
 
 class InventarisPeralatanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|petugas|kades']);
+    }
     /**
      * Display a listing of the resource.
      *

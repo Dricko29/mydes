@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class BulkDeleteCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Handle the incoming request.
      *

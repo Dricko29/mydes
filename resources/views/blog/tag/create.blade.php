@@ -196,7 +196,7 @@
         });
       }
         $('#nama').keyup(function(e) {
-          $.get('{{ route('site.blog.cek.slug') }}',
+          $.get('{{ route('site.blog.cek.slug.tag') }}',
             { 'nama': $(this).val() },
             function( data ) {
               $('#slug').val(data.slug);

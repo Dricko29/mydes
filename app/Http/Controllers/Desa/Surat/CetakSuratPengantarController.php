@@ -18,6 +18,10 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class CetakSuratPengantarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|petugas|kades']);
+    }
     /**
      * Handle the incoming request.
      *

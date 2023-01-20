@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class DokumentasiPembangunanDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|petugas|kades']);
+    }
     /**
      * Handle the incoming request.
      *

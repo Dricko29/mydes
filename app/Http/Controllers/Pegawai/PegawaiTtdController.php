@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class PegawaiTtdController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|kades']);
+    }
     /**
      * Handle the incoming request.
      *

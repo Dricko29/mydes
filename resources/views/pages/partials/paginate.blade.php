@@ -37,7 +37,7 @@
                 </li>
             @else
                 <li>
-                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                    {{-- <a href="#"><i class="fas fa-chevron-right"></i></a> --}}
                 </li>
             @endif
         </ul>

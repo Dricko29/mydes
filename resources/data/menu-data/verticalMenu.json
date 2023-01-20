@@ -180,6 +180,12 @@
                   "name": "Berita",
                   "icon": "circle",
                   "slug": "blogs"
+              },
+              {
+                  "url": "site/blog/comments",
+                  "name": "Komentar",
+                  "icon": "circle",
+                  "slug": "comments"
               }
           ]
       },

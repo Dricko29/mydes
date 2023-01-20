@@ -9,6 +9,10 @@ use App\Models\InventarisAssetTetap;
 
 class CetakLaporanInventarisAssetTetapController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|petugas|kades']);
+    }
     /**
      * Handle the incoming request.
      *

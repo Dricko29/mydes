@@ -35,7 +35,7 @@
 										<a href="blog-details.html">{{ $blog->judul }}</a>
 									</h4>
 									<p>
-										{{ Str::limit($blog->isi, 50, '...') }}
+										{!! Str::limit($blog->isi, 50, '...') !!}
 									</p>
 									<a class="read-more-btn" href="blog-details.html"
 										>@lang('Read More')</a

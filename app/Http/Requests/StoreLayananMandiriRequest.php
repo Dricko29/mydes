@@ -25,7 +25,9 @@ class StoreLayananMandiriRequest extends FormRequest
     {
         return [
             'penduduk_id' => ['required', 'unique:layanan_mandiris'],
-            'email' => ['required', 'email', 'unique:users']
+            'no_keluarga' => ['required', 'numeric', 'digits:16'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'no_tlp' => ['required', 'string', 'max:12'],
         ];
     }
 }

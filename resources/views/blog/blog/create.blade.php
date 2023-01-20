@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Blog Edit')
+@section('title', __('Add').' Berita')
 
 @section('vendor-style')
   <link rel="stylesheet" href="{{asset(mix('vendors/css/forms/select/select2.min.css'))}}">
@@ -78,7 +78,7 @@
                   <select id="category_id" name="category_id" class="select2 form-select">
                     <option value="">@lang('Select') @lang('Category')</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->nama }}</option>
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->nama }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -94,25 +94,20 @@
                 </div>
               </div>
 
-              <div class="col-md-6 col-12">
+              <div class="col-md-12 col-12">
                 <div class="mb-2">
                   <label class="form-label" for="status">Status</label>
                   <select class="form-select" name="status" id="status">
-                    <option value="1">Published</option>
-                    <option value="2">Pending</option>
-                    <option value="3">Draft</option>
+                    <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Published</option>
+                    <option value="2" {{ old('status') == 2 ? 'selected' : '' }}>Pending</option>
+                    <option value="3" {{ old('status') == 3 ? 'selected' : '' }}>Draft</option>
                   </select>
                 </div>
               </div>
               <div class="col-12">
                 <div class="mb-2">
                   <label class="form-label">Content</label>
-                  <div id="blog-editor-wrapper">
-                    <div id="blog-editor-container">
-                      <div class="editor">
-                      </div>
-                    </div>
-                  </div>
+                  <textarea name="isi" class="form-control my-editor" rows="100">{!! old('isi') !!}</textarea>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -163,6 +158,8 @@
 
 @section('page-script')
 {{-- <script src="{{asset(mix('js/scripts/pages/page-blog-edit.js'))}}"></script> --}}
+<script src="https://cdn.tiny.cloud/1/73n33ctsrlqik5fcqanqnt5d0dj7ibezpp6b11o1j25k6616/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 <script>
   (function (window, document, $) {
   'use strict';
@@ -186,78 +183,43 @@
   }
 
   // Snow Editor
+  var editor_config = {
+    path_absolute : "/",
+    selector: 'textarea.my-editor',
+    relative_urls: false,
+    plugins: [
+      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+      "searchreplace wordcount visualblocks visualchars code fullscreen",
+      "insertdatetime media nonbreaking save table directionality",
+      "emoticons template paste textpattern"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+    file_picker_callback : function(callback, value, meta) {
+      var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+      var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-  var Font = Quill.import('formats/font');
-  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
-  Quill.register(Font, true);
+      var cmsURL = editor_config.path_absolute + 'filemanager?editor=' + meta.fieldname;
+      if (meta.filetype == 'image') {
+        cmsURL = cmsURL + "&type=Images";
+      } else {
+        cmsURL = cmsURL + "&type=Files";
+      }
 
-  var blogEditor = new Quill(editor, {
-    bounds: editor,
-    modules: {
-      formula: true,
-      syntax: true,
-      toolbar: [
-        [
-          {
-            font: []
-          },
-          {
-            size: []
-          }
-        ],
-        ['bold', 'italic', 'underline', 'strike'],
-        [
-          {
-            color: []
-          },
-          {
-            background: []
-          }
-        ],
-        [
-          {
-            script: 'super'
-          },
-          {
-            script: 'sub'
-          }
-        ],
-        [
-          {
-            header: '1'
-          },
-          {
-            header: '2'
-          },
-          'blockquote',
-          'code-block'
-        ],
-        [
-          {
-            list: 'ordered'
-          },
-          {
-            list: 'bullet'
-          },
-          {
-            indent: '-1'
-          },
-          {
-            indent: '+1'
-          }
-        ],
-        [
-          'direction',
-          {
-            align: []
-          }
-        ],
-        ['link', 'image', 'video', 'formula'],
-        ['clean']
-      ]
-    },
-    theme: 'snow'
-  });
+      tinyMCE.activeEditor.windowManager.openUrl({
+        url : cmsURL,
+        title : 'Filemanager',
+        width : x * 0.8,
+        height : y * 0.8,
+        resizable : "yes",
+        close_previous : "no",
+        onMessage: (api, message) => {
+          callback(message.content);
+        }
+      });
+    }
+  };
+
+  tinymce.init(editor_config);
 
   // Change featured image
   if (blogImageInput.length) {
@@ -273,6 +235,14 @@
       blogImageText.innerHTML = blogImageInput.val();
     });
   }
+  $('#judul').keyup(function(e) {
+    $.get('{{ route('site.blog.cek.slug.blog') }}',
+      { 'judul': $(this).val() },
+      function( data ) {
+        $('#slug').val(data.slug);
+      }
+    );
+  });
 })(window, document, jQuery);
 </script>
 @endsection

@@ -17,6 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('penduduk_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('nama');
+            $table->string('nik')->unique();
+            $table->string('no_keluarga');
+            $table->string('email')->unique();
+            $table->string('no_tlp')->unique();
+            $table->string('password');
+            $table->text('dokumen');
+            $table->string('status')->default(1);
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

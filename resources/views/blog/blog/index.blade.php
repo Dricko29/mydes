@@ -172,9 +172,6 @@
                     var info = 'aktifkan';
                   };
                   return (
-                    '<a href="/site/blog/blogs/' + full['id'] +'/show" class="item-edit me-1" title="detail">' +
-                    feather.icons['list'].toSvg({ class: 'font-small-4' }) +
-                    '</a>'+
                     '<a href="/site/blog/blogs/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
                     feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
                     '</a>'+

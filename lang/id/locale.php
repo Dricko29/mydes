@@ -227,4 +227,6 @@ return [
     "Arsip" => "Arsip",
     "Tag" => "Tag",
     "Category" => "Category",
+    "Berita" => "Berita",
+    "Komentar" => "Komentar",
 ];

@@ -20,54 +20,46 @@
 
 @section('content')
 <div class="row">
+  <!-- Card layout -->
+<section class="card-layout">
+  <h5 class="mt-3 mb-2">Dokumen</h5>
+
+  <div class="row row-cols-1 row-cols-md-3 mb-2">
+    @foreach ($dokumens as $item)
+    <div class="col">
+      <div class="card h-100">
+        <img class="card-img-top" src="{{asset($item->value)}}" alt="Card image cap" height="200"/>
+        <div class="card-body">
+          <h4 class="card-title">{{ $item->nama }}</h4>
+          {{-- <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to additional content. This content is
+            a little bit longer.
+          </p> --}}
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Kelengkapan Dokumen {{ $item->nama }}</small>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+</section>
+<!--/ Card layout -->
   <div class="col-12">
 
     <!-- profile -->
     <div class="card">
       <div class="card-header border-bottom">
-        <h4 class="card-title">Profile Pegawai</h4>
-        <a href="{{ route('site.pegawai.index') }}" class="btn btn-primary">@lang('Back')</a>
+        <h4 class="card-title">Data Pendaftar</h4>
+        <a href="{{ route('site.layananMandiri.index') }}" class="btn btn-primary">@lang('Back')</a>
       </div>
       <div class="card-body py-2 my-25">
         <!-- form -->
-        <form class="validate-form mt-2 pt-50" action="{{ route('site.pegawai.update', $pegawai) }}" method="post" enctype="multipart/form-data">
+        <form class="validate-form" action="{{ route('site.layananMandiri.update', $layananMandiri) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <div class="row">
-            <!-- header section -->
-            <div class="d-flex mb-1">
-              <a href="#" class="me-25">
-                <img
-                  src="{{asset($pegawai->foto ? $pegawai->foto : 'images/portrait/small/avatar-s-11.jpg')}}"
-                  id="account-upload-img"
-                  class="uploadedAvatar rounded me-50"
-                  alt="profile image"
-                  height="100"
-                  width="100"
-                />
-              </a>
-              <!-- upload and reset button -->
-              <input type="hidden" name="oldFoto" id="" value="{{ $pegawai->foto }}">
-              <div class="d-flex align-items-end mt-75 ms-1">
-                <div>
-                  <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">@lang('Upload')</label>
-                  <input type="file" id="account-upload" 
-                  class="form-control @error('foto')
-                    is-invalid
-                   @enderror" name="foto" hidden accept="image/*" value="{{ $pegawai->foto }}"/>
-                   @error('foto')
-                     <div class="invalid-feedback">
-                      {{ $message }}
-                     </div>
-                   @enderror
-                  <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
-                  <p class="mb-0">@lang('Allowed file types') png, jpg, jpeg.</p>
-                </div>
-              </div>
-              <!--/ upload and reset button -->
-            </div>
-            <!--/ header section -->
-            <div class="col-12 col-sm-12 mb-1">
+            <div class="col-12 col-sm-6 mb-1">
               <label class="form-label" for="nama">Nama</label>
               <input
                 type="text"
@@ -76,7 +68,8 @@
                 @enderror"
                 id="nama"
                 name="nama"
-                value="{{ old('nama',$pegawai->nama) }}"
+                value="{{ $layananMandiri->nama }}"
+                readonly
               />
               @error('nama')
                   <div class="invalid-feedback">
@@ -87,13 +80,14 @@
             <div class="col-12 col-sm-6 mb-1">
               <label class="form-label" for="nik">NIK</label>
               <input
-                type="number"
+                type="text"
                 class="form-control @error('nik')
                     is-invalid
                 @enderror"
                 id="nik"
                 name="nik"
-                value="{{ old('nik',$pegawai->nik) }}"
+                value="{{ $layananMandiri->nik }}"
+                readonly
               />
               @error('nik')
                   <div class="invalid-feedback">
@@ -102,150 +96,48 @@
               @enderror
             </div>
             <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="nip">NIP</label>
+              <label class="form-label" for="no_keluarga">NO KK</label>
               <input
                 type="text"
-                class="form-control @error('nip')
+                class="form-control @error('no_keluarga')
                     is-invalid
                 @enderror"
-                id="nip"
-                name="nip"
-                value="{{ old('nip',$pegawai->nip) }}"
+                id="no_keluarga"
+                name="no_keluarga"
+                value="{{ $layananMandiri->no_keluarga }}"
+                readonly
               />
-              @error('nip')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-              @enderror
-            </div>
-            <div class="col-12 col-sm-12 mb-1">
-              <label class="form-label" for="nipd">NIPD</label>
-              <input
-                type="text"
-                class="form-control @error('nipd')
-                    is-invalid
-                @enderror"
-                id="nipd"
-                name="nipd"
-                value="{{ old('nipd',$pegawai->nipd) }}"
-              />
-              @error('nipd')
+              @error('no_keluarga')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
               @enderror
             </div>
             <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="jabatan">Jabatan</label>
-              <select class="form-select select2" id="jabatan" name="jabatan_id">
-                <option value="">Pilih Jabatan</option>
-                @foreach ($jabatans as $item)
-                    <option value="{{ $item->id }}" {{ old('jabatan_id',$pegawai->jabatan_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="tempat_lahir">Tempat Lahir</label>
+              <label class="form-label" for="email">Email</label>
               <input
                 type="text"
-                class="form-control @error('tempat_lahir')
+                class="form-control @error('email')
                     is-invalid
                 @enderror"
-                id="tempat_lahir"
-                name="tempat_lahir"
-                value="{{ old('tempat_lahir',$pegawai->tempat_lahir) }}"
+                id="email"
+                name="email"
+                value="{{ $layananMandiri->email }}"
+                readonly
               />
-              @error('tempat_lahir')
+              @error('email')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>
               @enderror
-            </div>
-
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
-              <input type="text" class="form-control picker" name="tanggal_lahir" id="tanggal_lahir" value="{{ old('tanggal_lahir', $pegawai->tanggal_lahir) }}" autocomplete="off"/>
-            </div>
-
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="kelamin">Jenis Kelamin</label>
-              <select class="form-select select2" id="kelamin" name="attr_kelamin_id">
-                <option value="">Pilih Jenis Kelamin</option>
-                @foreach ($kelamins as $item)
-                    <option value="{{ $item->id }}" {{ old('attr_kelamin_id',$pegawai->attr_kelamin_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="pendidikan">Pendidikan</label>
-              <select class="form-select select2" id="pendidikan" name="attr_pendidikan_keluarga_id">
-                <option value="">Pilih Pendidikan</option>
-                @foreach ($pendidikans as $item)
-                    <option value="{{ $item->id }}" {{ old('attr_pendidikan_keluarga_id',$pegawai->attr_pendidikan_keluarga_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="agama">Agama</label>
-              <select class="form-select select2" id="agama" name="attr_agama_id">
-                <option value="">Pilih Agama</option>
-                @foreach ($agamas as $item)
-                    <option value="{{ $item->id }}" {{ old('attr_agama_id',$pegawai->attr_agama_id) == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="no_skp">Nomor Surat Pengangkatan</label>
-              <input
-              type="text"
-              class="form-control @error('no_skp')
-              is-invalid
-              @enderror"
-              id="no_skp"
-              name="no_skp"
-              value="{{ old('no_skp', $pegawai->no_skp) }}"
-              placeholder="Masukan nomor surat pengangkatan pegawai"
-              />
-              @error('no_skp')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>
-
-
-            <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="tanggal_skp">Tanggal Pengangkatan Pegawai</label>
-              <input type="text" class="form-control picker" 
-              name="tanggal_skp" 
-              id="tanggal_skp" 
-              value="{{ old('tanggal_skp', $pegawai->tanggal_skp) }}" 
-              autocomplete="off"/>
             </div>
             
-            <div class="col-12 col-sm-12 mb-1">
-                <label class="form-label" for="masa_jabatan">Masa Jabatan</label>
-                <input
-                type="text"
-                class="form-control @error('masa_jabatan')
-                    is-invalid
-                @enderror"
-                id="masa_jabatan"
-                name="masa_jabatan"
-                value="{{ old('masa_jabatan',$pegawai->masa_jabatan) }}"
-                placeholder="Masukan masa jabatan pegawai"
-                />
-                @error('masa_jabatan')
-                    <div class="invalid-feedback">
-                    {{ $message }}
-                    </div>
-                @enderror
-            </div>
             <div class="col-12">
-              <button type="submit" class="btn btn-primary mt-1 me-1">@lang('Save')</button>
+              @if ($layananMandiri->status == 1)
+              <button type="submit" class="btn btn-primary mt-1 me-1">@lang('Verifikasi')</button>
+              @else
+              <button type="submit" class="btn btn-success mt-1 me-1">@lang('Terverifikasi')</button>    
+              @endif
               <button type="reset" class="btn btn-outline-secondary mt-1">@lang('Cancel')</button>
             </div>
           </div>
@@ -266,8 +158,8 @@
   <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/forms/cleave/cleave.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/forms/cleave/addons/cleave-phone.us.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
-        <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
+  <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+  <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
 @endsection
 @section('page-script')
   <!-- Page js files -->
@@ -356,9 +248,9 @@
       if (picker.length) {
           picker.flatpickr({
             allowInput: true,
-                  altInput: true,
-      altFormat: 'd-m-Y',
-      dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd-m-Y',
+            dateFormat: 'Y-m-d',
             onReady: function (selectedDates, dateStr, instance) {
                 if (instance.isMobile) {
                 $(instance.mobileInput).attr('step', null);

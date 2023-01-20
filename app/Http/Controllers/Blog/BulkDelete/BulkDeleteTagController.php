@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class BulkDeleteTagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Handle the incoming request.
      *

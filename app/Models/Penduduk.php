@@ -134,6 +134,6 @@ class Penduduk extends Model
      */
     protected function defaultFotoUrl()
     {
-        return 'desa/penduduk/avatar.png';
+        return 'storage/avatar.png';
     }
 }

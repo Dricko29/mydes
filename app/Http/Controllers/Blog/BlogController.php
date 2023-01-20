@@ -3,17 +3,23 @@
 namespace App\Http\Controllers\Blog;
 
 use Carbon\Carbon;
+use App\Models\Blog\Tag;
 use App\Models\Blog\Blog;
 use Illuminate\Http\Request;
+use App\Models\Blog\Category;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBlogRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateBlogRequest;
-use App\Models\Blog\Category;
-use App\Models\Blog\Tag;
 use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +29,10 @@ class BlogController extends Controller
     {
         if ($request->ajax()) {
             $status = $request->status;
-            $model = Blog::with(['category', 'tags', 'creator'])->when($status, function ($query) use ($status) {
-                $query->where('status', $status);
-            });
+            // $model = Blog::with(['category', 'tags', 'creator'])->when($status, function ($query) use ($status) {
+            //     $query->where('status', $status);
+            // });
+            $model = Blog::with(['category', 'tags', 'creator'])->status($status);
             return DataTables::eloquent($model)
             ->addIndexColumn()
             ->addColumn('tags', function(Blog $query){
@@ -78,7 +85,26 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $blog = Blog::create($request->validated());
+            if ($request->file('gambar')) {
+                // jika ada upload foto baru
+                $path = $request->file('gambar')->store('photos/blog/banner');
+                $blog->forceFill([
+                    'gambar' => $path
+                ])->save();
+            }
+            if($request->tags){
+                $tags = collect($request->tags);
+                $blog->tags()->sync($tags);
+            }
+            DB::commit();
+            return redirect()->route('site.blog.blogs.index')->with('success', __('Data Created Successfully!'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('site.blog.blogs.index')->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -89,7 +115,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -100,7 +126,10 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+        $blogTags = $blog->tags->pluck('id')->toArray();
+        return view('blog.blog.edit', compact('blog', 'blogTags', 'tags', 'categories'));
     }
 
     /**
@@ -112,7 +141,28 @@ class BlogController extends Controller
      */
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $blog->update($request->validated());
+            if ($request->file('gambar')) {
+                if ($request->oldGambar) {
+                    Storage::delete($request->oldGambar);
+                }
+                $path = $request->file('gambar')->store('photos/blog/banner');
+                $blog->forceFill([
+                    'gambar' => $path
+                ])->save();
+            }
+            if ($request->tags) {
+                $tags = collect($request->tags);
+                $blog->tags()->sync($tags);
+            }
+            DB::commit();
+            return redirect()->route('site.blog.blogs.index')->with('success', __('Data Updeted Successfully!'));
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('site.blog.blogs.index')->with('error', $th->getMessage());
+        }
     }
 
     /**
