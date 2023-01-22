@@ -3,7 +3,10 @@
 use App\Http\Controllers\Akun\CommentUserController;
 use App\Http\Controllers\Akun\PermohonanSuratController;
 use App\Http\Controllers\Akun\StorePermohonanSuratController;
+use App\Http\Controllers\Desa\Penduduk\LogPendudukLahirController;
 use App\Http\Controllers\Desa\PermohonanSurat\TolakPermohonanSuratController;
+use App\Http\Controllers\Desa\Setting\VisiMisiSettingController;
+use App\Http\Controllers\Desa\Statistik\StatistikAgamaPendudukController;
 use App\Http\Controllers\Statik\DetailBeritaController;
 use App\Http\Controllers\Statik\ListBeritaController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +68,8 @@ Route::middleware([
             Route::post('/umum', \App\Http\Controllers\Setting\StoreUmumSettingController::class)->name('app.umum.store');
             Route::get('/desa', \App\Http\Controllers\Setting\DesaSettingController::class)->name('app.desa');
             Route::post('/desa', \App\Http\Controllers\Setting\StoreDesaSettingController::class)->name('app.desa.store');
+            Route::get('/visi_misi', \App\Http\Controllers\Setting\VisiMisiSettingController::class)->name('app.desa.visi.misi');
+            Route::post('/visi_misi', \App\Http\Controllers\Setting\StoreVisiMisiSettingController::class)->name('app.desa.visi.misi');
         });
 
         Route::get('roles/list', [\App\Http\Controllers\Access\RoleController::class, 'listData'])->name('roles.list');
@@ -79,6 +84,9 @@ Route::middleware([
         Route::get('penduduk/lahir', \App\Http\Controllers\Log\PendudukLahirController::class)->name('penduduk.lahir');
         Route::post('penduduk/masuk', \App\Http\Controllers\Log\StorePendudukMasukController::class)->name('penduduk.masuk.store');
         Route::post('penduduk/lahir', \App\Http\Controllers\Log\StorePendudukLahirController::class)->name('penduduk.lahir.store');
+
+        // log penduduk
+        Route::get('logPendudukLahir', \App\Http\Controllers\Desa\Penduduk\LogPendudukLahirController::class)->name('log.penduduk.lahir');
 
         Route::get('penduduk/{penduduk}/print', \App\Http\Controllers\Desa\Penduduk\PrintBiodataPendudukController::class)->name('penduduk.print');
         Route::get('penduduk/{penduduk}/biodata', \App\Http\Controllers\Desa\Penduduk\BiodataPendudukController::class)->name('penduduk.biodata');
@@ -181,6 +189,14 @@ Route::middleware([
             Route::get('comments/{comment}/status', \App\Http\Controllers\Blog\StatusCommentController::class)->name('comment.status');
             Route::resource('comments', \App\Http\Controllers\Blog\CommentController::class);
         });
+
+        // statistik penduduk
+        Route::prefix('statistik')->name('statistik.')->group(function(){
+            Route::get('/form/cetak/{jenis}', \App\Http\Controllers\Desa\Statistik\FormCetakStatistikPendudukController::class)->name('form.cetak');
+            Route::post('/cetak/laporan', \App\Http\Controllers\Desa\Statistik\CetakStatistikPendudukController::class)->name('cetak.laporan');
+            Route::get('/agama', \App\Http\Controllers\Desa\Statistik\StatistikAgamaPendudukController::class)->name('agama.penduduk');
+            Route::get('/pendidikan', \App\Http\Controllers\Desa\Statistik\StatistikPendidikanPendudukController::class)->name('pendidikan.penduduk');
+        });
     });
     Route::prefix('filemanager')->middleware(['role:admin|petugas|kades'])->group(function(){  
         \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -203,3 +219,6 @@ Route::post('berita/comment/user', \App\Http\Controllers\Akun\CommentUserControl
 // register layanan mandiri
 Route::get('layananMandiri/register', \App\Http\Controllers\Akun\LayananMandiri\RegisterLayananMandiriController::class)->name('layananMandiri.register');
 Route::post('layananMandiri/register', \App\Http\Controllers\Akun\LayananMandiri\RegisteredLayananMandiriController::class)->name('layananMandiri.registered');
+
+Route::get('pembangunan', \App\Http\Controllers\Statik\ListPembangunanController::class)->name('pembangunan');
+Route::get('statistik', \App\Http\Controllers\Statik\StatistikController::class)->name('statistik');

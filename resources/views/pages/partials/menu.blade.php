@@ -38,20 +38,10 @@
 								<li class="nav-item">
 									<a href="{{ route('berita') }}" class="nav-link {{ Route::currentRouteName() == 'berita' ? 'active' : '' }}">Berita</a>
 								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link dropdown-toggle">Projects</a>
-									<ul class="dropdown-menu">
-										<li class="nav-item">
-											<a href="projects.html" class="nav-link">Our Projects</a>
-										</li>
-										<li class="nav-item">
-											<a href="project-details.html" class="nav-link"
-												>Project Details</a
-											>
-										</li>
-									</ul>
-								</li>
 
+								<li class="nav-item">
+									<a href="{{ route('pembangunan') }}" class="nav-link {{ Route::currentRouteName() == 'pembangunan' ? 'active' : '' }}">Pembangunan</a>
+								</li>
 								<li class="nav-item">
 									<a href="#" class="nav-link dropdown-toggle {{ request()->is('*pengaduan*') ? 'active' : '' }}">Pengaduan </a>
 									<ul class="dropdown-menu">
@@ -64,19 +54,19 @@
 									</ul>
 								</li>
 								<li class="nav-item">
-									<a href="contact.html" class="nav-link">Contact Us</a>
+									<a href="{{ route('statistik') }}" class="nav-link {{ Route::currentRouteName() == 'statistik' ? 'active' : '' }}">Statistik</a>
 								</li>
 							</ul>
 							<div class="menu-sidebar">
 								<ul>
-									<li>
+									{{-- <li>
 										<button class="popup-button">
 											<i class="fas fa-search"></i>
 										</button>
-									</li>
+									</li> --}}
 									<li>
-										<a class="default-button" href="contact.html"
-											>Get in Touch</a
+										<a class="default-button" href="/"
+											>{{ settings()->group('umum')->get('app_nama') }}</a
 										>
 									</li>
 								</ul>

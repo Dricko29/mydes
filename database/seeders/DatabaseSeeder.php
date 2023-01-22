@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
         $this->call(InventarisPeralatanSeeder::class);
         $this->call(InventarisTanahSeeder::class);
         $this->call(InventarisBangunanSeeder::class);
+        $this->call(KlasifikasiSuratSeeder::class);
+        $this->call(SuratSeeder::class);
         // $this->call(InvPenggunaanSeeder::class);
         // $this->call(InvAsalSeeder::class);
         // $this->call(InvHakTanahSeeder::class);

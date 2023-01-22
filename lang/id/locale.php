@@ -229,4 +229,7 @@ return [
     "Category" => "Category",
     "Berita" => "Berita",
     "Komentar" => "Komentar",
+    "Statistik Penduduk" => "Statistik Penduduk",
+    "Agama" => "Agama",
+    "Pendidikan" => "Pendidikan",
 ];

@@ -36,7 +36,7 @@
             <div class="d-flex mb-1">
               <a href="#" class="me-25">
                 <img
-                  src="{{asset('images/portrait/small/avatar-s-11.jpg')}}"
+                  src="{{asset('images/desa/foto/avatar.png')}}"
                   id="account-upload-img"
                   class="uploadedAvatar rounded me-50"
                   alt="profile image"

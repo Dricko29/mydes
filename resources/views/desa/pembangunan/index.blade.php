@@ -78,13 +78,13 @@
   {{-- <script src="{{ asset(mix('js/scripts/tables/table-datatables-advanced.js')) }}"></script> --}}
   <script>
       @if (Session::has('success'))
-      toastr['success']("{{ session('success') }}", '{{ __('locale.'.'Berhasil') }}', {
+      toastr['success']("{{ session('success') }}", '{{ __('Success') }}', {
           closeButton: true,
           tapToDismiss: false,
           progressBar: true,
       }); 
       @elseif (Session::has('error'))
-      toastr['error']("{{ session('error') }}", 'Gagal', {
+      toastr['error']("{{ session('error') }}", '{{ __('Failed') }}', {
           closeButton: true,
           tapToDismiss: false,
           progressBar: true,

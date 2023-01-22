@@ -38,7 +38,9 @@
 			</div>
 		</section>
 
-		<section class="services pt-100 pb-70">
+		@include('pages.home.blog')
+		
+		{{-- <section class="services pt-100 pb-70">
 			<div class="container">
 				<div class="default-section-title default-section-title-middle">
 					<h3>Find Government Services</h3>
@@ -125,42 +127,38 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --}}
 
 		<section class="we-are pb-100">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-sm-12 col-12">
-						<div class="why-we-img">
-							<img src="assets/images/why-we/ww1.jpg" alt="image" />
+						<div class="">
+							<img src="{{ asset(settings()->group('umum')->get('app_banner')) }}" alt="image" style="height: 620px"/>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12 col-12">
 						<div class="why-we-text-area">
 							<div class="default-section-title">
-								<span>WHO WE ARE</span>
-								<h3>Medzo Is An Inner Metropolitan Municipality Service</h3>
+								<span>Desa</span>
+								<h3>Visi</h3>
 								<p>
-									Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
-									eiusmod tempor incididunt ut labore et dolore magna aliqua
-									quis ipsum suspendisse ultrices gravida risus commodo viverra
-									maecenas accumsan lacus vel facilisis ipsum dolor sit amet.
+									{{ settings()->group('desa')->get('visi') }}
 								</p>
 							</div>
 							<div class="why-we-text-list">
 								<i class="flaticon-government-building"></i>
-								<h4>Our Role Is To:</h4>
-								<p>
+								<h4>Misi:</h4>
+								{{-- <p>
 									Nulla porttitor accumsan tincidunt lorem ipsum dolor sit amet
 									consectetur adipiscing elit praesent sapien massa convallis a
 									pellentesque nec egestas non nisi nulla porttitor accumsan
 									tincidunt.
-								</p>
+								</p> --}}
 								<ul>
-									<li>Praesent sapien massa, convallis a pellentesque nec.</li>
-									<li>Nulla porttitor accumsan tincidunt.</li>
-									<li>Ivamus suscipit tortor eget felis porttitor volutpat.</li>
-									<li>Donec rutrum congue leo eget malesuada.</li>
+									@foreach ($misi as $misi)	
+									<li>{{ $misi->item }}</li>
+									@endforeach
 								</ul>
 							</div>
 						</div>
@@ -211,7 +209,7 @@
 			</div>
 		</section>
 
-		<section class="events ptb-100">
+		{{-- <section class="events ptb-100">
 			<div class="container">
 				<div class="default-section-title default-section-title-middle">
 					<h3>Upcoming City Events</h3>
@@ -356,10 +354,10 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --}}
 
 		{{-- pegawai --}}
-		<section class="feedback pt-100 pb-70 bg-f9fbfe">
+		{{-- <section class="feedback pt-100 pb-70 bg-f9fbfe">
 			<div class="container">
 				<div class="default-section-title default-section-title-middle">
 					<h3>What Your Counselors Says</h3>
@@ -449,63 +447,11 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> --}}
 
-		<section class="team ptb-100">
-			<div class="container">
-				<div class="default-section-title default-section-title-middle">
-					<h3>Our City Counselor</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua quis
-						ipsum suspendisse
-					</p>
-				</div>
-				<div class="section-content">
-					<div class="row justify-content-center">
-						@foreach ($pegawais as $item)
-						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-							<div class="team-card">
-								<div class="team-card-img">
-									<img src="{{ asset($item->foto ? $item->foto : 'assets/images/team/t1.jpg') }}" alt="image" />
-									<div class="team-social-icons">
-										<ul>
-											<li>
-												<a href="https://www.facebook.com/" target="_blank"
-													><i class="fab fa-facebook-f"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.linkedin.com/" target="_blank"
-													><i class="fab fa-linkedin-in"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://twitter.com/" target="_blank"
-													><i class="fab fa-twitter"></i
-												></a>
-											</li>
-											<li>
-												<a href="https://www.instagram.com/" target="_blank"
-													><i class="fab fa-instagram"></i
-												></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="team-card-text">
-									<h4>{{ $item->nama }}</h4>
-									<p>{{ $item->jabatan->nama }}</p>
-								</div>
-							</div>
-						</div>
-						@endforeach
-					</div>
-				</div>
-			</div>
-		</section>
+		@include('pages.home.pegawai')
 
-		<section class="precess pb-100 mt-10">
+		{{-- <section class="precess pb-100 mt-10">
 			<div class="container">
 				<div class="default-section-title default-section-title-middle">
 					<h3>Tackling The Process</h3>
@@ -550,9 +496,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
-
-		@include('pages.blog')
+		</section> --}}
 @endsection
 
 @section('js')

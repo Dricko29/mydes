@@ -28,7 +28,7 @@
                             <input type="hidden" name="inv-jenis" value="{{ $jenis }}">
                             <div class="col-md-6 col-12">
                                 <div class="mb-1">
-                                <label class="form-label" for="pegawai_id">Kategori</label>
+                                <label class="form-label" for="pegawai_id">TTD</label>
                                 <select class="form-select select2" id="pegawai_id" name="pegawai_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($pegawais as $item)   

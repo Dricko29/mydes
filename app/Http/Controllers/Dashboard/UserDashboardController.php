@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\LayananMandiri;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserDashboardController extends Controller
 {
@@ -15,6 +17,7 @@ class UserDashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $user = Auth::user()->id;
         $pageConfigs = [
             'mainLayoutType' => 'horizontal', // Options[String]: vertical(default), horizontal
             'theme' => 'light', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
@@ -32,8 +35,10 @@ class UserDashboardController extends Controller
             'blankPage' => false, // options[Boolean]: true, false(default) (warning:only make true if your whole project without navabr and sidebar otherwise override option page wise)
             'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'), // Options[String]: ltr(default), rtl
         ];
+        $layanan = LayananMandiri::with('penduduk')->where('user_id', $user)->first();
         return view('dashboard.user.dashboard', compact(
-            'pageConfigs'
+            'pageConfigs',
+            'layanan'
         ));
     }
 }

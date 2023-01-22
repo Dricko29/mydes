@@ -38,7 +38,7 @@
             <div class="d-flex align-items-center flex-column">
               <img
                 class="img-fluid rounded mt-3 mb-2"
-                src="{{asset($pegawai->foto ? $pegawai->foto : 'images/portrait/small/avatar-s-2.jpg')}}"
+                src="{{asset($pegawai->foto ? $pegawai->foto : 'images/desa/foto/avatar.png')}}"
                 height="110"
                 width="110"
                 alt="User avatar"
@@ -49,26 +49,7 @@
               </div>
             </div>
           </div>
-          {{-- <div class="d-flex justify-content-around my-2 pt-75">
-            <div class="d-flex align-items-start me-2">
-              <span class="badge bg-light-primary p-75 rounded">
-                <i data-feather="check" class="font-medium-2"></i>
-              </span>
-              <div class="ms-75">
-                <h4 class="mb-0">1.23k</h4>
-                <small>Tasks Done</small>
-              </div>
-            </div>
-            <div class="d-flex align-items-start">
-              <span class="badge bg-light-primary p-75 rounded">
-                <i data-feather="briefcase" class="font-medium-2"></i>
-              </span>
-              <div class="ms-75">
-                <h4 class="mb-0">568</h4>
-                <small>Projects Done</small>
-              </div>
-            </div>
-          </div> --}}
+
           <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4>
           <div class="info-container">
               
@@ -127,12 +108,7 @@
             </li>
             </ul>
             <div class="d-flex justify-content-center">
-              {{-- <a href="javascript:;" class="btn btn-primary me-1 edit-pegawai" data-id="{{ $pegawai->id }}">
-                Edit
-              </a> --}}
-              {{-- <a href="javascript:;" class="btn btn-primary me-1" data-bs-target="#editUser" data-bs-toggle="modal">
-                Edit
-              </a> --}}
+
               <a href="{{ route('site.pegawai.status', $pegawai->id) }}" class="btn btn-outline-danger me-1">{{ $pegawai->status ? 'Nonaktifkan' : 'Aktifkan' }} Status</a>
               <a href="{{ route('site.pegawai.ttd', $pegawai->id) }}" class="btn btn-outline-danger">{{ $pegawai->ttd ? 'Nonaktifkan' : 'Aktifkan' }} TTD</a>
             </div>
@@ -145,14 +121,6 @@
   </div>
 </section>
 
-{{-- @include('desa.pegawai.edit') --}}
-<!-- Edit User Modal -->
-<div class="modal fade" id="editPegawai" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-pegawai">
-    </div>
-</div>
-<!--/ Edit User Modal -->
-@include('content/_partials/_modals/modal-upgrade-plan')
 @endsection
 
 @section('vendor-script')

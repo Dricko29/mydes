@@ -215,6 +215,7 @@
                             <br>
                             <br>
                             <h5 style="font-weight: 800">{{ Str::upper(settings()->group('desa')->get('nama_kapala_desa')) }}</h5>
+                            <h5 style="font-weight: 800">NIP. {{ Str::upper(settings()->group('desa')->get('nip_kapala_desa')) }}</h5>
                         </div>
                     </div>
             </div>

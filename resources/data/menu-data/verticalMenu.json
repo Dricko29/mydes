@@ -30,6 +30,25 @@
           ]
       },
       {
+          "name": "Statistik Penduduk",
+          "icon": "activity",
+          "slug": "",
+          "submenu": [
+              {
+                  "url": "site/statistik/agama",
+                  "name": "Agama",
+                  "icon": "circle",
+                  "slug": "agama"
+              },
+              {
+                  "url": "site/statistik/pendidikan",
+                  "name": "Pendidikan",
+                  "icon": "circle",
+                  "slug": "pendidikan"
+              }
+          ]
+      },
+      {
           "name": "Roles & Permission",
           "icon": "shield",
           "slug": "",
@@ -39,12 +58,6 @@
                   "name": "Roles",
                   "icon": "circle",
                   "slug": "roles"
-              },
-              {
-                  "url": "site/permissions",
-                  "name": "Permission",
-                  "icon": "circle",
-                  "slug": "permissions"
               }
           ]
       },

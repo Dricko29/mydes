@@ -34,6 +34,12 @@
           <span class="fw-bold">Desa</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('site.settings.app.desa.visi.misi') }}">
+          <i data-feather="home" class="font-medium-3 me-50"></i>
+          <span class="fw-bold">Visi & Misi</span>
+        </a>
+      </li>
     </ul>
 
     <!-- profile -->
