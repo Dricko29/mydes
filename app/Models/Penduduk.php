@@ -123,7 +123,7 @@ class Penduduk extends Model
     public function getFotoUrlAttribute()
     {
         return $this->foto
-            ? $this->foto
+            ? Storage::disk('public')->url($this->foto)
             : $this->defaultFotoUrl();
     }
 
@@ -134,6 +134,6 @@ class Penduduk extends Model
      */
     protected function defaultFotoUrl()
     {
-        return 'storage/avatar.png';
+        return Storage::disk('public')->url('avatar.png');
     }
 }

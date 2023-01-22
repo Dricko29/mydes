@@ -38,7 +38,7 @@
             <div class="d-flex align-items-center flex-column">
               <img
                 class="img-fluid rounded mt-3 mb-2"
-                src="{{asset($pegawai->foto ? $pegawai->foto : 'images/portrait/small/avatar-s-2.jpg')}}"
+                src="{{ Storage::disk('public')->url($pegawai->foto ? $pegawai->foto : 'images/portrait/small/avatar-s-2.jpg') }}"
                 height="110"
                 width="110"
                 alt="User avatar"

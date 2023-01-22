@@ -3,7 +3,7 @@
 				<div class="container-fluid plr-100">
 					<div class="mobile-nav">
 						<a href="/" class="logo"
-							><img src="{{ asset(settings()->group('umum')->get('app_logo', 'assets/images/small-logo.png')) }}" alt="logo" style="height: 40px"/>
+							><img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo','assets/images/small-logo.png')) }}" alt="logo" style="height: 40px"/>
                         </a>
 						<ul class="menu-sidebar menu-small-device">
 							<li>
@@ -13,7 +13,7 @@
 							</li>
 							<li>
 								<a class="default-button" href="contact.html"
-									>Get A Quote <i class="fas fa-angle-right"></i
+									>{{ settings()->group('umum')->get('app_nama') }}<i class="fas fa-angle-right"></i
 								></a>
 							</li>
 						</ul>
@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 					<nav class="navbar navbar-expand-md navbar-light">
 						<a class="navbar-brand" href="/">
-							<img src="{{ asset(settings()->group('umum')->get('app_logo', 'assets/images/logo.png')) }}" alt="logo" style="height: 50px"/>
+							<img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo','assets/images/logo.png')) }}" alt="logo" style="height: 50px"/>
 						</a>
 						<div
 							class="collapse navbar-collapse mean-menu"

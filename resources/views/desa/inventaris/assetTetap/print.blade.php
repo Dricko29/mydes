@@ -8,7 +8,7 @@
   <div class="col-12">
     <div align="center">
         <div class="mb-2">
-            <img src="{{ asset(settings()->group('umum')->get('app_logo', 'images/logo/logo.png')) }}" alt="">
+            <img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo', 'images/logo/logo.png')) }}" alt="">
         </div>
         <h2 style="font-weight: 800">DETAIL INVENTARIS ASET TETAP</h2>
         <h5>Kec. {{ settings()->group('desa')->get('nama_kecamatan') }}, Kab. {{ settings()->group('desa')->get('nama_kabupaten') }}, Desa {{ settings()->group('desa')->get('nama_desa') }}</h5>

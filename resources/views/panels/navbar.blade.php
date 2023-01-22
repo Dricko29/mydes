@@ -7,7 +7,7 @@
         <li class="nav-item">
           <a class="navbar-brand" href="{{ url('/') }}">
             <span class="brand-logo">
-              <img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 30px">
+              <img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 30px">
             </span>
             <h2 class="brand-text mb-0">{{ settings()->group('umum')->get('app_nama', 'MYDES') }}</h2>
           </a>
@@ -19,12 +19,12 @@
       class="header-navbar navbar navbar-expand-lg align-items-center {{ $configData['navbarClass'] }} navbar-light navbar-shadow {{ $configData['navbarColor'] }} {{ $configData['layoutWidth'] === 'boxed' && $configData['verticalMenuNavbarType'] === 'navbar-floating'? 'container-xxl': '' }}">
 @endif
 <div class="navbar-container d-flex content">
-  {{-- <div class="bookmark-wrapper d-flex align-items-center">
+  <div class="bookmark-wrapper d-flex align-items-center">
     <ul class="nav navbar-nav d-xl-none">
       <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon"
             data-feather="menu"></i></a></li>
     </ul>
-    <ul class="nav navbar-nav bookmark-icons">
+    {{-- <ul class="nav navbar-nav bookmark-icons">
       <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/email') }}"
           data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"><i class="ficon"
             data-feather="mail"></i></a></li>
@@ -51,8 +51,8 @@
           <ul class="search-list search-list-bookmark"></ul>
         </div>
       </li>
-    </ul>
-  </div> --}}
+    </ul> --}}
+  </div>
   <ul class="nav navbar-nav align-items-center ms-auto">
     <li class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true">

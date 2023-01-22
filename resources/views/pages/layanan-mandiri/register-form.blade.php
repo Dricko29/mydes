@@ -21,7 +21,7 @@ $configData = Helper::applClasses();
   <div class="auth-inner row m-0">
     <!-- Brand logo-->
     <a href="/" class="brand-logo">
-        <img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 100px">
+        <img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 100px">
     </a>
     <!-- /Brand logo-->
 
@@ -109,7 +109,7 @@ $configData = Helper::applClasses();
             <div class="d-flex mb-1">
               <a href="#" class="me-25">
                 <img
-                  src="{{asset('images/portrait/small/avatar-s-11.jpg')}}"
+                  src="{{asset('images/desa/foto/file-default.png')}}"
                   id="ktp-upload-img"
                   class="uploadedKtp rounded me-50"
                   alt="profile image"
@@ -141,7 +141,7 @@ $configData = Helper::applClasses();
             <div class="d-flex mb-1">
               <a href="#" class="me-25">
                 <img
-                  src="{{asset('images/portrait/small/avatar-s-11.jpg')}}"
+                  src="{{asset('images/desa/foto/file-default.png')}}"
                   id="kk-upload-img"
                   class="uploadedKK rounded me-50"
                   alt="dokumen scan kk"
@@ -173,7 +173,7 @@ $configData = Helper::applClasses();
             <div class="d-flex mb-1">
               <a href="#" class="me-25">
                 <img
-                  src="{{asset('images/portrait/small/avatar-s-11.jpg')}}"
+                  src="{{asset('images/desa/foto/file-default.png')}}"
                   id="account-upload-img"
                   class="uploadedAvatar rounded me-50"
                   alt="profile image"

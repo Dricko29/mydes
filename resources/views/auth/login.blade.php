@@ -14,7 +14,7 @@
       <div class="card mb-0">
         <div class="card-body">
           <a href="/" class="brand-logo">
-            <img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 100px">
+            <img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 100px">
             {{-- <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
               <defs>

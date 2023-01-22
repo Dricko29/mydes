@@ -128,7 +128,7 @@
                     if ($image) {
                         // For Avatar image
                         var $output =
-                        '<img src="' + assetPath  + $image + '" alt="Avatar" height="32" width="32">';
+                        '<img src="' + $image + '" alt="Avatar" height="32" width="32">';
                     } else {
                         // For Avatar badge
                         var stateNum = Math.floor(Math.random() * 6) + 1;

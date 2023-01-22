@@ -41,7 +41,7 @@
       @foreach ($pembangunan->dokumentasiPembangunans as $dok)
       <div class="col-md-4 col-12">
           <div class="card">
-              <img class="card-img-top img-fluid" src="{{asset($dok->gambar)}}" alt="Dokumentasi" />
+              <img class="card-img-top img-fluid" src="{{ Storage::disk('public')->url($dok->gambar) }}" alt="Dokumentasi" />
               <div class="card-body">
               <div class="d-flex">
                     <div class="author-info">

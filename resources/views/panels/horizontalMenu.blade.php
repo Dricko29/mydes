@@ -16,7 +16,7 @@ $configData = Helper::applClasses();
         <li class="nav-item me-auto">
           <a class="navbar-brand" href="{{url('/')}}">
             <span class="brand-logo">
-              <img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 30px">
+              <img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo')) }}" alt="" style="height: 30px">
             </span>
             <h2 class="brand-text mb-0">{{ settings()->group('umum')->get('app_nama', 'MYDES') }}</h2>
           </a>

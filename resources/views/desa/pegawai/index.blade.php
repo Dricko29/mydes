@@ -125,20 +125,11 @@
                     render: function (data, type, full, meta) {
                     var $name = full['nama'],
                         $nik = full['nik'],
-                        $image = full['foto'];
+                        $image = full['foto_url'];
                     if ($image) {
                         // For Avatar image
                         var $output =
-                        '<img src="' + assetPath  + $image + '" alt="Avatar" height="32" width="32">';
-                    } else {
-                        // For Avatar badge
-                        var stateNum = Math.floor(Math.random() * 6) + 1;
-                        var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-                        var $state = states[stateNum],
-                        $name = full['nama'],
-                        $initials = $name.match(/\b\w/g) || [];
-                        $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                        $output = '<span class="avatar-content">' + $initials + '</span>';
+                        '<img src="' + $image + '" alt="Avatar" height="32" width="32">';
                     }
                     var colorClass = $image === '' ? ' bg-light-' + $state + ' ' : '';
                     // Creates full output for row

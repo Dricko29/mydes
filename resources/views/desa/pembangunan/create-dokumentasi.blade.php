@@ -70,7 +70,7 @@
     
                 <div class="col-md-12 col-12">
                     <div class="mb-1">
-                        <img src="{{ asset('images/banner/banner-1.jpg') }}" id="preview-image-before-upload" alt="preview image" style="max-height: 250px;">
+                        <img src="{{ asset('images/desa/pembangunan/default.jpeg') }}" id="preview-image-before-upload" alt="preview image" style="max-height: 250px;">
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@
   background-repeat: no-repeat;
   background-position: center;
   /* background-image: url("../images/desa/banner/default-banner.jpg"); */
-  background-image: url({{ asset(settings()->group('umum')->get('app_banner', 'images/desa/banner/default-banner.jpg')) }});
+  background-image: url({{ Storage::disk('public')->url(settings()->group('umum')->get('app_banner')) }});
   position: relative;
 }
 
@@ -31,7 +31,7 @@
 			<div class="container">
 				<div class="uni-banner-text-area">
 					<ul>
-						<li><img src="{{ asset(settings()->group('umum')->get('app_logo')) }}" alt=""></li>
+						<li><img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo')) }}" alt=""></li>
 					</ul>
 					<h1 class="mt-4">@lang('Welcome to') Website Pemerintahan Desa {{ Str::ucFirst(settings()->group('desa')->get('nama_desa')) }}</h1>
 				</div>
@@ -134,7 +134,7 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-sm-12 col-12">
 						<div class="">
-							<img src="{{ asset(settings()->group('umum')->get('app_banner')) }}" alt="image" style="height: 620px"/>
+							<img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_banner')) }}" alt="image" style="height: 620px"/>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12 col-12">
