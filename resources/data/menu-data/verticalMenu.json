@@ -58,6 +58,12 @@
                   "name": "Roles",
                   "icon": "circle",
                   "slug": "roles"
+              },
+              {
+                  "url": "site/users",
+                  "name": "User",
+                  "icon": "circle",
+                  "slug": "users"
               }
           ]
       },

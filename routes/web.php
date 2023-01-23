@@ -75,6 +75,8 @@ Route::middleware([
         Route::get('roles/list', [\App\Http\Controllers\Access\RoleController::class, 'listData'])->name('roles.list');
         Route::resource('roles', \App\Http\Controllers\Access\RoleController::class);
         Route::resource('permissions', \App\Http\Controllers\Access\PermissionController::class);
+        Route::resource('users', \App\Http\Controllers\Access\UserController::class);
+        
         // route pegawai
         Route::get('pegawai/{pegawai}/status', \App\Http\Controllers\Pegawai\PegawaiStatusController::class)->name('pegawai.status');
         Route::get('pegawai/{pegawai}/ttd', \App\Http\Controllers\Pegawai\PegawaiTtdController::class)->name('pegawai.ttd');
