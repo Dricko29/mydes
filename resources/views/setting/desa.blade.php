@@ -234,16 +234,6 @@
                 data-msg="Please enter app pos"
               />
             </div>
-
-            {{-- <div class="col-12 col-sm-6 mb-1">
-              <label class="form-label" for="country">Kepala Desa</label>
-              <select id="country" class="select2 form-select" name="kepala_desa">
-                <option value="">Select Pegawai</option>
-                @foreach ($pegawai as $item)
-                    <option value="{{ $item->nama }}" {{ settings()->get('kepala_desa') == $item->nama ? 'selected' : '' }}>{{ $item->jabatan->nama }} - {{ $item->nama }}</option>
-                @endforeach
-              </select>
-            </div> --}}
             <div class="col-12">
               <button type="submit" class="btn btn-primary mt-1 me-1">@lang('Save')</button>
               <button type="reset" class="btn btn-outline-secondary mt-1">@lang('Cancel')</button>

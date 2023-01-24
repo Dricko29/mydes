@@ -25,7 +25,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="blog-details-text-area details-text-area">
-							<img src="{{ asset($pengaduan->foto ? $pengaduan->foto : 'assets/images/inner-images/bd1.jpg') }}" alt="image" />
+							<img src="{{ $pengaduan->foto ? Storage::disk('public')->url($pengaduan->foto) : asset('images/desa/pengaduan/default.jpeg') }}" alt="image" />
 							<div class="blog-date">
 								<ul>
 									<li>

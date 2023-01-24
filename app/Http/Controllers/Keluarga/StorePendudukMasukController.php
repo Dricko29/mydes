@@ -9,14 +9,11 @@ use Illuminate\Support\Carbon;
 use App\Models\LogPendudukMasuk;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StorePendudukRequest;
 
 class StorePendudukMasukController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -26,6 +23,7 @@ class StorePendudukMasukController extends Controller
     public function __invoke(StorePendudukRequest $request)
     {
         try {
+            abort_if(!Gate::allows('create keluarga'), 403);
             DB::beginTransaction();
             $keluarga = Keluarga::create([
                 'no_keluarga' => $request->no_keluarga,

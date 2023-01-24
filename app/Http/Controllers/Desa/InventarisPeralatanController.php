@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\Desa;
 
+use App\Models\InvAsal;
+use App\Models\Pegawai;
+use Illuminate\Http\Request;
+use App\Models\InvPenggunaan;
+use App\Models\InvPenggunaBarang;
 use App\Models\InventarisPeralatan;
 use App\Http\Controllers\Controller;
+use App\Models\InvKategoriPeralatan;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StoreInventarisPeralatanRequest;
 use App\Http\Requests\UpdateInventarisPeralatanRequest;
-use App\Models\InvAsal;
-use App\Models\InvKategoriPeralatan;
-use App\Models\InvPenggunaan;
-use App\Models\InvPenggunaBarang;
-use App\Models\Pegawai;
-use Illuminate\Http\Request;
 
 class InventarisPeralatanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +25,7 @@ class InventarisPeralatanController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         if ($request->ajax()) {
             $model = InventarisPeralatan::with('invAsal');
             return DataTables::eloquent($model)
@@ -49,6 +48,7 @@ class InventarisPeralatanController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         $kategoriPermes = InvKategoriPeralatan::all();
         $asal = InvAsal::all();
         $penggunaan = InvPenggunaan::all();
@@ -69,6 +69,7 @@ class InventarisPeralatanController extends Controller
      */
     public function store(StoreInventarisPeralatanRequest $request)
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         InventarisPeralatan::create($request->validated());
         return redirect()->route('site.inventarisPeralatan.index')->with('success', __('Data Created Successfully!'));
     }
@@ -81,6 +82,7 @@ class InventarisPeralatanController extends Controller
      */
     public function show(InventarisPeralatan $inventarisPeralatan)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         return view('desa.inventaris.peralatan.show', compact('inventarisPeralatan'));
     }
 
@@ -92,6 +94,7 @@ class InventarisPeralatanController extends Controller
      */
     public function edit(InventarisPeralatan $inventarisPeralatan)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $kategoriPermes = InvKategoriPeralatan::all();
         $asal = InvAsal::all();
         $penggunaan = InvPenggunaan::all();
@@ -114,6 +117,7 @@ class InventarisPeralatanController extends Controller
      */
     public function update(UpdateInventarisPeralatanRequest $request, InventarisPeralatan $inventarisPeralatan)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $inventarisPeralatan->update($request->validated());
         return redirect()->route('site.inventarisPeralatan.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -126,10 +130,20 @@ class InventarisPeralatanController extends Controller
      */
     public function destroy(InventarisPeralatan $inventarisPeralatan)
     {
-        $inventarisPeralatan->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!'),
-        ]);
+        try {
+            //code...
+            abort_if(!Gate::allows('delete inventaris'), 403);
+            $inventarisPeralatan->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
+            //throw $th;
+        }
     }
 }

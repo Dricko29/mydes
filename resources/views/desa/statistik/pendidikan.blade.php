@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Laporan Semua Aset')
+@section('title', 'Statistik Pendidikan')
 
 @section('content')
 <!-- Responsive tables start -->
@@ -47,8 +47,8 @@
             <tr>
               <th scope="col" class="text-nowrap">No</th>
               <th scope="col" class="text-nowrap">Pendidikan</th>
+              <th scope="col" class="text-nowrap text-center" colspan="2">Total</th>
               <th scope="col" class="text-nowrap text-center" colspan="2">Penduduk Laki Laki</th>
-              <th scope="col" class="text-nowrap text-center" colspan="2">Penduduk Perempuan</th>
               <th scope="col" class="text-nowrap text-center" colspan="2">Penduduk Perempuan</th>
             </tr>
           </thead>

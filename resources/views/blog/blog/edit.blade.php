@@ -25,7 +25,7 @@
         <div class="card-body">
           <div class="d-flex align-items-start">
             <div class="avatar me-75">
-              <img src="{{asset(auth()->user()->profile_photo_url)}}" width="38" height="38" alt="Avatar" />
+              <img src="{{auth()->user()->profile_photo_url}}" width="38" height="38" alt="Avatar" />
             </div>
             <div class="author-info">
               <h6 class="mb-25">{{ auth()->user()->name }}</h6>
@@ -116,7 +116,7 @@
                   <h4 class="mb-1">Featured Image</h4>
                   <div class="d-flex flex-column flex-md-row">
                     <img
-                      src="{{ Storage::disk('public')->url($blog->gambar)}}"
+                      src="{{ $blog->gambar ? Storage::disk('public')->url($blog->gambar) : asset('images/desa/berita/default.jpeg')}}"
                       id="blog-feature-image"
                       class="rounded me-2 mb-1 mb-md-0"
                       width="170"

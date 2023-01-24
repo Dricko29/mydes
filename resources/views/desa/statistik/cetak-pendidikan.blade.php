@@ -27,7 +27,7 @@
         <!-- Address and Contact starts -->
             <div align="center">
                 <div class="mb-2">
-                    <img src="{{ asset(settings()->group('umum')->get('app_logo', 'images/logo/logo.png')) }}" alt="">
+                    <img src="{{ Storage::disk('public')->url(settings()->group('umum')->get('app_logo', 'images/logo/logo.png')) }}" alt="">
                 </div>
                 <h2 style="font-weight: 800">LAPORAN DATA STATISTIK KEPENDUDUKAN MENURUT PENDIDIKAN TERAKHIR</h2>
                 <h5>Kec. {{ settings()->group('desa')->get('nama_kecamatan') }}, Kab. {{ settings()->group('desa')->get('nama_kabupaten') }}, Desa {{ settings()->group('desa')->get('nama_desa') }}</h5>
@@ -40,6 +40,11 @@
                                 <td style="width: 220px">Nomor Laporan</td>
                                 <td style="width: 20px">:</td>
                                 <td style="font-weight: 600">{{ Str::upper($no_laporan) }}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 220px">Tanggal</td>
+                                <td style="width: 20px">:</td>
+                                <td>{{ \Carbon\Carbon::now()->format('d-m-Y') }}</td>
                             </tr>
                         </tbody>
                     </table>

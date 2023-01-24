@@ -11,10 +11,7 @@ use App\Http\Requests\UpdateKlasifikasiSuratRequest;
 
 class KlasifikasiSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +19,7 @@ class KlasifikasiSuratController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         if ($request->ajax()) {
             $status = $request->status;
             $model = KlasifikasiSurat::when($status, function($query) use ($status){
@@ -51,6 +49,7 @@ class KlasifikasiSuratController extends Controller
      */
     public function create()
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create surat'), 403);
         return view('desa.surat.klasifikasi.create');
     }
 
@@ -62,6 +61,7 @@ class KlasifikasiSuratController extends Controller
      */
     public function store(StoreKlasifikasiSuratRequest $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create surat'), 403);
         KlasifikasiSurat::create($request->validated());
         return redirect()->route('site.klasifikasiSurat.index')->with('success', __('Data Created Successfully!'));
     }
@@ -85,6 +85,7 @@ class KlasifikasiSuratController extends Controller
      */
     public function edit(KlasifikasiSurat $klasifikasiSurat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update surat'), 403);
         return view('desa.surat.klasifikasi.edit', compact('klasifikasiSurat'));
     }
 
@@ -97,6 +98,7 @@ class KlasifikasiSuratController extends Controller
      */
     public function update(UpdateKlasifikasiSuratRequest $request, KlasifikasiSurat $klasifikasiSurat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update surat'), 403);
         $klasifikasiSurat->update($request->validated());
         return redirect()->route('site.klasifikasiSurat.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -110,6 +112,7 @@ class KlasifikasiSuratController extends Controller
     public function destroy(KlasifikasiSurat $klasifikasiSurat)
     {
         try {
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete surat'), 403);
             $klasifikasiSurat->delete();
             return response()->json([
                 'status' => 'success',
@@ -126,6 +129,7 @@ class KlasifikasiSuratController extends Controller
     public function bulkDelete(Request $request)
     {
         try {
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete surat'), 403);
             KlasifikasiSurat::whereIn('id', $request->id)->delete();
             return response()->json([
                 'status' => 'success',

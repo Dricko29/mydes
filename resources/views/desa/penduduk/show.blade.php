@@ -19,10 +19,10 @@
             <i data-feather="list" class="me-25"></i>
             <span>@lang('Cetak Biodata')</span>
         </a>
-        <a href="{{ route('site.akun.penduduk.create', $penduduk) }}" class="btn btn-success btn-sm" title="akun">
+        {{-- <a href="{{ route('site.akun.penduduk.create', $penduduk) }}" class="btn btn-success btn-sm" title="akun">
             <i data-feather="list" class="me-25"></i>
             <span>@lang('Akun Penduduk')</span>
-        </a>
+        </a> --}}
         <hr>
 
         <!-- Address and Contact starts -->
@@ -32,7 +32,7 @@
                   <div class="d-flex align-items-center flex-column">
                     <img
                       class="img-fluid rounded mt-3 mb-2"
-                      src="{{ Storage::disk('public')->url($penduduk->foto_url) }}"
+                      src="{{ $penduduk->foto_url }}"
                       height="350"
                       width="350"
                       alt="User avatar"

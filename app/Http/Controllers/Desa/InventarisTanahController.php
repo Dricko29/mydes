@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Desa;
 
+use Carbon\Carbon;
 use App\Models\InvAsal;
 use App\Models\InvHakTanah;
 use Illuminate\Http\Request;
@@ -10,17 +11,14 @@ use App\Models\InventarisTanah;
 use App\Models\InvKategoriTanah;
 use App\Models\InvPenggunaBarang;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StoreInventarisTanahRequest;
 use App\Http\Requests\UpdateInventarisTanahRequest;
-use Carbon\Carbon;
 
 class InventarisTanahController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +26,7 @@ class InventarisTanahController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         if ($request->ajax()) {
             $model = InventarisTanah::with('invAsal');
             return DataTables::eloquent($model)
@@ -53,6 +52,7 @@ class InventarisTanahController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         $kategoriTanah = InvKategoriTanah::all();
         $asal = InvAsal::all();
         $hakTanah = InvHakTanah::all();
@@ -75,6 +75,7 @@ class InventarisTanahController extends Controller
      */
     public function store(StoreInventarisTanahRequest $request)
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         InventarisTanah::create($request->validated());
         return redirect()->route('site.inventarisTanah.index')->with('success', __('Data Created Successfully!'));
     }
@@ -87,6 +88,7 @@ class InventarisTanahController extends Controller
      */
     public function show(InventarisTanah $inventarisTanah)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         return view('desa.inventaris.tanah.show', compact('inventarisTanah'));
     }
 
@@ -98,6 +100,7 @@ class InventarisTanahController extends Controller
      */
     public function edit(InventarisTanah $inventarisTanah)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $kategoriTanah = InvKategoriTanah::all();
         $asal = InvAsal::all();
         $hakTanah = InvHakTanah::all();
@@ -122,6 +125,7 @@ class InventarisTanahController extends Controller
      */
     public function update(UpdateInventarisTanahRequest $request, InventarisTanah $inventarisTanah)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $inventarisTanah->update($request->validated());
         return redirect()->route('site.inventarisTanah.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -134,10 +138,20 @@ class InventarisTanahController extends Controller
      */
     public function destroy(InventarisTanah $inventarisTanah)
     {
-        $inventarisTanah->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!'),
-        ]);
+        try {
+            //code...
+            abort_if(!Gate::allows('delete inventaris'), 403);
+            $inventarisTanah->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
+            //throw $th;
+        }
     }
 }

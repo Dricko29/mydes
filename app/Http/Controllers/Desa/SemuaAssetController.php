@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class SemuaAssetController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Handle the incoming request.
      *
@@ -20,6 +17,7 @@ class SemuaAssetController extends Controller
      */
     public function __invoke(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read inventaris'), 403);
         $assets = InvAsal::withCount(
             'inventarisKonstruksiBerjalans', 
             'inventarisTanahs', 

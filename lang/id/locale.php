@@ -232,4 +232,10 @@ return [
     "Statistik Penduduk" => "Statistik Penduduk",
     "Agama" => "Agama",
     "Pendidikan" => "Pendidikan",
+    "Pekerjaan" => "Pekerjaan",
+    "Status Kawin" => "Status Kawin",
+    "Jenis Kelamin" => "Jenis Kelamin",
+    "Hubungan KK" => "Hubungan KK",
+    "Golongan Darah" => "Golongan Darah",
+    "Status" => "Status"
 ];

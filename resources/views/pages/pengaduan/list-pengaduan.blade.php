@@ -27,7 +27,7 @@
 						<div class="blog-card">
 							<div class="blog-card-img">
 								<a href="#"
-									><img src="{{ asset($pengaduan->foto ? $pengaduan->foto : 'assets/images/blog/b1.jpg') }}" alt="image"
+									><img src="{{ $pengaduan->foto ? Storage::disk('public')->url($pengaduan->foto) : asset('images/desa/pengaduan/default.jpeg') }}" alt="image"
 								/></a>
 							</div>
 							<div class="blog-card-text-area">

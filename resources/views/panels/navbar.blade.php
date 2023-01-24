@@ -37,8 +37,8 @@
       <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/todo') }}"
           data-bs-toggle="tooltip" data-bs-placement="bottom" title="Todo"><i class="ficon"
             data-feather="check-square"></i></a></li>
-    </ul>
-    <ul class="nav navbar-nav">
+    </ul> --}}
+    {{-- <ul class="nav navbar-nav">
       <li class="nav-item d-none d-lg-block">
         <a class="nav-link bookmark-star">
           <i class="ficon text-warning" data-feather="star"></i>

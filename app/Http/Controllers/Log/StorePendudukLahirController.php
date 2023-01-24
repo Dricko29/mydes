@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\LogPendudukLahir;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StorePendudukRequest;
 
 class StorePendudukLahirController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -23,6 +20,7 @@ class StorePendudukLahirController extends Controller
      */
     public function __invoke(StorePendudukRequest $request)
     {
+        abort_if(!Gate::allows('create penduduk'), 403);
         try {
             DB::beginTransaction();
 

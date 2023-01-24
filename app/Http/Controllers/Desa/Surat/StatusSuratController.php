@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class StatusSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -20,6 +16,7 @@ class StatusSuratController extends Controller
      */
     public function __invoke(Request $request, Surat $surat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         if ($surat->status == 2) {
             $surat->forceFill([
                 'status' => 1,

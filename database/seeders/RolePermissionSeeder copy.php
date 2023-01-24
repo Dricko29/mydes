@@ -20,27 +20,23 @@ class RolePermissionSeeder extends Seeder
     {
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
         // create permissions
-        Permission::create(['name' => 'create pegawai', 'module' => 'pegawai']);
-        Permission::create(['name' => 'read pegawai', 'module' => 'pegawai']);
-        Permission::create(['name' => 'update pegawai', 'module' => 'pegawai']);
-        Permission::create(['name' => 'delete pegawai', 'module' => 'pegawai']);
-
-        Permission::create(['name' => 'create inventaris', 'module' => 'inventaris']);
-        Permission::create(['name' => 'read inventaris', 'module' => 'inventaris']);
-        Permission::create(['name' => 'update inventaris', 'module' => 'inventaris']);
-        Permission::create(['name' => 'delete inventaris', 'module' => 'inventaris']);
-
-        Permission::create(['name' => 'create penduduk', 'module' => 'penduduk']);
-        Permission::create(['name' => 'read penduduk', 'module' => 'penduduk']);
-        Permission::create(['name' => 'update penduduk', 'module' => 'penduduk']);
-        Permission::create(['name' => 'delete penduduk', 'module' => 'penduduk']);
-
-        Permission::create(['name' => 'create surat', 'module' => 'surat']);
-        Permission::create(['name' => 'read surat', 'module' => 'surat']);
-        Permission::create(['name' => 'update surat', 'module' => 'surat']);
-        Permission::create(['name' => 'delete surat', 'module' => 'surat']);
+        Permission::create(['name' => 'create inventaris', 'module' => 'inventaris', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'read inventaris', 'module' => 'inventaris', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'update inventaris', 'module' => 'inventaris', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'delete inventaris', 'module' => 'inventaris', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'create surat', 'module' => 'surat', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'read surat', 'module' => 'surat', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'update surat', 'module' => 'surat', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'delete surat', 'module' => 'surat', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'create pegawai', 'module' => 'pegawai', 'guard_name' => 'web']);
+        Permission::create(['name' => 'read pegawai', 'module' => 'pegawai', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'update pegawai', 'module' => 'pegawai', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'delete pegawai', 'module' => 'pegawai', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'create penduduk', 'module' => 'penduduk', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'read penduduk', 'module' => 'penduduk', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'update penduduk', 'module' => 'penduduk', 'guard_name'=> 'web']);
+        Permission::create(['name' => 'delete penduduk', 'module' => 'penduduk', 'guard_name' => 'web']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'admin']);

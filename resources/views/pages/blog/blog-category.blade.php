@@ -28,7 +28,7 @@
 						<div class="blog-card">
 							<div class="blog-card-img">
 								<a href="{{ route('berita.detail', $item->slug) }}"
-									><img src="{{ asset($item->gambar ? $item->gambar : 'assets/images/blog/b1.jpg') }}" alt="image"
+									><img src="{{ $item->gambar ? Storage::disk('public')->url($item->gambar) : asset('images/desa/berita/default.jpeg') }}" alt="image"
 								/></a>
 							</div>
 							<div class="blog-card-text-area">

@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Laporan Semua Aset')
+@section('title', 'Statistik Agama')
 
 @section('content')
 <!-- Responsive tables start -->

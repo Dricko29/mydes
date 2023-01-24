@@ -13,10 +13,6 @@ use App\Http\Requests\UpdatePembangunanRequest;
 
 class PembangunanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +20,7 @@ class PembangunanController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read pembangunan'), 403);
         if($request->ajax()){
             $model = Pembangunan::with('sumberDana');
             return DataTables::eloquent($model)
@@ -54,6 +51,7 @@ class PembangunanController extends Controller
      */
     public function create()
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create pembangunan'), 403);
         $sumber = SumberDana::all();
         return view('desa.pembangunan.create', compact('sumber'));
     }
@@ -66,6 +64,7 @@ class PembangunanController extends Controller
      */
     public function store(StorePembangunanRequest $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create pembangunan'), 403);
         Pembangunan::create($request->validated() + ['waktu' => $request->waktu . ' ' . $request->lama]);
         return redirect()->route('site.pembangunan.index')->with('success', __('Data Created Successfully!'));
     }
@@ -78,6 +77,7 @@ class PembangunanController extends Controller
      */
     public function show(Pembangunan $pembangunan)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read pembangunan'), 403);
         $progres = DokumentasiPembangunan::where('pembangunan_id', $pembangunan->id)->max('progres');
         return view('desa.pembangunan.show', compact('pembangunan', 'progres'));
     }
@@ -90,6 +90,7 @@ class PembangunanController extends Controller
      */
     public function edit(Pembangunan $pembangunan)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update pembangunan'), 403);
         $sumber = SumberDana::all();
         $waktu = explode(' ', $pembangunan->waktu);
         return view('desa.pembangunan.edit', compact('pembangunan', 'sumber', 'waktu'));
@@ -104,6 +105,7 @@ class PembangunanController extends Controller
      */
     public function update(UpdatePembangunanRequest $request, Pembangunan $pembangunan)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update pembangunan'), 403);
         $pembangunan->update($request->validated() + ['waktu' => $request->waktu . ' ' . $request->lama]);
         return redirect()->route('site.pembangunan.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -116,10 +118,20 @@ class PembangunanController extends Controller
      */
     public function destroy(Pembangunan $pembangunan)
     {
-        $pembangunan->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!')
-        ]);
+        try {
+            //code...
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete pembangunan'), 403);
+            $pembangunan->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!')
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.')
+            ]);
+            //throw $th;
+        }
     }
 }

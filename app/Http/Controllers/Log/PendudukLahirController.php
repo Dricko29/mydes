@@ -18,15 +18,12 @@ use App\Models\AttrWarganegara;
 use App\Models\AttrGolonganDarah;
 use App\Http\Controllers\Controller;
 use App\Models\AttrHubunganKeluarga;
+use Illuminate\Support\Facades\Gate;
 use App\Models\AttrPendidikanKeluarga;
 use App\Http\Requests\StorePendudukRequest;
 
 class PendudukLahirController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -35,6 +32,7 @@ class PendudukLahirController extends Controller
      */
     public function __invoke(Request $request)
     {
+        abort_if(!Gate::allows('create penduduk'), 403);
         $agama = AttrAgama::all();
         $pendidikan = AttrPendidikan::all();
         $pendidikanKK = AttrPendidikanKeluarga::all();

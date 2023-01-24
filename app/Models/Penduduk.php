@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Carbon\Traits\Timestamp;
 use Wildside\Userstamps\Userstamps;
 use Illuminate\Database\Eloquent\Model;
@@ -118,7 +119,13 @@ class Penduduk extends Model
 
     protected $appends = [
         'foto_url',
+        'umur'
     ];
+
+    public function getUmurAttribute()
+    {
+        return  Carbon::parse($this->tanggal_lahir)->age;
+    }
 
     public function getFotoUrlAttribute()
     {

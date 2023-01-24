@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Desa;
 
+use Carbon\Carbon;
 use App\Models\InvAsal;
 use Illuminate\Http\Request;
 use App\Models\InvStatusTanah;
@@ -10,17 +11,14 @@ use App\Models\InventarisBangunan;
 use App\Models\InvKondisiBangunan;
 use App\Models\InvKategoriBangunan;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StoreInventarisBangunanRequest;
 use App\Http\Requests\UpdateInventarisBangunanRequest;
-use Carbon\Carbon;
 
 class InventarisBangunanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +26,7 @@ class InventarisBangunanController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         if ($request->ajax()) {
             $model = InventarisBangunan::with('invAsal');
             return DataTables::eloquent($model)
@@ -56,6 +55,7 @@ class InventarisBangunanController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         $kategoriBangunan = InvKategoriBangunan::all();
         $asal = InvAsal::all();
         $kondisi = InvKondisiBangunan::all();
@@ -78,6 +78,7 @@ class InventarisBangunanController extends Controller
      */
     public function store(StoreInventarisBangunanRequest $request)
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         InventarisBangunan::create($request->validated());
         return redirect()->route('site.inventarisBangunan.index')->with('success', __('Data Created Successfully!'));
     }
@@ -90,6 +91,7 @@ class InventarisBangunanController extends Controller
      */
     public function show(InventarisBangunan $inventarisBangunan)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         return view('desa.inventaris.bangunan.show', compact('inventarisBangunan'));
     }
 
@@ -101,6 +103,7 @@ class InventarisBangunanController extends Controller
      */
     public function edit(InventarisBangunan $inventarisBangunan)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $kategoriBangunan = InvKategoriBangunan::all();
         $asal = InvAsal::all();
         $kondisi = InvKondisiBangunan::all();
@@ -125,6 +128,7 @@ class InventarisBangunanController extends Controller
      */
     public function update(UpdateInventarisBangunanRequest $request, InventarisBangunan $inventarisBangunan)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $inventarisBangunan->update($request->validated());
         return redirect()->route('site.inventarisBangunan.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -137,10 +141,18 @@ class InventarisBangunanController extends Controller
      */
     public function destroy(InventarisBangunan $inventarisBangunan)
     {
-        $inventarisBangunan->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!'),
-        ]);
+        try {
+            abort_if(!Gate::allows('delete inventaris'), 403);
+            $inventarisBangunan->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
+        }
     }
 }

@@ -198,6 +198,13 @@ Route::middleware([
             Route::post('/cetak/laporan', \App\Http\Controllers\Desa\Statistik\CetakStatistikPendudukController::class)->name('cetak.laporan');
             Route::get('/agama', \App\Http\Controllers\Desa\Statistik\StatistikAgamaPendudukController::class)->name('agama.penduduk');
             Route::get('/pendidikan', \App\Http\Controllers\Desa\Statistik\StatistikPendidikanPendudukController::class)->name('pendidikan.penduduk');
+            Route::get('/pekerjaan', \App\Http\Controllers\Desa\Statistik\StatistikPekerjaanPendudukController::class)->name('pekerjaan.penduduk');
+            Route::get('/kawin', \App\Http\Controllers\Desa\Statistik\StatistikKawinPendudukController::class)->name('kawin.penduduk');
+            Route::get('/kelamin', \App\Http\Controllers\Desa\Statistik\StatistikKelaminPendudukController::class)->name('kelamin.penduduk');
+            Route::get('/hubungan', \App\Http\Controllers\Desa\Statistik\StatistikHubunganPendudukController::class)->name('hubungan.penduduk');
+            Route::get('/darah', \App\Http\Controllers\Desa\Statistik\StatistikDarahPendudukController::class)->name('darah.penduduk');
+            Route::get('/status', \App\Http\Controllers\Desa\Statistik\StatistikStatusPendudukController::class)->name('status.penduduk');
+            // Route::get('/umurKategori', \App\Http\Controllers\Desa\Statistik\StatistikUmurkategoriPendudukController::class)->name('umurKategori.penduduk');
         });
     });
     Route::prefix('filemanager')->middleware(['role:admin|petugas|kades'])->group(function(){  

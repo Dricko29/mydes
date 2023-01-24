@@ -2,32 +2,29 @@
 
 namespace App\Http\Controllers\Keluarga;
 
-use App\Models\Keluarga;
-use App\Models\Penduduk;
 use App\Models\Dusun;
 use App\Models\AttrSuku;
+use App\Models\Keluarga;
+use App\Models\Penduduk;
 use App\Models\AttrAgama;
 use App\Models\AttrBahasa;
 use App\Models\AttrStatus;
 use App\Models\AttrKelamin;
 use App\Models\AttrHubungan;
+use Illuminate\Http\Request;
 use App\Models\AttrPekerjaan;
 use App\Models\AttrPendidikan;
 use App\Models\AttrStatusDasar;
 use App\Models\AttrStatusKawin;
 use App\Models\AttrWarganegara;
 use App\Models\AttrGolonganDarah;
-use App\Models\AttrHubunganKeluarga;
-use App\Models\AttrPendidikanKeluarga;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\AttrHubunganKeluarga;
+use Illuminate\Support\Facades\Gate;
+use App\Models\AttrPendidikanKeluarga;
 
 class CreatePendudukMasukController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -36,6 +33,7 @@ class CreatePendudukMasukController extends Controller
      */
     public function __invoke(Request $request)
     {
+        abort_if(!Gate::allows('create keluarga'), 403);
         $agama = AttrAgama::all();
         $pendidikan = AttrPendidikan::all();
         $pendidikanKK = AttrPendidikanKeluarga::all();

@@ -30,7 +30,6 @@
       <div class="card">
         <div class="card-header border-bottom">
           <h4 class="card-title">List Comment</h4>
-          <a href="{{ route('site.blog.categories.create') }}" class="btn btn-primary">@lang('Add')</a>
         </div>
 
         <div class="card-datatable">
@@ -160,9 +159,6 @@
                     var info = 'aktifkan';
                   };
                   return (
-                    '<a href="/site/blog/comments/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
-                    feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
-                    '</a>'+
                     '<a href="/site/blog/comments/' + full['id'] +'/status" class="item-edit me-1" title="'+info+'">' +
                     icon +
                     '</a>'+

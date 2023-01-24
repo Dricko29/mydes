@@ -38,7 +38,7 @@
             <div class="d-flex mb-1">
               <a href="#" class="me-25">
                 <img
-                  src="{{ Storage::disk('public')->url('images/desa/foto/avatar.png') }}"
+                  src="{{ $pegawai->foto ? Storage::disk('public')->url($pegawai->foto) :  asset('images/desa/foto/avatar.png') }}"
                   id="account-upload-img"
                   class="uploadedAvatar rounded me-50"
                   alt="profile image"

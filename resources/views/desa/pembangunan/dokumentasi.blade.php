@@ -41,7 +41,7 @@
       @foreach ($pembangunan->dokumentasiPembangunans as $dok)
       <div class="col-md-4 col-12">
           <div class="card">
-              <img class="card-img-top img-fluid" src="{{ Storage::disk('public')->url($dok->gambar) }}" alt="Dokumentasi" />
+              <img class="card-img-top img-fluid" src="{{ $dok->gambar ?  Storage::disk('public')->url($dok->gambar) : asset('images/desa/pembangunan/default.jpeg') }}" alt="Dokumentasi" />
               <div class="card-body">
               <div class="d-flex">
                     <div class="author-info">
@@ -61,7 +61,7 @@
               </p>
               <hr>
                 <div class="d-flex justify-content-between align-items-center">
-                    <a href="#" class="fw-bold">Edit</a>
+                    {{-- <a href="{{ route('site.dokumentasiPembangunan.edit', [$pembangunan->id, $dok->id]) }}" class="fw-bold">Edit</a> --}}
                     <a href="#" class="fw-bold" onclick="hapus([{{$pembangunan->id }},{{ $dok->id }}])">Hapus</a>
                 </div>
               </div>

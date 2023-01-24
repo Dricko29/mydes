@@ -9,10 +9,7 @@ use App\Http\Controllers\Controller;
 
 class CetakLaporanInventarisPeralatanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Handle the incoming request.
      *
@@ -21,8 +18,9 @@ class CetakLaporanInventarisPeralatanController extends Controller
      */
     public function __invoke(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read inventaris'), 403);
         $ttd = Pegawai::find($request->pegawai_id);
-        if ($request->tahun) {
+        if ($request->tahun == '') {
             $title = 'SEMUA TAHUN';
             $inventarisPeralatan = InventarisPeralatan::all();
         } else {

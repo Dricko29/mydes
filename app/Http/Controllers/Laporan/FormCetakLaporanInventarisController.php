@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class FormCetakLaporanInventarisController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -20,6 +16,7 @@ class FormCetakLaporanInventarisController extends Controller
      */
     public function __invoke(Request $request, $jenis)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read inventaris'), 403);
         $pegawais = Pegawai::where('ttd', true)->get();
         return view('desa.inventaris.form-cetak', compact('pegawais', 'jenis'));
     }

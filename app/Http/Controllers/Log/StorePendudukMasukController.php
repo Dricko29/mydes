@@ -4,17 +4,14 @@ namespace App\Http\Controllers\Log;
 
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use App\Models\LogPendudukMasuk;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StorePendudukRequest;
-use App\Models\LogPendudukMasuk;
 
 class StorePendudukMasukController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -23,6 +20,7 @@ class StorePendudukMasukController extends Controller
      */
     public function __invoke(StorePendudukRequest $request)
     {
+        abort_if(!Gate::allows('create penduduk'), 403);
         try {
             DB::beginTransaction();
             

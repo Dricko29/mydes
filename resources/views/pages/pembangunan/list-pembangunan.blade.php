@@ -26,7 +26,7 @@
                     
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="events-card">
-                        <img src="{{ asset($item->dokumentasiPembangunans->count() ? $item->dokumentasiPembangunans->first()->gambar : 'images/desa/pembangunan/default.jpeg') }}" alt="image" style="height: 300px"/>
+                        <img src="{{ $item->dokumentasiPembangunans->first()->gambar ? Storage::disk('public')->url($item->dokumentasiPembangunans->first()->gambar ) : asset('images/desa/pembangunan/default.jpeg') }}" alt="image" style="height: 300px"/>
                         <div class="events-card-text">
                             <ul>
                                 <li>Pembangunan {{ $item->sifat == 1 ? 'Baru' : 'Lanjut'  }}</li>

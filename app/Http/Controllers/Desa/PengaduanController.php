@@ -16,10 +16,6 @@ use App\Http\Requests\UpdatePengaduanRequest;
 
 class PengaduanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +23,7 @@ class PengaduanController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read pengaduan'), 403);
         if ($request->ajax()) {
             $model = Pengaduan::latest();
             return DataTables::eloquent($model)
@@ -93,6 +90,7 @@ class PengaduanController extends Controller
      */
     public function edit(Pengaduan $pengaduan)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update pengaduan'), 403);
         $respon = TanggapanPengaduan::where('pengaduan_id', $pengaduan->id)->where('created_by', Auth::user()->id)->latest()->first();
         return view('desa.pengaduan.edit', compact('pengaduan', 'respon'));
     }
@@ -107,6 +105,7 @@ class PengaduanController extends Controller
     public function update(UpdatePengaduanRequest $request, Pengaduan $pengaduan)
     {
         try {
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('update pengaduan'), 403);
             $id = $pengaduan->id;
             DB::beginTransaction();
             $pengaduan->forceFill([
@@ -135,10 +134,20 @@ class PengaduanController extends Controller
      */
     public function destroy(Pengaduan $pengaduan)
     {
-        $pengaduan->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!')
-        ]);
+        try {
+            //code...
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete pengaduan'), 403);
+            $pengaduan->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!')
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.')
+            ]);
+            //throw $th;
+        }
     }
 }

@@ -9,7 +9,7 @@
 						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
 							<div class="team-card">
 								<div class="team-card-img">
-									<img src="{{ asset($item->foto ? $item->foto : 'images/desa/foto/avatar.png') }}" alt="image" style="height: 300px"/>
+									<img src="{{ $item->foto ? Storage::disk('public')->url($item->foto) : asset('images/desa/foto/avatar.png') }}" alt="image" style="height: 300px"/>
 									<div class="team-social-icons">
 										<ul>
 											<li>

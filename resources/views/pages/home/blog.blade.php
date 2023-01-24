@@ -16,7 +16,7 @@
 							<div class="blog-card">
 									<div class="blog-card-img">
 										<a href="{{ route('berita.detail', $blog->slug) }}"
-											><img src="{{ asset($blog->gambar ? $blog->gambar : 'assets/images/blog/b1.jpg') }}" alt="image"
+											><img src="{{ $blog->gambar ? Storage::disk('public')->url($blog->gambar) : asset('images/desa/berita/default.jpeg') }}" alt="image"
 										/></a>
 									</div>
 								<div class="blog-card-text-area">
@@ -24,7 +24,7 @@
 										<ul>
 											<li>
 												<i class="fas fa-user"></i> @lang('By')
-												<a href="#">{{ $blog->creator->name }}</a>
+												<a href="javascript:void(0)">{{ $blog->creator->name }}</a>
 											</li>
 											<li><i class="far fa-comments"></i>{{ $blog->comments->count() }} @lang('Comments')</li>
 											<li><span class="badge bg-success">{{ $blog->category->nama }}</span></li>

@@ -45,6 +45,42 @@
                   "name": "Pendidikan",
                   "icon": "circle",
                   "slug": "pendidikan"
+              },
+              {
+                  "url": "site/statistik/pekerjaan",
+                  "name": "Pekerjaan",
+                  "icon": "circle",
+                  "slug": "pekerjaan"
+              },
+              {
+                  "url": "site/statistik/kawin",
+                  "name": "Status Kawin",
+                  "icon": "circle",
+                  "slug": "kawin"
+              },
+              {
+                  "url": "site/statistik/kelamin",
+                  "name": "Jenis Kelamin",
+                  "icon": "circle",
+                  "slug": "kelamin"
+              },
+              {
+                  "url": "site/statistik/hubungan",
+                  "name": "Hubungan KK",
+                  "icon": "circle",
+                  "slug": "hubungan"
+              },
+              {
+                  "url": "site/statistik/darah",
+                  "name": "Golongan Darah",
+                  "icon": "circle",
+                  "slug": "darah"
+              },
+              {
+                  "url": "site/statistik/status",
+                  "name": "Status",
+                  "icon": "circle",
+                  "slug": "status"
               }
           ]
       },

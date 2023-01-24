@@ -14,10 +14,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CetakSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -26,6 +22,7 @@ class CetakSuratController extends Controller
      */
     public function __invoke(Request $request, Penduduk $penduduk)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         if ($request->ajax()) {
             $status = $request->status;
             $model = Surat::with('klasifikasiSurat');

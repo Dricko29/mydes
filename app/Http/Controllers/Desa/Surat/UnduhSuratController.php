@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class UnduhSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -21,6 +17,7 @@ class UnduhSuratController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         $arsip = LogSurat::find($id);
         return Storage::download($arsip->file);
     }

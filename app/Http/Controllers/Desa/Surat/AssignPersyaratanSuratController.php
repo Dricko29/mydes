@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class AssignPersyaratanSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -20,6 +16,7 @@ class AssignPersyaratanSuratController extends Controller
      */
     public function __invoke(Request $request, Surat $surat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create surat'), 403);
         $persyaratan = collect($request->persyaratan);
         $surat->syaratSurats()->sync($persyaratan);
         return redirect()->route('site.surat.index')->with('success', __('Data Updated Successfully!'));

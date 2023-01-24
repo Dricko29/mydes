@@ -10,10 +10,6 @@ use App\Http\Controllers\Controller;
 
 class SuratPengantarController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -22,6 +18,7 @@ class SuratPengantarController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         $surat = Surat::find($id);
         $pegawais = Pegawai::all();
         $penduduks = Penduduk::all();

@@ -18,10 +18,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class CetakSuratBiodataController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Handle the incoming request.
      *
@@ -30,6 +27,7 @@ class CetakSuratBiodataController extends Controller
      */
     public function __invoke(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         $pegawai = Pegawai::find($request->pegawai_id);
         $penduduk = Penduduk::find($request->penduduk_id);
         $keluarga = Keluarga::where('id', $penduduk->keluarga_id)->firstOrFail();

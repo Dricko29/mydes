@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ArsipSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +22,7 @@ class ArsipSuratController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         if ($request->ajax()) {
             $status = $request->status;
             $model = LogSurat::with('penduduk', 'surat.klasifikasiSurat', 'pegawai', 'nomorSurat')->latest();

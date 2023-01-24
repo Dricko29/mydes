@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class BulkDeleteArsipSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Handle the incoming request.
      *
@@ -22,6 +18,7 @@ class BulkDeleteArsipSuratController extends Controller
     public function __invoke(Request $request)
     {
         try {
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete surat'), 403);
             $file = LogSurat::whereIn('id', $request->id)->pluck('file');
             // return $file;
             LogSurat::whereIn('id', $request->id)->delete();

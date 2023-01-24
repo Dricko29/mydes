@@ -18,7 +18,7 @@
                             @forelse ($dokumen as $item)
                             <div class="col-md-6 col-lg-4">
                             <div class="card">
-                                <img class="card-img-top" src="{{asset($item)}}" alt="Card image cap" />
+                                <img class="card-img-top" src="{{Storage::disk('public')->url($item)}}" alt="Card image cap" />
                             </div>
                             </div>
                             @empty

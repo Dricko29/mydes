@@ -156,9 +156,15 @@
 									tincidunt.
 								</p> --}}
 								<ul>
-									@foreach ($misi as $misi)	
+									@if ($misi)
+										
+									@forelse ($misi as $misi)
+										
 									<li>{{ $misi->item }}</li>
-									@endforeach
+									@empty
+										
+									@endforelse	
+									@endif
 								</ul>
 							</div>
 						</div>

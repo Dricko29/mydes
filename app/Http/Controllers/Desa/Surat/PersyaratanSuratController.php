@@ -9,10 +9,7 @@ use Illuminate\Http\Request;
 
 class PersyaratanSuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Handle the incoming request.
      *
@@ -21,6 +18,7 @@ class PersyaratanSuratController extends Controller
      */
     public function __invoke(Request $request, Surat $surat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         $surat_syarat= $surat->syaratSurats->pluck('id')->toArray();
         $persyaratan = SyaratSurat::all();
         return view('desa.surat.pengaturan.persyaratan', compact('surat', 'persyaratan', 'surat_syarat'));

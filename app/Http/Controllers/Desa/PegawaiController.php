@@ -8,6 +8,7 @@ use App\Models\AttrAgama;
 use App\Models\AttrKelamin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Models\AttrPendidikanKeluarga;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,10 +17,6 @@ use App\Http\Requests\UpdatePegawaiRequest;
 
 class PegawaiController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +24,7 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read pegawai'), 403);
         if ($request->ajax()) {
             $model = Pegawai::with('attrKelamin', 'jabatan', 'attrPendidikanKeluarga', 'attrAgama');
             return DataTables::eloquent($model)
@@ -63,6 +61,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create pegawai'), 403);
         $kelamins = AttrKelamin::all();
         $jabatans = Jabatan::all();
         $pendidikans = AttrPendidikanKeluarga::all();
@@ -83,6 +82,7 @@ class PegawaiController extends Controller
      */
     public function store(StorePegawaiRequest $request)
     {
+        abort_if(!Gate::allows('create pegawai'), 403);
         if($request->jabatan_id == 1){
             return redirect()->back()->with('error', 'Kepala Desa Sudah Ada!');
         }else{
@@ -106,6 +106,7 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
+        abort_if(!Gate::allows('read pegawai'), 403);
         return view('desa.pegawai.show', compact('pegawai'));
     }
 
@@ -117,6 +118,7 @@ class PegawaiController extends Controller
      */
     public function edit(Pegawai $pegawai)
     {
+        abort_if(!Gate::allows('update pegawai'), 403);
         $kelamins = AttrKelamin::all();
         $jabatans = Jabatan::all();
         $pendidikans = AttrPendidikanKeluarga::all();
@@ -139,9 +141,7 @@ class PegawaiController extends Controller
      */
     public function update(UpdatePegawaiRequest $request, Pegawai $pegawai)
     {
-        // if ($request->jabatan_id == 1) {
-        //     return redirect()->back()->with('error', 'Kepala Desa Sudah Ada!');
-        // }    
+        abort_if(!Gate::allows('update pegawai'), 403);   
         $pegawai->update($request->validated());
         if ($request->file('foto')) {
             if ($request->oldFoto) {
@@ -163,13 +163,21 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $pegawai)
     {
-        if ($pegawai->foto) {
-            Storage::delete($pegawai->foto);
+        try {
+            abort_if(!Gate::allows('delete pegawai'), 403);   
+            $pegawai->delete();
+            if ($pegawai->foto) {
+                Storage::delete($pegawai->foto);
+            }
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
         }
-        $pegawai->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!'),
-        ]);
     }
 }

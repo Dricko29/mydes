@@ -23,6 +23,7 @@ use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\AttrHubunganKeluarga;
+use Illuminate\Support\Facades\Gate;
 use Novay\WordTemplate\WordTemplate;
 use App\Models\AttrPendidikanKeluarga;
 use Yajra\DataTables\Facades\DataTables;
@@ -31,10 +32,6 @@ use App\Http\Requests\UpdateKeluargaRequest;
 
 class KeluargaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +39,7 @@ class KeluargaController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read keluarga'), 403);
         if ($request->ajax()) {
             $model = Keluarga::withCount('penduduks')->with(['penduduks' => function ($query) {
                 $query->where('attr_hubungan_id', 1);
@@ -115,6 +113,7 @@ class KeluargaController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create keluarga'), 403);
         $penduduks = Penduduk::where('keluarga_id', null)->where('attr_hubungan_id', 1)->get();
         if ($penduduks->count()) {
             $cek = false;
@@ -132,6 +131,7 @@ class KeluargaController extends Controller
      */
     public function store(StoreKeluargaRequest $request)
     {
+        abort_if(!Gate::allows('create keluarga'), 403);
         $penduduk = Penduduk::where('id', $request->penduduk_id)->first();
         try {
             $keluarga = Keluarga::create([
@@ -160,6 +160,7 @@ class KeluargaController extends Controller
      */
     public function show(Keluarga $keluarga)
     {
+        abort_if(!Gate::allows('read keluarga'), 403);
         $pageConfigs = ['pageHeader' => false];
         $penduduk = Penduduk::where('keluarga_id', $keluarga->id)->where('attr_hubungan_id', 1)->first();
         $keluarga->load(['penduduks' => function($query){
@@ -180,6 +181,7 @@ class KeluargaController extends Controller
      */
     public function edit(Keluarga $keluarga)
     {
+        abort_if(!Gate::allows('update keluarga'), 403);
         return view('desa.keluarga.edit',compact('keluarga'));
     }
 
@@ -192,6 +194,7 @@ class KeluargaController extends Controller
      */
     public function update(UpdateKeluargaRequest $request, Keluarga $keluarga)
     {
+        abort_if(!Gate::allows('update keluarga'), 403);
         $keluarga->update($request->validated());
         return redirect()->route('site.keluarga.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -205,22 +208,24 @@ class KeluargaController extends Controller
     public function destroy(Keluarga $keluarga)
     {
         try {
+            abort_if(!Gate::allows('delete keluarga'), 403);
             $keluarga->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
                 'msg' => __('Whoops! Something went wrong.'),
             ]);
         }
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!'),
-        ]);
         
     }
 
     public function kartu(Keluarga $keluarga)
     {
+        abort_if(!Gate::allows('read keluarga'), 403);
         $pageConfigs = ['pageHeader' => false];
         $penduduk = Penduduk::where('keluarga_id', $keluarga->id)->where('attr_hubungan_id', 1)->first();
         $keluarga->load(['penduduks' => function ($query) {
@@ -234,6 +239,7 @@ class KeluargaController extends Controller
     }
     public function print(Keluarga $keluarga)
     {
+        abort_if(!Gate::allows('read keluarga'), 403);
         $pageConfigs = ['pageHeader' => false];
         $penduduk = Penduduk::where('keluarga_id', $keluarga->id)->where('attr_hubungan_id', 1)->first();
         $keluarga->load(['penduduks' => function ($query) {

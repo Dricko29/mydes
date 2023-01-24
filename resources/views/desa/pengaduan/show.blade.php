@@ -19,7 +19,7 @@
     <div class="col-12">
       <div class="card">
         <img
-          src="{{asset($pengaduan->foto ? $pengaduan->foto : 'images/banner/banner-12.jpg')}}"
+          src="{{ $pengaduan->foto ? Storage::disk('public')->url($pengaduan->foto) : asset('images/desa/pengaduan/default.jpeg')}}"
           class="img-fluid card-img-top"
           alt="Blog Detail Pic"
         />

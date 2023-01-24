@@ -29,7 +29,7 @@
 								<div class="blog-card mt-0">
 									<div class="blog-card-img">
 										<a href="{{ route('berita.detail', $blog->slug) }}"
-											><img src="{{ asset($blog->gambar ? $blog->gambar : 'assets/images/blog/b1.jpg') }}" alt="image"
+											><img src="{{ $blog->gambar ? Storage::disk('public')->url($blog->gambar) : asset('images/desa/berita/default.jpeg') }}" alt="image"
 										/></a>
 									</div>
 									<div class="blog-card-text-area">
@@ -77,38 +77,6 @@
 									</li>
 									@endforeach
 								</ul>
-							</div>
-							<div class="sidebar-card recent-news mt-30">
-								<h3>Popular Posts</h3>
-								<div class="recent-news-card">
-									<a href="blog-details.html"
-										><img src="assets/images/inner-images/bds1.jpg" alt="image"
-									/></a>
-									<h5>
-										<a href="blog-details.html">Responds To Citizens Advice</a>
-									</h5>
-									<p>1st Sep 2022</p>
-								</div>
-								<div class="recent-news-card">
-									<a href="blog-details.html"
-										><img src="assets/images/inner-images/bds2.jpg" alt="image"
-									/></a>
-									<h5>
-										<a href="blog-details.html">Housing Advisers Program</a>
-									</h5>
-									<p>4th Sep 2022</p>
-								</div>
-								<div class="recent-news-card">
-									<a href="blog-details.html"
-										><img src="assets/images/inner-images/bds3.jpg" alt="image"
-									/></a>
-									<h5>
-										<a href="blog-details.html"
-											>Responds To a National Reports</a
-										>
-									</h5>
-									<p>2nd Sep 2022</p>
-								</div>
 							</div>
 							<div class="sidebar-card sidebar-tag mt-30">
 								<h3>Tags</h3>

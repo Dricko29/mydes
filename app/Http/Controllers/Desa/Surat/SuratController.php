@@ -12,10 +12,6 @@ use App\Models\KlasifikasiSurat;
 
 class SuratController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +19,7 @@ class SuratController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         if ($request->ajax()) {
             $status = $request->status;
             $model = Surat::when($status, function ($query) use ($status) {
@@ -57,6 +54,7 @@ class SuratController extends Controller
      */
     public function create()
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create surat'), 403);
         $klasifikasi = KlasifikasiSurat::all();
         return view('desa.surat.pengaturan.create', compact('klasifikasi'));
     }
@@ -69,6 +67,7 @@ class SuratController extends Controller
      */
     public function store(StoreSuratRequest $request)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('create surat'), 403);
         Surat::create($request->validated()+ ['masa_berlaku' => $request->masa_berlaku . ' ' . $request->lama]);
         return redirect()->route('site.surat.index')->with('success', __('Data Created Successfully!'));
     }
@@ -92,6 +91,7 @@ class SuratController extends Controller
      */
     public function edit(Surat $surat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update surat'), 403);
         $klasifikasi = KlasifikasiSurat::all();
         return view('desa.surat.pengaturan.edit', compact('klasifikasi', 'surat'));
     }
@@ -105,6 +105,7 @@ class SuratController extends Controller
      */
     public function update(UpdateSuratRequest $request, Surat $surat)
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('update surat'), 403);
         $surat->update($request->validated());
         return redirect()->route('site.surat.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -118,6 +119,7 @@ class SuratController extends Controller
     public function destroy(Surat $surat)
     {
         try {
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete surat'), 403);
             $surat->delete();
             return response()->json([
                 'status' => 'success',
@@ -135,6 +137,7 @@ class SuratController extends Controller
     public function bulkDelete(Request $request)
     {
         try {
+            abort_if(!\Illuminate\Support\Facades\Gate::allows('delete surat'), 403);
             Surat::whereIn('id', $request->id)->delete();
             return response()->json([
                 'status' => 'success',

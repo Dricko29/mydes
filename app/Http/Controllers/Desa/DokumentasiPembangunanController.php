@@ -9,10 +9,6 @@ use App\Http\Requests\UpdateDokumentasiPembangunanRequest;
 
 class DokumentasiPembangunanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +16,7 @@ class DokumentasiPembangunanController extends Controller
      */
     public function index()
     {
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read pembangunan'), 403);
         $pageConfigs = ['contentLayout' => 'content-detached-right-sidebar', 'bodyClass' => 'content-detached-right-sidebar'];
 
         $breadcrumbs = [['link' => "/", 'name' => "Home"], ['link' => "javascript:void(0)", 'name' => "Pages"], ['link' => "javascript:void(0)", 'name' => "Blog"], ['name' => "List"]];

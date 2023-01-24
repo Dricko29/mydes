@@ -19,6 +19,7 @@ use App\Models\AttrWarganegara;
 use App\Models\AttrGolonganDarah;
 use App\Http\Controllers\Controller;
 use App\Models\AttrHubunganKeluarga;
+use Illuminate\Support\Facades\Gate;
 use App\Models\AttrPendidikanKeluarga;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -27,10 +28,7 @@ use App\Http\Requests\UpdatePendudukRequest;
 
 class PendudukController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,6 +36,7 @@ class PendudukController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read penduduk'),403);
         if ($request->ajax()) {
             $status = $request->status;
             $kelamin = $request->kelamin;
@@ -91,6 +90,7 @@ class PendudukController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create penduduk'), 403);
         $agama = AttrAgama::all();
         $pendidikan = AttrPendidikan::all();
         $pendidikanKK = AttrPendidikanKeluarga::all();
@@ -134,6 +134,7 @@ class PendudukController extends Controller
      */
     public function store(StorePendudukRequest $request)
     {
+        abort_if(!Gate::allows('create penduduk'), 403);
         $data = Penduduk::create($request->validated());
         if ($request->file('foto')) {
             // jika ada upload foto baru
@@ -153,6 +154,7 @@ class PendudukController extends Controller
      */
     public function show(Penduduk $penduduk)
     {
+        abort_if(!Gate::allows('read penduduk'), 403);
         return view('desa.penduduk.show', compact(
             'penduduk'
         ));
@@ -166,6 +168,7 @@ class PendudukController extends Controller
      */
     public function edit(Penduduk $penduduk)
     {
+        abort_if(!Gate::allows('update penduduk'), 403);
         $agama = AttrAgama::all();
         $pendidikan = AttrPendidikan::all();
         $pendidikanKK = AttrPendidikanKeluarga::all();
@@ -211,6 +214,7 @@ class PendudukController extends Controller
      */
     public function update(UpdatePendudukRequest $request, Penduduk $penduduk)
     {
+        abort_if(!Gate::allows('update penduduk'), 403);
         $penduduk->update($request->validated());
         if ($request->file('foto')) {
             if ($request->oldFoto) {
@@ -232,13 +236,21 @@ class PendudukController extends Controller
      */
     public function destroy(Penduduk $penduduk)
     {
-        if ($penduduk->foto) {
-            Storage::delete($penduduk->foto);
+        try {
+            abort_if(!Gate::allows('delete penduduk'), 403);
+            if ($penduduk->foto) {
+                Storage::delete($penduduk->foto);
+            }
+            $penduduk->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
         }
-        $penduduk->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!'),
-        ]);
     }
 }

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Desa\Penduduk;
 
-use App\Http\Controllers\Controller;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class BulkDeletePendudukController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
+
     /**
      * Handle the incoming request.
      *
@@ -21,6 +19,7 @@ class BulkDeletePendudukController extends Controller
     public function __invoke(Request $request)
     {
         try {
+            abort_if(!Gate::allows('delete penduduk'), 403);
             Penduduk::whereIn('id', $request->id)->delete();
             return response()->json([
                 'status' => 'success',

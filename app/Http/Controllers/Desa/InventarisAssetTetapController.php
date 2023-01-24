@@ -8,16 +8,13 @@ use App\Models\InvJenisAsset;
 use App\Models\InvKategoriAsset;
 use App\Http\Controllers\Controller;
 use App\Models\InventarisAssetTetap;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StoreInventarisAssetTetapRequest;
 use App\Http\Requests\UpdateInventarisAssetTetapRequest;
 
 class InventarisAssetTetapController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['role:admin|petugas|kades']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +22,7 @@ class InventarisAssetTetapController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         if ($request->ajax()) {
             $model = InventarisAssetTetap::with('invAsal');
             return DataTables::eloquent($model)
@@ -50,6 +48,7 @@ class InventarisAssetTetapController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         $kategoriAssets = InvKategoriAsset::all();
         $jenisAssets = InvJenisAsset::all();
         $asal = InvAsal::all();
@@ -68,6 +67,7 @@ class InventarisAssetTetapController extends Controller
      */
     public function store(StoreInventarisAssetTetapRequest $request)
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         InventarisAssetTetap::create($request->validated());
         return redirect()->route('site.inventarisAssetTetap.index')->with('success', __('Data Created Successfully!'));
     }
@@ -80,6 +80,7 @@ class InventarisAssetTetapController extends Controller
      */
     public function show(InventarisAssetTetap $inventarisAssetTetap)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         return view('desa.inventaris.assetTetap.show',compact('inventarisAssetTetap'));
     }
 
@@ -91,6 +92,7 @@ class InventarisAssetTetapController extends Controller
      */
     public function edit(InventarisAssetTetap $inventarisAssetTetap)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $kategoriAssets = InvKategoriAsset::all();
         $jenisAssets = InvJenisAsset::all();
         $asal = InvAsal::all();
@@ -111,6 +113,7 @@ class InventarisAssetTetapController extends Controller
      */
     public function update(UpdateInventarisAssetTetapRequest $request, InventarisAssetTetap $inventarisAssetTetap)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $inventarisAssetTetap->update($request->validated());
         return redirect()->route('site.inventarisAssetTetap.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -123,10 +126,18 @@ class InventarisAssetTetapController extends Controller
      */
     public function destroy(InventarisAssetTetap $inventarisAssetTetap)
     {
-        $inventarisAssetTetap->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!')
-        ]);
+        try {
+            abort_if(!Gate::allows('delete inventaris'), 403);
+            $inventarisAssetTetap->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
+        }
     }
 }

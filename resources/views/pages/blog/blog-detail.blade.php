@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog-details-text-area details-text-area">
-                        <img src="{{ asset($blog->gambar ? $blog->gambar : 'assets/images/inner-images/bd1.jpg') }}" alt="image" />
+                        <img src="{{ $blog->gambar ? Storage::disk('public')->url($blog->gambar) :  asset('images/desa/berita/default.jpeg') }}" alt="image" />
                         <div class="blog-date">
                             <ul>
                                 <li>
@@ -209,31 +209,6 @@
                                 </li>
                                 @endforeach
                             </ul>
-                        </div>
-                        <div class="sidebar-card recent-news mt-30">
-                            <h3>Popular Posts</h3>
-                            <div class="recent-news-card">
-                                <a href="blog-details.html"
-                                    ><img src="{{ asset('assets/images/inner-images/bds1.jpg') }}" alt="image"
-                                /></a>
-                                <h5>
-                                    <a href="blog-details.html"
-                                        >Responds To Citizenship Advices</a
-                                    >
-                                </h5>
-                                <p>1st Sep 2022</p>
-                            </div>
-                            <div class="recent-news-card">
-                                <a href="blog-details.html"
-                                    ><img src="{{ asset('assets/images/inner-images/bds2.jpg') }}" alt="image"
-                                /></a>
-                                <h5>
-                                    <a href="blog-details.html"
-                                        >Housing Advisers Program For Beginner</a
-                                    >
-                                </h5>
-                                <p>4th Sep 2022</p>
-                            </div>
                         </div>
                         <div class="sidebar-card sidebar-tag mt-30">
                             <h3>Tags</h3>

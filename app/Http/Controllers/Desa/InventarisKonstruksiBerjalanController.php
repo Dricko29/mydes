@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Desa;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\InventarisKonstruksiBerjalan;
 use App\Http\Requests\StoreInventarisKonstruksiBerjalanRequest;
@@ -22,6 +23,7 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         if ($request->ajax()) {
             $model = InventarisKonstruksiBerjalan::with('invAsal', 'invFisikBangunan');
             return DataTables::eloquent($model)
@@ -47,6 +49,7 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function create()
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         $asal = \App\Models\InvAsal::all();
         $fisikBangunan = \App\Models\InvFisikBangunan::all();
         $statusTanah = \App\Models\InvStatusTanah::all();
@@ -65,6 +68,7 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function store(StoreInventarisKonstruksiBerjalanRequest $request)
     {
+        abort_if(!Gate::allows('create inventaris'), 403);
         InventarisKonstruksiBerjalan::create($request->validated());
         return redirect()->route('site.inventarisKonstruksiBerjalan.index')->with('success',__('Data Created Successfully!'));
     }
@@ -77,6 +81,7 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function show(InventarisKonstruksiBerjalan $inventarisKonstruksiBerjalan)
     {
+        abort_if(!Gate::allows('read inventaris'), 403);
         return view('desa.inventaris.konstruksiBerjalan.show', compact('inventarisKonstruksiBerjalan'));
     }
 
@@ -88,6 +93,7 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function edit(InventarisKonstruksiBerjalan $inventarisKonstruksiBerjalan)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $asal = \App\Models\InvAsal::all();
         $fisikBangunan = \App\Models\InvFisikBangunan::all();
         $statusTanah = \App\Models\InvStatusTanah::all();
@@ -108,6 +114,7 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function update(UpdateInventarisKonstruksiBerjalanRequest $request, InventarisKonstruksiBerjalan $inventarisKonstruksiBerjalan)
     {
+        abort_if(!Gate::allows('update inventaris'), 403);
         $inventarisKonstruksiBerjalan->update($request->validated());
         return redirect()->route('site.inventarisKonstruksiBerjalan.index')->with('success', __('Data Updated Successfully!'));
     }
@@ -120,10 +127,18 @@ class InventarisKonstruksiBerjalanController extends Controller
      */
     public function destroy(InventarisKonstruksiBerjalan $inventarisKonstruksiBerjalan)
     {
-        $inventarisKonstruksiBerjalan->delete();
-        return response()->json([
-            'status' => 'success',
-            'msg' => __('Data Deleted Successfully!')
-        ]);
+        try {
+            abort_if(!Gate::allows('delete inventaris'), 403);
+            $inventarisKonstruksiBerjalan->delete();
+            return response()->json([
+                'status' => 'success',
+                'msg' => __('Data Deleted Successfully!'),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => __('Whoops! Something went wrong.'),
+            ]);
+        }
     }
 }
