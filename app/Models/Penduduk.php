@@ -19,7 +19,34 @@ class Penduduk extends Model
     use Userstamps;
 
     protected $guarded = ['id'];
-    
+    protected $appends = [
+        'foto_url',
+        'umur'
+    ];
+
+    public function getUmurAttribute()
+    {
+        return  Carbon::parse($this->tanggal_lahir)->age;
+    }
+
+    public function getFotoUrlAttribute()
+    {
+        return $this->foto
+            ? Storage::disk('public')->url($this->foto)
+            : $this->defaultFotoUrl();
+    }
+
+    /**
+     * Get the default profile photo URL if no profile photo has been uploaded.
+     *
+     * @return string
+     */
+    protected function defaultFotoUrl()
+    {
+        return Storage::disk('public')->url('avatar.png');
+    }
+
+    // relasi
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -117,30 +144,9 @@ class Penduduk extends Model
         return $this->belongsToMany(Surat::class, 'permohonan_surats', 'penduduk_id', 'surat_id');
     }
 
-    protected $appends = [
-        'foto_url',
-        'umur'
-    ];
-
-    public function getUmurAttribute()
+    public function lahir() : HasOne
     {
-        return  Carbon::parse($this->tanggal_lahir)->age;
+        return $this->hasOne(LogPendudukLahir::class, 'penduduk_id', 'id');
     }
 
-    public function getFotoUrlAttribute()
-    {
-        return $this->foto
-            ? Storage::disk('public')->url($this->foto)
-            : $this->defaultFotoUrl();
-    }
-
-    /**
-     * Get the default profile photo URL if no profile photo has been uploaded.
-     *
-     * @return string
-     */
-    protected function defaultFotoUrl()
-    {
-        return Storage::disk('public')->url('avatar.png');
-    }
 }

@@ -237,5 +237,6 @@ return [
     "Jenis Kelamin" => "Jenis Kelamin",
     "Hubungan KK" => "Hubungan KK",
     "Golongan Darah" => "Golongan Darah",
-    "Status" => "Status"
+    "Status" => "Status",
+    "Laporan Penduduk" => "Laporan Penduduk"
 ];

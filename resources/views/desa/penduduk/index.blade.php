@@ -58,6 +58,15 @@
               </select>
             </div>
             <div class="col-md-4">
+              <label class="form-label" for="statusDasar">Status Dasar</label>
+              <select class="form-select select2" id="statusDasar" name="statusDasar">
+                <option value="">Semua</option>
+                @foreach ($statusDasarPenduduk as $item)
+                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-md-4">
               <label class="form-label" for="kelamin">Kelamin</label>
               <select class="form-select select2" id="kelamin" name="kelamin">
                 <option value="">Semua</option>
@@ -226,13 +235,16 @@
                   var id = full['id'];
                   return (
                     '<a href="/site/penduduk/' + full['id'] +'" class="item-edit me-1" title="detail">' +
-                    feather.icons['eye'].toSvg({ class: 'font-small-4' }) +
+                    feather.icons['eye'].toSvg({ class: 'font-small-10' }) +
                     '</a>'+
                     '<a href="/site/penduduk/' + full['id'] +'/edit" class="item-edit me-1" title="edit">' +
-                    feather.icons['edit'].toSvg({ class: 'font-small-4' }) +
+                    feather.icons['edit'].toSvg({ class: 'font-small-10' }) +
+                    '</a>'+
+                    '<a href="/site/penduduk/' + full['id'] +'/status" class="item-edit me-1" title="edit status dasar">' +
+                    feather.icons['edit-3'].toSvg({ class: 'font-small-10' }) +
                     '</a>'+
                    '<a href="javascript:;" class="item-edit delete-record me-1" title="hapus" onclick="hapus('+full['id']+')" data-id="'+full['id']+'">' +
-                    feather.icons['trash'].toSvg({ class: 'font-small-4' }) +
+                    feather.icons['trash'].toSvg({ class: 'font-small-10' }) +
                     '</a>'
                   );
                 }
@@ -340,6 +352,12 @@
         $("#kelamin").on("change", function () {
           dt_ajax_table.on('preXhr.dt', function ( e, settings, data ) {
               data.kelamin = $('#kelamin').val();
+          })
+          $('.datatables-ajax').DataTable().ajax.reload()
+        });
+        $("#statusDasar").on("change", function () {
+          dt_ajax_table.on('preXhr.dt', function ( e, settings, data ) {
+              data.statusDasar = $('#statusDasar').val();
           })
           $('.datatables-ajax').DataTable().ajax.reload()
         });

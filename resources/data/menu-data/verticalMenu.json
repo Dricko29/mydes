@@ -35,10 +35,10 @@
           "slug": "",
           "submenu": [
               {
-                  "url": "site/statistik/agama",
-                  "name": "Agama",
+                  "url": "site/statistik/laporan",
+                  "name": "Laporan Penduduk",
                   "icon": "circle",
-                  "slug": "agama"
+                  "slug": "laporan"
               },
               {
                   "url": "site/statistik/pendidikan",

@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LogPendudukMasuk extends Model
+class LogPendudukPindah extends Model
 {
     use HasFactory;
     use Userstamps;
 
     protected $guarded = ['id'];
+
     public function penduduk(): BelongsTo
     {
         return $this->belongsTo(Penduduk::class);

@@ -40,6 +40,7 @@ class PendudukController extends Controller
         if ($request->ajax()) {
             $status = $request->status;
             $kelamin = $request->kelamin;
+            $statusDasar = $request->statusDasar;
             $model = Penduduk::with([
                 'keluarga',
                 'attrKelamin',
@@ -63,6 +64,8 @@ class PendudukController extends Controller
                 $query->where('attr_status_id', $status);
             })->when($kelamin, function ($query) use ($kelamin) {
                 $query->where('attr_kelamin_id', $kelamin);
+            })->when($statusDasar, function ($query) use ($statusDasar) {
+                $query->where('attr_status_dasar_id', $statusDasar);
             });
             return DataTables::eloquent($model)
                 ->addIndexColumn()
@@ -77,9 +80,11 @@ class PendudukController extends Controller
         }
         $statusPenduduk = AttrStatus::all();
         $kelaminPenduduk = AttrKelamin::all();
+        $statusDasarPenduduk = AttrStatusDasar::all();
         return view('desa.penduduk.index', compact(
             'statusPenduduk',
             'kelaminPenduduk',
+            'statusDasarPenduduk',
         ));
     }
 

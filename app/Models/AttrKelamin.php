@@ -15,4 +15,12 @@ class AttrKelamin extends Model
     {
         return $this->hasMany(Penduduk::class);
     }
+
+    public function logPendudukLahirs()
+    {
+        return $this->hasManyThrough(
+            LogPendudukLahir::class,
+            Penduduk::class,
+        );
+    }
 }

@@ -20,7 +20,7 @@ class StorePendudukLahirController extends Controller
      */
     public function __invoke(StorePendudukRequest $request)
     {
-        abort_if(!Gate::allows('create penduduk'), 403);
+        abort_if(!Gate::allows('update penduduk'), 403);
         try {
             DB::beginTransaction();
 

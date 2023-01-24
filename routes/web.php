@@ -84,12 +84,17 @@ Route::middleware([
         // route penduduk
         Route::get('penduduk/masuk', \App\Http\Controllers\Log\PendudukMasukController::class)->name('penduduk.masuk');
         Route::get('penduduk/lahir', \App\Http\Controllers\Log\PendudukLahirController::class)->name('penduduk.lahir');
+        Route::get('penduduk/{penduduk}/mati', \App\Http\Controllers\Log\PendudukMatiController::class)->name('penduduk.mati');
+        Route::get('penduduk/{penduduk}/pindah', \App\Http\Controllers\Log\PendudukPindahController::class)->name('penduduk.pindah');
+        
         Route::post('penduduk/masuk', \App\Http\Controllers\Log\StorePendudukMasukController::class)->name('penduduk.masuk.store');
         Route::post('penduduk/lahir', \App\Http\Controllers\Log\StorePendudukLahirController::class)->name('penduduk.lahir.store');
+        Route::post('penduduk/{penduduk}/mati', \App\Http\Controllers\Log\StorePendudukMatiController::class)->name('penduduk.mati.store');
+        Route::post('penduduk/{penduduk}/pindah', \App\Http\Controllers\Log\StorePendudukPindahController::class)->name('penduduk.pindah.store');
 
         // log penduduk
         Route::get('logPendudukLahir', \App\Http\Controllers\Desa\Penduduk\LogPendudukLahirController::class)->name('log.penduduk.lahir');
-
+        Route::get('penduduk/{penduduk}/status', \App\Http\Controllers\Desa\Penduduk\EditStatusDasarPendudukController::class)->name('penduduk.statusDasar');
         Route::get('penduduk/{penduduk}/print', \App\Http\Controllers\Desa\Penduduk\PrintBiodataPendudukController::class)->name('penduduk.print');
         Route::get('penduduk/{penduduk}/biodata', \App\Http\Controllers\Desa\Penduduk\BiodataPendudukController::class)->name('penduduk.biodata');
         Route::post('penduduk/bulkDelete', \App\Http\Controllers\Desa\Penduduk\BulkDeletePendudukController::class)->name('penduduk.bulkDelete');
@@ -195,7 +200,9 @@ Route::middleware([
         // statistik penduduk
         Route::prefix('statistik')->name('statistik.')->group(function(){
             Route::get('/form/cetak/{jenis}', \App\Http\Controllers\Desa\Statistik\FormCetakStatistikPendudukController::class)->name('form.cetak');
+            Route::get('/form/cetakLaporan/{tahun}', \App\Http\Controllers\Desa\Statistik\FormCetakStatistikLaporanPendudukController::class)->name('form.cetak.laporan');
             Route::post('/cetak/laporan', \App\Http\Controllers\Desa\Statistik\CetakStatistikPendudukController::class)->name('cetak.laporan');
+            Route::post('/cetak/laporanPenduduk', \App\Http\Controllers\Desa\Statistik\CetakStatistikLaporanPendudukController::class)->name('cetak.laporan.statistik');
             Route::get('/agama', \App\Http\Controllers\Desa\Statistik\StatistikAgamaPendudukController::class)->name('agama.penduduk');
             Route::get('/pendidikan', \App\Http\Controllers\Desa\Statistik\StatistikPendidikanPendudukController::class)->name('pendidikan.penduduk');
             Route::get('/pekerjaan', \App\Http\Controllers\Desa\Statistik\StatistikPekerjaanPendudukController::class)->name('pekerjaan.penduduk');
@@ -204,6 +211,7 @@ Route::middleware([
             Route::get('/hubungan', \App\Http\Controllers\Desa\Statistik\StatistikHubunganPendudukController::class)->name('hubungan.penduduk');
             Route::get('/darah', \App\Http\Controllers\Desa\Statistik\StatistikDarahPendudukController::class)->name('darah.penduduk');
             Route::get('/status', \App\Http\Controllers\Desa\Statistik\StatistikStatusPendudukController::class)->name('status.penduduk');
+            Route::get('/laporan', \App\Http\Controllers\Desa\Statistik\StatistikLaporanPendudukController::class)->name('laporan.penduduk');
             // Route::get('/umurKategori', \App\Http\Controllers\Desa\Statistik\StatistikUmurkategoriPendudukController::class)->name('umurKategori.penduduk');
         });
     });
