@@ -30,7 +30,7 @@
       <div class="card">
         <div class="card-header border-bottom">
           <h4 class="card-title">List Permohonan Surat</h4>
-          <a href="{{ route('site.permohonanSurat.index') }}" class="btn btn-primary">@lang('Add')</a>
+          {{-- <a href="{{ route('site.permohonanSurat.index') }}" class="btn btn-primary">@lang('Add')</a> --}}
         </div>
         <div class="card-body border-bottom">
           <div class="row">

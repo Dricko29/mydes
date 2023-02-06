@@ -24,6 +24,8 @@
 <section class="card-layout">
   <h5 class="mt-3 mb-2">Dokumen</h5>
 
+  @if ($dokumens)
+      
   <div class="row row-cols-1 row-cols-md-3 mb-2">
     @foreach ($dokumens as $item)
     <div class="col">
@@ -43,6 +45,9 @@
     </div>
     @endforeach
   </div>
+  @else
+      
+  @endif
 </section>
 <!--/ Card layout -->
   <div class="col-12">

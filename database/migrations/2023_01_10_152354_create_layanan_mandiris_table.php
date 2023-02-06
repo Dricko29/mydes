@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('no_tlp')->unique();
             $table->string('password');
-            $table->text('dokumen');
+            $table->text('dokumen')->nullable();
             $table->string('status')->default(1);
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();

@@ -19,7 +19,7 @@ class PermohonanSuratController extends Controller
      */
     public function index(Request $request)
     {
-        abort_if(!\Illuminate\Support\Facades\Gate::allows('read permohonan surat'), 403);
+        abort_if(!\Illuminate\Support\Facades\Gate::allows('read surat'), 403);
         if ($request->ajax()) {
             $status = $request->status;
             $model = PermohonanSurat::with(['penduduk', 'surat'])->when($status, function ($query) use ($status) {
